@@ -32,4 +32,79 @@
   <packaging>war</packaging>
   <name>Codefest 2015 - Team C Addon - Webapp</name>
   <description>Codefest 2015 - Team C Addon - A portlet or any webapp</description>
+
+  <dependencies><!-- Juzu -->
+    <dependency>
+      <groupId>org.juzu</groupId>
+      <artifactId>juzu-core</artifactId>
+      <version>${juzu.version}</version>
+      <scope>provided</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.juzu</groupId>
+      <artifactId>juzu-plugins-validation</artifactId>
+      <version>${juzu.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.juzu</groupId>
+      <artifactId>juzu-plugins-less4j</artifactId>
+      <version>${juzu.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.juzu</groupId>
+      <artifactId>juzu-plugins-webjars</artifactId>
+      <version>${juzu.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>javax.portlet</groupId>
+      <artifactId>portlet-api</artifactId>
+      <scope>provided</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.juzu</groupId>
+      <artifactId>juzu-plugins-portlet</artifactId>
+      <version>${juzu.version}</version>
+      <scope>provided</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.exoplatform.commons</groupId>
+      <artifactId>commons-juzu</artifactId>
+      <scope>provided</scope>
+    </dependency>
+
+    <!-- Groovy is shipped with GateIn -->
+    <dependency>
+      <groupId>org.codehaus.groovy</groupId>
+      <artifactId>groovy-all</artifactId>
+      <scope>provided</scope>
+    </dependency>
+
+    <!-- Dependencies for Guice in GateIn portal -->
+    <dependency>
+      <groupId>javax.inject</groupId>
+      <artifactId>javax.inject</artifactId>
+      <scope>provided</scope>
+    </dependency>
+    <dependency>
+      <groupId>com.google.inject</groupId>
+      <artifactId>guice</artifactId>
+      <scope>provided</scope>
+    </dependency>
+
+    <!-- JS libraries -->
+    <dependency>
+      <groupId>org.webjars</groupId>
+      <artifactId>jquery</artifactId>
+      <version>1.11.2</version>
+    </dependency>
+
+  <!-- KittenSaver dependencies -->
+    <dependency>
+      <groupId>org.exoplatform.addons.codefest.team_c</groupId>
+      <artifactId>team-c-addon-lib</artifactId>
+      <version>${project.version}</version>
+    </dependency>
+
+  </dependencies>
+
 </project>
