@@ -1,4 +1,4 @@
-# Kitten Savior
+# Kitten Savior Rest APIs
 
 This doc describes the few web services exposed by the addon. These services are used by the mobile apps to interact with the addon.
 
