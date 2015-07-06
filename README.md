@@ -1,8 +1,9 @@
 Codefest 2015 team C repository
 ===========
 
-# The team C
+# Killers Team
 
+Everytime you don't make a choice a kitten dies !
 
 TEAM MEMBER | EXO TEAM
 ------------ | -------------
