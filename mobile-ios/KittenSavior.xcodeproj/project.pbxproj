@@ -1,0 +1,496 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		9C4245A31B4A9377002A505F /* KittenSavoirAppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C4245A21B4A9377002A505F /* KittenSavoirAppDelegate.swift */; };
+		9C4245A81B4A9377002A505F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9C4245A61B4A9377002A505F /* Main.storyboard */; };
+		9C4245AA1B4A9377002A505F /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9C4245A91B4A9377002A505F /* Images.xcassets */; };
+		9C4245AD1B4A9377002A505F /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9C4245AB1B4A9377002A505F /* LaunchScreen.xib */; };
+		9C4245B91B4A9377002A505F /* KittenSaviorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C4245B81B4A9377002A505F /* KittenSaviorTests.swift */; };
+		9C4245CD1B4A9429002A505F /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C4245C31B4A9429002A505F /* LoginViewController.swift */; };
+		9C4245CE1B4A9429002A505F /* MeetingDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C4245C41B4A9429002A505F /* MeetingDetailViewController.swift */; };
+		9C4245CF1B4A9429002A505F /* MeetingStreamViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C4245C51B4A9429002A505F /* MeetingStreamViewController.swift */; };
+		9C4245D01B4A9429002A505F /* Meeting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C4245C71B4A9429002A505F /* Meeting.swift */; };
+		9C4245D11B4A9429002A505F /* Time.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C4245C81B4A9429002A505F /* Time.swift */; };
+		9C4245D21B4A9429002A505F /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C4245C91B4A9429002A505F /* User.swift */; };
+		9C4245D31B4A9429002A505F /* MeetingTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C4245CC1B4A9429002A505F /* MeetingTableViewCell.swift */; };
+		9C4245D61B4A96C4002A505F /* cats-cute-kitten.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 9C4245D51B4A96C4002A505F /* cats-cute-kitten.jpg */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		9C4245B31B4A9377002A505F /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 9C4245951B4A9377002A505F /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 9C42459C1B4A9377002A505F;
+			remoteInfo = KittenSavior;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		9C42459D1B4A9377002A505F /* KittenSavior.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = KittenSavior.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		9C4245A11B4A9377002A505F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		9C4245A21B4A9377002A505F /* KittenSavoirAppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KittenSavoirAppDelegate.swift; sourceTree = "<group>"; };
+		9C4245A71B4A9377002A505F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		9C4245A91B4A9377002A505F /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		9C4245AC1B4A9377002A505F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
+		9C4245B21B4A9377002A505F /* KittenSaviorTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = KittenSaviorTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		9C4245B71B4A9377002A505F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		9C4245B81B4A9377002A505F /* KittenSaviorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KittenSaviorTests.swift; sourceTree = "<group>"; };
+		9C4245C31B4A9429002A505F /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
+		9C4245C41B4A9429002A505F /* MeetingDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MeetingDetailViewController.swift; sourceTree = "<group>"; };
+		9C4245C51B4A9429002A505F /* MeetingStreamViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MeetingStreamViewController.swift; sourceTree = "<group>"; };
+		9C4245C71B4A9429002A505F /* Meeting.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Meeting.swift; sourceTree = "<group>"; };
+		9C4245C81B4A9429002A505F /* Time.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Time.swift; sourceTree = "<group>"; };
+		9C4245C91B4A9429002A505F /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		9C4245CC1B4A9429002A505F /* MeetingTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MeetingTableViewCell.swift; sourceTree = "<group>"; };
+		9C4245D51B4A96C4002A505F /* cats-cute-kitten.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "cats-cute-kitten.jpg"; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		9C42459A1B4A9377002A505F /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		9C4245AF1B4A9377002A505F /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		9C4245941B4A9377002A505F = {
+			isa = PBXGroup;
+			children = (
+				9C42459F1B4A9377002A505F /* KittenSavior */,
+				9C4245B51B4A9377002A505F /* KittenSaviorTests */,
+				9C42459E1B4A9377002A505F /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		9C42459E1B4A9377002A505F /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				9C42459D1B4A9377002A505F /* KittenSavior.app */,
+				9C4245B21B4A9377002A505F /* KittenSaviorTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		9C42459F1B4A9377002A505F /* KittenSavior */ = {
+			isa = PBXGroup;
+			children = (
+				9C4245A21B4A9377002A505F /* KittenSavoirAppDelegate.swift */,
+				9C4245A61B4A9377002A505F /* Main.storyboard */,
+				9C4245C21B4A9429002A505F /* Controllers */,
+				9C4245C61B4A9429002A505F /* Models */,
+				9C4245CA1B4A9429002A505F /* Res */,
+				9C4245CB1B4A9429002A505F /* Views */,
+				9C4245A91B4A9377002A505F /* Images.xcassets */,
+				9C4245AB1B4A9377002A505F /* LaunchScreen.xib */,
+				9C4245A01B4A9377002A505F /* Supporting Files */,
+			);
+			path = KittenSavior;
+			sourceTree = "<group>";
+		};
+		9C4245A01B4A9377002A505F /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				9C4245A11B4A9377002A505F /* Info.plist */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		9C4245B51B4A9377002A505F /* KittenSaviorTests */ = {
+			isa = PBXGroup;
+			children = (
+				9C4245B81B4A9377002A505F /* KittenSaviorTests.swift */,
+				9C4245B61B4A9377002A505F /* Supporting Files */,
+			);
+			path = KittenSaviorTests;
+			sourceTree = "<group>";
+		};
+		9C4245B61B4A9377002A505F /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				9C4245B71B4A9377002A505F /* Info.plist */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		9C4245C21B4A9429002A505F /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				9C4245C31B4A9429002A505F /* LoginViewController.swift */,
+				9C4245C51B4A9429002A505F /* MeetingStreamViewController.swift */,
+				9C4245C41B4A9429002A505F /* MeetingDetailViewController.swift */,
+			);
+			path = Controllers;
+			sourceTree = "<group>";
+		};
+		9C4245C61B4A9429002A505F /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				9C4245C71B4A9429002A505F /* Meeting.swift */,
+				9C4245C81B4A9429002A505F /* Time.swift */,
+				9C4245C91B4A9429002A505F /* User.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		9C4245CA1B4A9429002A505F /* Res */ = {
+			isa = PBXGroup;
+			children = (
+				9C4245D41B4A96C4002A505F /* Images */,
+			);
+			path = Res;
+			sourceTree = "<group>";
+		};
+		9C4245CB1B4A9429002A505F /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				9C4245CC1B4A9429002A505F /* MeetingTableViewCell.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		9C4245D41B4A96C4002A505F /* Images */ = {
+			isa = PBXGroup;
+			children = (
+				9C4245D51B4A96C4002A505F /* cats-cute-kitten.jpg */,
+			);
+			path = Images;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		9C42459C1B4A9377002A505F /* KittenSavior */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 9C4245BC1B4A9377002A505F /* Build configuration list for PBXNativeTarget "KittenSavior" */;
+			buildPhases = (
+				9C4245991B4A9377002A505F /* Sources */,
+				9C42459A1B4A9377002A505F /* Frameworks */,
+				9C42459B1B4A9377002A505F /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = KittenSavior;
+			productName = KittenSavior;
+			productReference = 9C42459D1B4A9377002A505F /* KittenSavior.app */;
+			productType = "com.apple.product-type.application";
+		};
+		9C4245B11B4A9377002A505F /* KittenSaviorTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 9C4245BF1B4A9377002A505F /* Build configuration list for PBXNativeTarget "KittenSaviorTests" */;
+			buildPhases = (
+				9C4245AE1B4A9377002A505F /* Sources */,
+				9C4245AF1B4A9377002A505F /* Frameworks */,
+				9C4245B01B4A9377002A505F /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				9C4245B41B4A9377002A505F /* PBXTargetDependency */,
+			);
+			name = KittenSaviorTests;
+			productName = KittenSaviorTests;
+			productReference = 9C4245B21B4A9377002A505F /* KittenSaviorTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		9C4245951B4A9377002A505F /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0640;
+				ORGANIZATIONNAME = eXo;
+				TargetAttributes = {
+					9C42459C1B4A9377002A505F = {
+						CreatedOnToolsVersion = 6.4;
+					};
+					9C4245B11B4A9377002A505F = {
+						CreatedOnToolsVersion = 6.4;
+						TestTargetID = 9C42459C1B4A9377002A505F;
+					};
+				};
+			};
+			buildConfigurationList = 9C4245981B4A9377002A505F /* Build configuration list for PBXProject "KittenSavior" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 9C4245941B4A9377002A505F;
+			productRefGroup = 9C42459E1B4A9377002A505F /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				9C42459C1B4A9377002A505F /* KittenSavior */,
+				9C4245B11B4A9377002A505F /* KittenSaviorTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		9C42459B1B4A9377002A505F /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				9C4245D61B4A96C4002A505F /* cats-cute-kitten.jpg in Resources */,
+				9C4245A81B4A9377002A505F /* Main.storyboard in Resources */,
+				9C4245AD1B4A9377002A505F /* LaunchScreen.xib in Resources */,
+				9C4245AA1B4A9377002A505F /* Images.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		9C4245B01B4A9377002A505F /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		9C4245991B4A9377002A505F /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				9C4245CD1B4A9429002A505F /* LoginViewController.swift in Sources */,
+				9C4245D01B4A9429002A505F /* Meeting.swift in Sources */,
+				9C4245D11B4A9429002A505F /* Time.swift in Sources */,
+				9C4245CE1B4A9429002A505F /* MeetingDetailViewController.swift in Sources */,
+				9C4245D31B4A9429002A505F /* MeetingTableViewCell.swift in Sources */,
+				9C4245D21B4A9429002A505F /* User.swift in Sources */,
+				9C4245CF1B4A9429002A505F /* MeetingStreamViewController.swift in Sources */,
+				9C4245A31B4A9377002A505F /* KittenSavoirAppDelegate.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		9C4245AE1B4A9377002A505F /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				9C4245B91B4A9377002A505F /* KittenSaviorTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		9C4245B41B4A9377002A505F /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 9C42459C1B4A9377002A505F /* KittenSavior */;
+			targetProxy = 9C4245B31B4A9377002A505F /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		9C4245A61B4A9377002A505F /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				9C4245A71B4A9377002A505F /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		9C4245AB1B4A9377002A505F /* LaunchScreen.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				9C4245AC1B4A9377002A505F /* Base */,
+			);
+			name = LaunchScreen.xib;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		9C4245BA1B4A9377002A505F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.4;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		9C4245BB1B4A9377002A505F /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.4;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		9C4245BD1B4A9377002A505F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				INFOPLIST_FILE = KittenSavior/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		9C4245BE1B4A9377002A505F /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				INFOPLIST_FILE = KittenSavior/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+		9C4245C01B4A9377002A505F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+				);
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = KittenSaviorTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/KittenSavior.app/KittenSavior";
+			};
+			name = Debug;
+		};
+		9C4245C11B4A9377002A505F /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = KittenSaviorTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/KittenSavior.app/KittenSavior";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		9C4245981B4A9377002A505F /* Build configuration list for PBXProject "KittenSavior" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				9C4245BA1B4A9377002A505F /* Debug */,
+				9C4245BB1B4A9377002A505F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		9C4245BC1B4A9377002A505F /* Build configuration list for PBXNativeTarget "KittenSavior" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				9C4245BD1B4A9377002A505F /* Debug */,
+				9C4245BE1B4A9377002A505F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		9C4245BF1B4A9377002A505F /* Build configuration list for PBXNativeTarget "KittenSaviorTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				9C4245C01B4A9377002A505F /* Debug */,
+				9C4245C11B4A9377002A505F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 9C4245951B4A9377002A505F /* Project object */;
+}
