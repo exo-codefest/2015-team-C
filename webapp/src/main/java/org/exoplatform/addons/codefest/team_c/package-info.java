@@ -19,8 +19,25 @@
 
 @Application(defaultController = KittenSaverController.class)
 @Portlet
+@Bindings({
+    @Binding(value = KittenSaviorDAO.class, implementation = KittenSaviorDAOImpl.class),
+    @Binding(value = KittenSaverService.class, implementation = KittenSaverServiceImpl.class)
+})
+@Less({
+    @Stylesheet(id = "style-less", value = "less/style.less")
+})
+@Assets("*")
 package org.exoplatform.addons.codefest.team_c;
 
 import juzu.Application;
+import juzu.plugin.asset.Assets;
+import juzu.plugin.asset.Stylesheet;
+import juzu.plugin.binding.Binding;
+import juzu.plugin.binding.Bindings;
+import juzu.plugin.less4j.Less;
 import juzu.plugin.portlet.Portlet;
 import org.exoplatform.addons.codefest.team_c.controller.KittenSaverController;
+import org.exoplatform.addons.codefest.team_c.dao.KittenSaviorDAO;
+import org.exoplatform.addons.codefest.team_c.dao.impl.KittenSaviorDAOImpl;
+import org.exoplatform.addons.codefest.team_c.service.KittenSaverService;
+import org.exoplatform.addons.codefest.team_c.service.impl.KittenSaverServiceImpl;

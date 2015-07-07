@@ -35,12 +35,13 @@ public class Meeting {
   private String status;
   private List<String> participants;
   private List<Long> options;
+  private Option finalOption;
 
   public Meeting() {
     this.id = counterId++;
   }
 
-  public Meeting(Long id, String title, String description, User creator, String status, List<String> participants, List<Long> options) {
+  public Meeting(Long id, String title, String description, User creator, String status, List<String> participants, List<Long> options, Option finalOption) {
     this.id = id;
     this.title = title;
     this.description = description;
@@ -48,9 +49,10 @@ public class Meeting {
     this.status = status;
     this.participants = participants;
     this.options = options;
+    this.finalOption = finalOption;
   }
 
-  public Meeting(String title, String description, User creator, String status, List<String> participants, List<Long> options) {
+  public Meeting(String title, String description, User creator, String status, List<String> participants, List<Long> options, Option finalOption) {
     this.id = counterId++;
     this.title = title;
     this.description = description;
@@ -58,6 +60,7 @@ public class Meeting {
     this.status = status;
     this.participants = participants;
     this.options = options;
+    this.finalOption = finalOption;
   }
 
   public Long getId() {
@@ -114,6 +117,14 @@ public class Meeting {
 
   public void setOptions(List<Long> options) {
     this.options = options;
+  }
+
+  public Option getFinalOption() {
+    return finalOption;
+  }
+
+  public void setFinalOption(Option finalOption) {
+    this.finalOption = finalOption;
   }
 }
 

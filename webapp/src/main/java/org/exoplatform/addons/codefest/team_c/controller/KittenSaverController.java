@@ -19,9 +19,18 @@ package org.exoplatform.addons.codefest.team_c.controller;
 import juzu.Path;
 import juzu.Response;
 import juzu.View;
+import juzu.impl.common.Tools;
+import juzu.request.SecurityContext;
+import org.exoplatform.addons.codefest.team_c.domain.Meeting;
+import org.exoplatform.addons.codefest.team_c.model.MeetingInfos;
+import org.exoplatform.addons.codefest.team_c.service.KittenSaverService;
+import org.exoplatform.services.log.ExoLogger;
+import org.exoplatform.services.log.Log;
 
 import javax.inject.Inject;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by The eXo Platform SAS
@@ -31,13 +40,33 @@ import java.io.IOException;
  */
 public class KittenSaverController {
 
+  private static final Log LOG = ExoLogger.getExoLogger(KittenSaverController.class);
+
+  @Inject
+  KittenSaverService kittenSaverService;
+
   @Inject
   @Path("index.gtmpl")
   org.exoplatform.addons.codefest.team_c.templates.index index;
 
   @View
-  public Response.Content index() throws IOException {
-    return index.ok();
+  public Response.Content index(SecurityContext securityContext) throws IOException {
+
+    LOG.info("###### getMeetingByUserId = "+securityContext.getRemoteUser());
+
+    List<MeetingInfos> meetingInfoses = new ArrayList<MeetingInfos>();
+
+    List<Meeting> meetings = kittenSaverService.getMeetingByUserId(securityContext.getRemoteUser());
+    for (Meeting meeting : meetings) {
+      meetingInfoses.add(new MeetingInfos(meeting, kittenSaverService.getOptionByMeeting(meeting.getId())));
+    }
+
+    return index
+        .with()
+        .meetingsCount(meetings.size())
+        .meetings(meetingInfoses)
+        .ok()
+        .withCharset(Tools.UTF_8);
   }
 
 }

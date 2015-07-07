@@ -21,12 +21,13 @@ import org.exoplatform.addons.codefest.team_c.domain.Choice;
 import org.exoplatform.addons.codefest.team_c.domain.Meeting;
 import org.exoplatform.addons.codefest.team_c.domain.Option;
 import org.exoplatform.addons.codefest.team_c.domain.User;
+import org.exoplatform.services.log.ExoLogger;
+import org.exoplatform.services.log.Log;
 
 import javax.inject.Singleton;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 /**
  * Created by The eXo Platform SAS
@@ -36,6 +37,8 @@ import java.util.Map;
  */
 @Singleton
 public class KittenSaviorDAOImpl implements KittenSaviorDAO {
+
+  private static final Log LOG = ExoLogger.getExoLogger(KittenSaviorDAOImpl.class);
 
   private Map<Long, Meeting> meetings;
   private Map<Long, Option> options;
@@ -47,6 +50,74 @@ public class KittenSaviorDAOImpl implements KittenSaviorDAO {
     options = new HashMap<Long, Option>();
     choices = new HashMap<Long, Choice>();
     users = new HashMap<String , User>();
+    initDatas();
+  }
+
+  private void initDatas() {
+
+    try {
+
+      SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm");
+      Date d1 = sdf.parse("09/07/2015 10:00");
+      Date d2 = sdf.parse("09/07/2015 11:00");
+      Date d3 = sdf.parse("09/07/2015 12:00");
+      Date d4 = sdf.parse("09/07/2015 13:00");
+      Date d5 = sdf.parse("09/07/2015 14:00");
+      Date d6 = sdf.parse("09/07/2015 15:00");
+      Date d7 = sdf.parse("09/07/2015 16:00");
+      Date d8 = sdf.parse("09/07/2015 17:00");
+
+      //User
+      User root = new User("root", "Etc/GMT-1");
+      User john = new User("john", "Etc/GMT-6");
+      users.put(root.getName(), root);
+      users.put(john.getName(), john);
+
+      //Choice
+      Choice rootYes = new Choice("root", true);
+      Choice johnNo = new Choice("john", false);
+      Choice rootNo = new Choice("root", false);
+      Choice johnYes = new Choice("john", true);
+      choices.put(rootYes.getId(), rootYes);
+      choices.put(johnNo.getId(), johnNo);
+      choices.put(rootNo.getId(), rootNo);
+      choices.put(johnYes.getId(), johnYes);
+
+      //Option
+      Option withRootNoJohn = new Option(new ArrayList<Long>(Arrays.asList(rootYes.getId(), johnNo.getId())), d1, d2);
+      Option withRootAndJohn = new Option(new ArrayList<Long>(Arrays.asList(rootYes.getId(), johnYes.getId())), d3, d4);
+      Option withJohnNoRoot = new Option(new ArrayList<Long>(Arrays.asList(rootNo.getId(), johnYes.getId())), d4, d5);
+      Option withNoRootNoJohn = new Option(new ArrayList<Long>(Arrays.asList(rootNo.getId(), johnNo.getId())), d5, d6);
+      Option forBinch = new Option(new ArrayList<Long>(Arrays.asList(rootYes.getId(), johnYes.getId())), d6, d7);
+      options.put(withRootNoJohn.getId(), withRootNoJohn);
+      options.put(withRootAndJohn.getId(), withRootAndJohn);
+      options.put(withJohnNoRoot.getId(), withJohnNoRoot);
+      options.put(withNoRootNoJohn.getId(), withNoRootNoJohn);
+
+      //Meeting
+      Meeting meeting1 = new Meeting();
+      meeting1.setCreator(root);
+      meeting1.setTitle("Kitten Help");
+      meeting1.setDescription("Help Kitten to do not died because of no choice");
+      meeting1.setStatus("opened");
+      meeting1.setOptions(new ArrayList<Long>(Arrays.asList(withRootNoJohn.getId(), withRootAndJohn.getId())));
+      meeting1.setParticipants(new ArrayList<String>(Arrays.asList(root.getName(), john.getName())));
+
+      Meeting meeting2 = new Meeting();
+      meeting2.setCreator(john);
+      meeting2.setTitle("Bia Hoi tonight");
+      meeting2.setDescription("After hardwork let's take a binch");
+      meeting2.setStatus("closed");
+      meeting2.setFinalOption(forBinch);
+      meeting2.setOptions(new ArrayList<Long>(Arrays.asList(withJohnNoRoot.getId(), withNoRootNoJohn.getId(), forBinch.getId())));
+      meeting2.setParticipants(new ArrayList<String>(Arrays.asList(root.getName(), john.getName())));
+
+      meetings.put(meeting1.getId(), meeting1);
+      meetings.put(meeting2.getId(), meeting2);
+
+    } catch (ParseException e) {
+      e.printStackTrace();
+    }
   }
 
   //////////////////////////
@@ -79,6 +150,11 @@ public class KittenSaviorDAOImpl implements KittenSaviorDAO {
   public List<Meeting> getMeetingByUser(User user) {
     List<Meeting> userMeetings = new ArrayList<Meeting>();
     for (Long meetingId: this.meetings.keySet()) {
+      LOG.info("Meeting title = "+meetings.get(meetingId).getTitle());
+      LOG.info("Meeting participants = ");
+      for (String participant : meetings.get(meetingId).getParticipants()) LOG.info(participant);
+      LOG.info("User = "+user);
+      LOG.info("Username = "+user.getName());
       if (meetings.get(meetingId).getParticipants().contains(user.getName())) {
         userMeetings.add(meetings.get(meetingId));
       }

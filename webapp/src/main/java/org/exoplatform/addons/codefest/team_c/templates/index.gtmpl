@@ -1,4 +1,25 @@
+#{param name=meetingsCount/}
+#{param name=meetings/}
+
 <div class="hero-unit" align="right">
-    <h1>Killer Savior</h1>
+    <h1>Kitten Savior</h1>
     <p class="lead" align="right">Everytime you don't make a choice a kitten dies !</p>
 </div>
+<a href="#"><i class="uiIconSetting uiIconLightGray"></i></a>
+<%if(meetingsCount == 0) {%>
+    <li class="no-meeting">There are no meeting yet!</li>
+<%} else { meetings.each {meeting -> %>
+    <div class="span4">
+        <h2>${meeting.meeting.title}</h2>
+        <p>${meeting.meeting.description}</p>
+        <p>
+            <%if (meeting.meeting.finalOption != null) {%>
+            <img src="asset/image/validate">From ${meeting.meeting.finalOption.startDate} to ${meeting.meeting.finalOption.endDate}
+            <%} else {%>
+            <img src="asset/image/not_validate">Waiting answer...
+            <%} %>
+        </p>
+        <p><a type="button" class="btn btn-primary" href="#">View details</a></p>
+    </div>
+<%}
+}%>

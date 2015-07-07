@@ -25,6 +25,7 @@ import org.exoplatform.addons.codefest.team_c.domain.User;
 import org.exoplatform.addons.codefest.team_c.service.KittenSaverService;
 import org.exoplatform.addons.codefest.team_c.service.KittenSettingsService;
 
+import javax.inject.Inject;
 import javax.inject.Singleton;
 import java.util.List;
 
@@ -37,6 +38,7 @@ import java.util.List;
 @Singleton
 public class KittenSaverServiceImpl implements KittenSaverService {
 
+  @Inject
   private KittenSaviorDAO kittenSaviorDAO;
 
   private KittenSettingsService settingsService;
@@ -65,6 +67,11 @@ public class KittenSaverServiceImpl implements KittenSaverService {
   @Override
   public List<Meeting> getMeetingByUser(User user) {
     return kittenSaviorDAO.getMeetingByUser(user);
+  }
+
+  @Override
+  public List<Meeting> getMeetingByUserId(String userId) {
+    return getMeetingByUser(getUserByUsername(userId));
   }
 
   @Override

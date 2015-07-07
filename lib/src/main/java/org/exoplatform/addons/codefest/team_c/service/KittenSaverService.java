@@ -18,6 +18,8 @@ public interface KittenSaverService {
 
   Meeting updateMeeting(Meeting meeting);
 
+  List<Meeting> getMeetingByUserId(String userId);
+
   List<Meeting> getMeetingByUser(User user);
 
   List<User> getParticipantsByMeeting(Long meetingId);
