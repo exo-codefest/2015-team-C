@@ -34,8 +34,8 @@ class LoginViewController: UIViewController {
             self.passwordTextField.placeholder = "password"
         }
         
-        dialogView.translucentStyle = UIBarStyle.BlackTranslucent
         dialogView.layer.cornerRadius = 5.0
+        dialogView.translucentStyle = UIBarStyle.BlackTranslucent
         loginButton.layer.cornerRadius = 5.0
         loginButton.layer.borderWidth = 0.5
         loginButton.layer.borderColor = UIColor(white: 1.0, alpha: 1.0).CGColor
@@ -106,7 +106,8 @@ class LoginViewController: UIViewController {
         if (segue.identifier == "finishedLogin"){
             var naviVC: UINavigationController = segue.destinationViewController as! UINavigationController;
             var meetingStreamVC = naviVC.viewControllers[0] as! MeetingStreamViewController
-            meetingStreamVC.user = self.user            
+            meetingStreamVC.user = self.user
+            meetingStreamVC.serverInfo = self.serverInfo
         }
     }
     

@@ -23,6 +23,9 @@
 		9C4245D81B4B7BB6002A505F /* Choice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C4245D71B4B7BB6002A505F /* Choice.swift */; };
 		9C4245DB1B4B985F002A505F /* ServerInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C4245DA1B4B985F002A505F /* ServerInfo.swift */; };
 		9C4245DD1B4BC658002A505F /* ILTranslucentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C4245DC1B4BC658002A505F /* ILTranslucentView.swift */; };
+		9C4245DF1B4BDEEF002A505F /* CircleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C4245DE1B4BDEEF002A505F /* CircleView.swift */; };
+		9C4245E31B4BE822002A505F /* closed.png in Resources */ = {isa = PBXBuildFile; fileRef = 9C4245E11B4BE822002A505F /* closed.png */; };
+		9C4245E41B4BE822002A505F /* opened.png in Resources */ = {isa = PBXBuildFile; fileRef = 9C4245E21B4BE822002A505F /* opened.png */; };
 		E58D52CD270F97D51D858559 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5BD3AC542902DA1A961D4DCA /* libPods.a */; };
 /* End PBXBuildFile section */
 
@@ -59,6 +62,9 @@
 		9C4245D91B4B953A002A505F /* KittenSavior-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "KittenSavior-Bridging-Header.h"; sourceTree = "<group>"; };
 		9C4245DA1B4B985F002A505F /* ServerInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ServerInfo.swift; sourceTree = "<group>"; };
 		9C4245DC1B4BC658002A505F /* ILTranslucentView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ILTranslucentView.swift; path = Views/ILTranslucentView.swift; sourceTree = "<group>"; };
+		9C4245DE1B4BDEEF002A505F /* CircleView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CircleView.swift; sourceTree = "<group>"; };
+		9C4245E11B4BE822002A505F /* closed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = closed.png; sourceTree = "<group>"; };
+		9C4245E21B4BE822002A505F /* opened.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = opened.png; sourceTree = "<group>"; };
 		B5476656546063B8EF8E5409 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 		C0BFD5770F166ADE9F589100 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -187,6 +193,7 @@
 		9C4245CA1B4A9429002A505F /* Res */ = {
 			isa = PBXGroup;
 			children = (
+				9C4245E01B4BE822002A505F /* Icons */,
 				9C4245D41B4A96C4002A505F /* Images */,
 			);
 			path = Res;
@@ -196,6 +203,7 @@
 			isa = PBXGroup;
 			children = (
 				9C4245CC1B4A9429002A505F /* MeetingTableViewCell.swift */,
+				9C4245DE1B4BDEEF002A505F /* CircleView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -206,6 +214,15 @@
 				9C4245D51B4A96C4002A505F /* cats-cute-kitten.jpg */,
 			);
 			path = Images;
+			sourceTree = "<group>";
+		};
+		9C4245E01B4BE822002A505F /* Icons */ = {
+			isa = PBXGroup;
+			children = (
+				9C4245E11B4BE822002A505F /* closed.png */,
+				9C4245E21B4BE822002A505F /* opened.png */,
+			);
+			path = Icons;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -290,9 +307,11 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9C4245E41B4BE822002A505F /* opened.png in Resources */,
 				9C4245D61B4A96C4002A505F /* cats-cute-kitten.jpg in Resources */,
 				9C4245A81B4A9377002A505F /* Main.storyboard in Resources */,
 				9C4245AD1B4A9377002A505F /* LaunchScreen.xib in Resources */,
+				9C4245E31B4BE822002A505F /* closed.png in Resources */,
 				9C4245AA1B4A9377002A505F /* Images.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -344,6 +363,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9C4245DF1B4BDEEF002A505F /* CircleView.swift in Sources */,
 				9C4245CD1B4A9429002A505F /* LoginViewController.swift in Sources */,
 				9C4245D01B4A9429002A505F /* Meeting.swift in Sources */,
 				9C4245D11B4A9429002A505F /* Time.swift in Sources */,

@@ -9,10 +9,15 @@
 import UIKit
 
 class Meeting: NSObject {
-    var meeting_id:Int?
-    var name:String?
-    var creator:String?
-    var status:String?
-    var participants:NSArray?
-    var options:NSArray?
+    var meeting_id:Int!
+    var name:String!
+    var desc:String!
+    var creator:String!
+    var status:String!
+    var participants:Array<String>!
+    var options:Array<Time>!
+    
+    func stringSchedule()->String {
+        return "16 Jul: 10h-11h // 16 Jul: 14h-15h"
+    }
 }

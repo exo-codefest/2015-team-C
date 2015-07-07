@@ -12,21 +12,81 @@ class MeetingStreamViewController: UIViewController {
     
     @IBOutlet weak var tableView: UITableView!
     var user:User!
+    var serverInfo:ServerInfo!
+    var meetingArray:Array<Meeting> = Array()
+    
     override func viewDidLoad() {
-        self.navigationItem.title = self.user.usename
+        self.navigationItem.title = self.user.usename + "'s meetings"
+        self.loadMeetingArray()
         
     }
 
+    func loadMeetingArray() {
+        var objectManager = RKObjectManager.sharedManager()
+        RKObjectManager.setSharedManager(objectManager)
+        //TODO re-do the mapping for Meeting class 
+        var mapping = RKObjectMapping(forClass: ServerInfo.self)
+        var dictMapping = ["platformVersion":"platformVersion","platformRevision":"platformRevision", "currentRepoName":"currentRepoName","defaultWorkSpaceName":"defaultWorkSpaceName","userHomeNodePath":"userHomeNodePath"];
+        mapping.addAttributeMappingsFromDictionary(dictMapping)
+        
+        var responseDescriptor = RKResponseDescriptor(mapping: mapping, method: RKRequestMethod.GET, pathPattern: "private/platform/info", keyPath: nil, statusCodes: NSIndexSet(index: 200))
+        
+        objectManager.addResponseDescriptor(responseDescriptor)
+        
+        objectManager.getObjectsAtPath("private/platform/info", parameters: nil, success: { (operation, mappingResult) -> Void in
+            var objects:Array = mappingResult.array()
+            if (objects.count>0){
+                //TODO replace this.
+                var m1 = Meeting();
+                m1.name = "Kitten Savoir"
+                m1.desc = "Kitten Savoir ale hop"
+                m1.status = "opened"
+                var m2 = Meeting();
+                m2.name = "Kitten Savoir 2222"
+                m2.desc = "Kitten Savoir ale hop"
+                m2.status = "closed"
+
+                self.meetingArray = Array(arrayLiteral: m1,m2)
+                self.tableView.reloadData()
+            } else {
+                self.failure();
+            }
+            }, failure:{ (operation, error) -> Void in
+                self.failure();
+        })
+
+    }
+    func failure() {
+        var alert = UIAlertView(title: "Unable to load the meetings", message: "", delegate: nil, cancelButtonTitle: "OK")
+        alert.show()
+    }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
     
-
+    @IBAction func logoutAction(sender: AnyObject) {
+        self.dismissViewControllerAnimated(true, completion: nil)
+    }
+    
+    // MARK: - Table View Delegate
+    func numberOfSectionsInTableView(tableView: UITableView) -> Int{
+        return 1;
+    }
+    func tableView(tableView: UITableView,
+        numberOfRowsInSection section: Int) -> Int {
+        return meetingArray.count;
+    }
+    func tableView(tableView: UITableView,
+        cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+            let cell = tableView.dequeueReusableCellWithIdentifier("meettingInfoCell", forIndexPath: indexPath) as! MeetingTableViewCell
+            var meeting = meetingArray[indexPath.row]
+            cell.configure(meeting)
+            return cell
+    }
     // MARK: - Navigation
 
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        
     }
 
 }
