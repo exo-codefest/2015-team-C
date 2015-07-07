@@ -17,7 +17,7 @@
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
 
-@Application(defaultController = KittenSaver.class)
+@Application(defaultController = KittenSaverController.class)
 @Portlet
 @Bindings({
     @Binding(value = KittenSaverService.class)
@@ -28,5 +28,5 @@ import juzu.Application;
 import juzu.plugin.binding.Binding;
 import juzu.plugin.binding.Bindings;
 import juzu.plugin.portlet.Portlet;
-import org.exoplatform.addons.codefest.team_c.controller.KittenSaver;
+import org.exoplatform.addons.codefest.team_c.controller.KittenSaverController;
 import org.exoplatform.addons.codefest.team_c.service.KittenSaverService;

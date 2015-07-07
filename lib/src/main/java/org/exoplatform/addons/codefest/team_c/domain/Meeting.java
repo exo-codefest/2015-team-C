@@ -17,7 +17,6 @@
 package org.exoplatform.addons.codefest.team_c.domain;
 
 import java.util.List;
-import java.util.Map;
 
 /**
  * Created by The eXo Platform SAS
@@ -34,14 +33,25 @@ public class Meeting {
   private String description;
   private User creator;
   private String status;
-  private List<User> participants;
-  private Map<Long, Option> options;
+  private List<String> participants;
+  private List<Long> options;
 
   public Meeting() {
+    this.id = counterId++;
   }
 
-  public Meeting(Long id, String title, String description, User creator, String status, List<User> participants, Map<Long, Option> options) {
+  public Meeting(Long id, String title, String description, User creator, String status, List<String> participants, List<Long> options) {
     this.id = id;
+    this.title = title;
+    this.description = description;
+    this.creator = creator;
+    this.status = status;
+    this.participants = participants;
+    this.options = options;
+  }
+
+  public Meeting(String title, String description, User creator, String status, List<String> participants, List<Long> options) {
+    this.id = counterId++;
     this.title = title;
     this.description = description;
     this.creator = creator;
@@ -90,19 +100,19 @@ public class Meeting {
     this.status = status;
   }
 
-  public List<User> getParticipants() {
+  public List<String> getParticipants() {
     return participants;
   }
 
-  public void setParticipants(List<User> participants) {
+  public void setParticipants(List<String> participants) {
     this.participants = participants;
   }
 
-  public Map<Long, Option> getOptions() {
+  public List<Long> getOptions() {
     return options;
   }
 
-  public void setOptions(Map<Long, Option> options) {
+  public void setOptions(List<Long> options) {
     this.options = options;
   }
 }

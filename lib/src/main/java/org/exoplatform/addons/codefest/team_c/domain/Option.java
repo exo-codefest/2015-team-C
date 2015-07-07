@@ -17,7 +17,7 @@
 package org.exoplatform.addons.codefest.team_c.domain;
 
 import java.util.Date;
-import java.util.Map;
+import java.util.List;
 
 /**
  * Created by The eXo Platform SAS
@@ -28,16 +28,25 @@ import java.util.Map;
 public class Option {
 
   public static Long counterId = 0l;
+
   private Long id;
-  private Map<Long, Choice> choices;
+  private List<Long> choices;
   private Date startDate;
   private Date endDate;
 
   public Option() {
+    this.id = counterId++;
   }
 
-  public Option(Long id, Map<Long, Choice> choices, Date startDate, Date endDate) {
+  public Option(Long id, List<Long> choices, Date startDate, Date endDate) {
     this.id = id;
+    this.choices = choices;
+    this.startDate = startDate;
+    this.endDate = endDate;
+  }
+
+  public Option(List<Long> choices, Date startDate, Date endDate) {
+    this.id = counterId++;
     this.choices = choices;
     this.startDate = startDate;
     this.endDate = endDate;
@@ -67,11 +76,11 @@ public class Option {
     this.id = id;
   }
 
-  public Map<Long, Choice> getChoices() {
+  public List<Long> getChoices() {
     return choices;
   }
 
-  public void setChoices(Map<Long, Choice> choices) {
+  public void setChoices(List<Long> choices) {
     this.choices = choices;
   }
 }

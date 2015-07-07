@@ -24,6 +24,8 @@ package org.exoplatform.addons.codefest.team_c.domain;
  */
 public class User {
 
+  public static Long counterId = 0l;
+
   private String name;
   private String timezone;
 

@@ -28,13 +28,11 @@ import javax.ws.rs.Path;
  * tclement@exoplatform.com
  * 7/6/15
  */
-@Path("/kittenSaver")
+@Path("/kittenSavior")
 public class KittenSaverRestService implements ResourceContainer {
 
   @Inject
   KittenSaverService kittenSaverService;
-
-
 
 }
 

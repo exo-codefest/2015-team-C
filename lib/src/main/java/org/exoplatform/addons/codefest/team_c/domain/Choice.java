@@ -27,14 +27,21 @@ public class Choice {
   public static Long counterId = 0l;
 
   private Long id;
-  private User participant;
+  private String participant;
   Boolean choice;
 
   public Choice() {
+    this.id = counterId++;
   }
 
-  public Choice(Long id, User participant, Boolean choice) {
+  public Choice(Long id, String participant, Boolean choice) {
     this.id = id;
+    this.participant = participant;
+    this.choice = choice;
+  }
+
+  public Choice(String participant, Boolean choice) {
+    this.id = counterId++;
     this.participant = participant;
     this.choice = choice;
   }
@@ -47,11 +54,11 @@ public class Choice {
     this.id = id;
   }
 
-  public User getParticipant() {
+  public String getParticipant() {
     return participant;
   }
 
-  public void setParticipant(User participant) {
+  public void setParticipant(String participant) {
     this.participant = participant;
   }
 

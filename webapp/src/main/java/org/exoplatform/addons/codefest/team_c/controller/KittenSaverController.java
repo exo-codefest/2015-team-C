@@ -16,15 +16,29 @@
 */
 package org.exoplatform.addons.codefest.team_c.controller;
 
+import juzu.Path;
+import juzu.Response;
+import juzu.View;
+import juzu.template.Template;
+
+import javax.inject.Inject;
+import java.io.IOException;
+
 /**
  * Created by The eXo Platform SAS
  * Author : Thibault Clement
  * tclement@exoplatform.com
  * 7/6/15
  */
-public class KittenSaver {
+public class KittenSaverController {
 
-  public KittenSaver() {
+  @Inject
+  @Path("index.gtmpl")
+  Template index;
+
+  @View
+  public Response.Content index() throws IOException {
+    return index.ok();
   }
 
 }

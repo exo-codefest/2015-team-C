@@ -16,8 +16,8 @@
 */
 package org.exoplatform.addons.codefest.team_c.service.impl;
 
-import org.exoplatform.addons.codefest.team_c.dao.MeetingDAO;
-import org.exoplatform.addons.codefest.team_c.dao.impl.MeetingDAOImpl;
+import org.exoplatform.addons.codefest.team_c.dao.KittenSaviorDAO;
+import org.exoplatform.addons.codefest.team_c.dao.impl.KittenSaviorDAOImpl;
 import org.exoplatform.addons.codefest.team_c.domain.Choice;
 import org.exoplatform.addons.codefest.team_c.domain.Meeting;
 import org.exoplatform.addons.codefest.team_c.domain.Option;
@@ -26,7 +26,6 @@ import org.exoplatform.addons.codefest.team_c.service.KittenSaverService;
 
 import javax.inject.Singleton;
 import java.util.List;
-import java.util.Map;
 
 /**
  * Created by The eXo Platform SAS
@@ -37,45 +36,45 @@ import java.util.Map;
 @Singleton
 public class KittenSaverServiceImpl implements KittenSaverService {
 
-  private MeetingDAO meetingDAO;
+  private KittenSaviorDAO kittenSaviorDAO;
 
   public KittenSaverServiceImpl() {
-    this.meetingDAO = new MeetingDAOImpl();
+    this.kittenSaviorDAO = new KittenSaviorDAOImpl();
+  }
+
+  @Override
+  public Meeting getMeeting(Long id) {
+    return kittenSaviorDAO.getMeetingById(id);
   }
 
   @Override
   public Meeting createMeeting(Meeting meeting) {
-    return meetingDAO.createMeeting(meeting);
+    return kittenSaviorDAO.createMeeting(meeting);
   }
 
   @Override
   public Meeting updateMeeting(Meeting meeting) {
-    return meetingDAO.updateMeeting(meeting);
-  }
-
-  @Override
-  public void deleteMeeting(Long id) {
-    meetingDAO.deleteMeeting(id);
+    return kittenSaviorDAO.updateMeeting(meeting);
   }
 
   @Override
   public List<Meeting> getMeetingByUser(User user) {
-    return meetingDAO.getMeetingByUser(user);
+    return kittenSaviorDAO.getMeetingByUser(user);
   }
 
   @Override
   public List<User> getParticipantsByMeeting(Long meetingId) {
-    return meetingDAO.getParticipantsByMeeting(meetingId);
+    return kittenSaviorDAO.getParticipantsByMeetingId(meetingId);
   }
 
   @Override
-  public Map<Long, Option> getOptionByMeeting(Long meetingId) {
-    return meetingDAO.getOptionByMeeting(meetingId);
+  public List<Option> getOptionByMeeting(Long meetingId) {
+    return kittenSaviorDAO.getOptionByMeetingId(meetingId);
   }
 
   @Override
   public void addChoiceToMeeting(Long meetingId, Long optionId, Choice choice) {
-    meetingDAO.addChoiceToMeeting(meetingId, optionId, choice);
+    kittenSaviorDAO.addChoiceToOptionById(optionId, choice);
   }
 
 }
