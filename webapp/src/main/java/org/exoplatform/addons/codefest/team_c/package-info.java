@@ -19,14 +19,8 @@
 
 @Application(defaultController = KittenSaverController.class)
 @Portlet
-@Bindings({
-    @Binding(value = KittenSaverService.class)
-})
 package org.exoplatform.addons.codefest.team_c;
 
 import juzu.Application;
-import juzu.plugin.binding.Binding;
-import juzu.plugin.binding.Bindings;
 import juzu.plugin.portlet.Portlet;
 import org.exoplatform.addons.codefest.team_c.controller.KittenSaverController;
-import org.exoplatform.addons.codefest.team_c.service.KittenSaverService;

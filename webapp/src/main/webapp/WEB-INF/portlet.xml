@@ -5,8 +5,8 @@
              xsi:schemaLocation="http://java.sun.com/xml/ns/portlet/portlet-app_2_0.xsd http://java.sun.com/xml/ns/portlet/portlet-app_2_0.xsd">
 
   <portlet>
-    <portlet-name>KittenSaverApplication</portlet-name>
-    <display-name xml:lang="EN">Kitten Saver Application</display-name>
+    <portlet-name>KittenSaviorApplication</portlet-name>
+    <display-name xml:lang="EN">Kitten Savior Application</display-name>
     <portlet-class>juzu.bridge.portlet.JuzuPortlet</portlet-class>
     <init-param>
       <name>juzu.app_name</name>
@@ -17,7 +17,7 @@
       <portlet-mode>view</portlet-mode>
     </supports>
     <portlet-info>
-      <title>Kitten Saver Application</title>
+      <title>Kitten Savior Application</title>
     </portlet-info>
   </portlet>
 </portlet-app>
