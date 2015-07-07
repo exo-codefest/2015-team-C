@@ -72,23 +72,23 @@ id    | The id of the meeting | Number
 }
 ```
 
-`POST /meetings/{id}/choices/`
+`POST /meetings/{meetingId}/options/{optionId}/choices/`
 
 **Description:**
 
-Sets the choice of the user for the given meeting.
+Sets the choice of the user for the given meeting and option.
 
 **Parameters:**
 
 Param | Description | Value
 ----- | ----------- | -----
-id    | The id of the meeting | Number
+meetingId    | The id of the meeting | Number
+optionId    | The id of the option | Number
 
 **Request body:**
 ```
 {
-    time_id : "123",
-    user : "phil",
+    participant : "phil",
     choice : "true" // false
 }
 ```
