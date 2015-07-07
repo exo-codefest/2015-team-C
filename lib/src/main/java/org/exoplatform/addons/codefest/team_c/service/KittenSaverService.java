@@ -25,4 +25,8 @@ public interface KittenSaverService {
   List<Option> getOptionByMeeting(Long meetingId);
 
   void addChoiceToMeeting(Long meetingId, Long optionId, Choice choice);
+
+  List<Choice> getChoicesByOption(Long optionId);
+
+  User getUserByUsername(String username);
 }

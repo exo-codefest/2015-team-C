@@ -16,11 +16,22 @@
 */
 package org.exoplatform.addons.codefest.team_c.rest;
 
+import org.exoplatform.addons.codefest.team_c.domain.Choice;
+import org.exoplatform.addons.codefest.team_c.domain.Meeting;
+import org.exoplatform.addons.codefest.team_c.domain.Option;
+import org.exoplatform.addons.codefest.team_c.domain.User;
 import org.exoplatform.addons.codefest.team_c.service.KittenSaverService;
+import org.exoplatform.services.organization.OrganizationService;
 import org.exoplatform.services.rest.resource.ResourceContainer;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import javax.inject.Inject;
-import javax.ws.rs.Path;
+import javax.ws.rs.*;
+import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
+import java.util.List;
 
 /**
  * Created by The eXo Platform SAS
@@ -33,6 +44,153 @@ public class KittenSaverRestService implements ResourceContainer {
 
   @Inject
   KittenSaverService kittenSaverService;
+
+  @Inject
+  OrganizationService organizationService;
+
+  @GET
+  @Path("/meetings")
+  @Produces(MediaType.APPLICATION_JSON)
+  public Response getMeetings(@QueryParam("user") String username) {
+    List<Meeting> meetings = null;
+    try {
+
+      org.exoplatform.services.organization.User plfUser = organizationService.getUserHandler().findUserByName(username);
+      User u = new User();
+      u.setName(username);
+      u.setFirstName(plfUser.getFirstName());
+      u.setLastName(plfUser.getLastName());
+      u.setTimezone("GMT+7");
+      meetings = kittenSaverService.getMeetingByUser(u);
+
+    } catch (Exception e) {
+      e.printStackTrace();
+      return Response.serverError().build();
+    }
+
+    if (meetings == null) {
+      return Response.status(Response.Status.NOT_FOUND).build();
+    }
+
+    JSONObject resp = null;
+    try {
+      resp = new JSONObject();
+      JSONArray meetingsArray = new JSONArray();
+      for (Meeting m : meetings) {
+        JSONObject meeting = new JSONObject();
+        // Meeting
+        meeting.put("id", m.getId());
+        meeting.put("name", m.getTitle());
+        meeting.put("description", m.getDescription());
+        meeting.put("creator", m.getCreator());
+        meeting.put("status", m.getStatus());
+        // Participants
+        JSONArray participants = new JSONArray();
+        for (User user : kittenSaverService.getParticipantsByMeeting(m.getId())) {
+          participants.put(user.getName());
+        }
+        meeting.put("participants", participants);
+        // Options
+        JSONArray options = new JSONArray();
+        for (Option opt : kittenSaverService.getOptionByMeeting(m.getId())) {
+          JSONObject option = new JSONObject();
+          option.put("id", opt.getId());
+          option.put("start_timestamp", opt.getStartDate().getTime());
+          option.put("end_timestamp", opt.getEndDate().getTime());
+          options.put(option);
+        }
+        meeting.put("options", options);
+        // Finish
+        meetingsArray.put(meeting);
+      }
+      resp.put("meetings", meetingsArray);
+
+    } catch (JSONException e) {
+      e.printStackTrace();
+      return Response.serverError().build();
+    }
+
+    return Response.ok(resp.toString(), MediaType.APPLICATION_JSON).build();
+  }
+
+
+  @GET
+  @Path("/meetings/{meetingId}/choices")
+  @Produces(MediaType.APPLICATION_JSON)
+  public Response getChoices(@PathParam("meetingId") String meetingId) {
+
+    Meeting meeting = kittenSaverService.getMeeting(Long.valueOf(meetingId));
+
+    JSONObject resp = new JSONObject();
+    JSONArray choices = new JSONArray();
+
+    try {
+
+      for (Option option : kittenSaverService.getOptionByMeeting(meeting.getId())) {
+
+        for (Choice choice : kittenSaverService.getChoicesByOption(option.getId())) {
+
+          JSONObject c = new JSONObject();
+          c.put("time_id", option.getId());
+          c.put("user", choice.getParticipant());
+          c.put("choice", choice.getChoice());
+
+          choices.put(c);
+        }
+
+      }
+
+      resp.put("choices", choices);
+    } catch (JSONException e) {
+      e.printStackTrace();
+      return Response.serverError().build();
+    }
+
+
+    return Response.ok(resp.toString(), MediaType.APPLICATION_JSON).build();
+  }
+
+
+  @POST
+  @Path("/meetings/{meetingId}/options/{optionId}/choices")
+  @Consumes(MediaType.APPLICATION_JSON)
+  @Produces(MediaType.APPLICATION_JSON)
+  public Response makeChoice(@PathParam("meetingId") String meetingId, @PathParam("optionId") String optionId, Choice choice) {
+
+    JSONObject resp = new JSONObject();
+    try {
+      kittenSaverService.addChoiceToMeeting(Long.valueOf(meetingId), Long.valueOf(optionId), choice);
+      resp.put("result", "ok");
+    } catch (Exception e) {
+      e.printStackTrace();
+      return Response.serverError().build();
+    }
+
+    return Response.ok(resp.toString(), MediaType.APPLICATION_JSON).build();
+  }
+
+  @GET
+  @Path("/users/{username}")
+  @Produces(MediaType.APPLICATION_JSON)
+  public Response getUserByUsername(@PathParam("username") String username) {
+    User u = kittenSaverService.getUserByUsername(username);
+
+    if (u == null) {
+      return Response.status(Response.Status.NOT_FOUND).build();
+    }
+
+    JSONObject resp = new JSONObject();
+    try {
+      resp.put("username", username);
+      resp.put("first_name", u.getFirstName());
+      resp.put("last_name", u.getLastName());
+      resp.put("timezone", u.getTimezone());
+    } catch (JSONException e) {
+      e.printStackTrace();
+      return Response.serverError().build();
+    }
+    return Response.ok(resp.toString(), MediaType.APPLICATION_JSON).build();
+  }
 
 }
 

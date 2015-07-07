@@ -28,10 +28,12 @@ public class User {
 
   private String name;
   private String timezone;
+  private String firstName;
+  private String lastName;
 
   public User(String name, String timezone) {
-    this.name = name;
-    this.timezone = timezone;
+    this.setName(name);
+    this.setTimezone(timezone);
   }
 
   public User() {
@@ -51,6 +53,23 @@ public class User {
 
   public void setTimezone(String timezone) {
     this.timezone = timezone;
+  }
+
+
+  public String getFirstName() {
+    return firstName;
+  }
+
+  public void setFirstName(String firstName) {
+    this.firstName = firstName;
+  }
+
+  public String getLastName() {
+    return lastName;
+  }
+
+  public void setLastName(String lastName) {
+    this.lastName = lastName;
   }
 }
 

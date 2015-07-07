@@ -77,5 +77,14 @@ public class KittenSaverServiceImpl implements KittenSaverService {
     kittenSaviorDAO.addChoiceToOptionById(optionId, choice);
   }
 
+  @Override
+  public List<Choice> getChoicesByOption(Long optionId) {
+    return null;
+  }
+
+  @Override
+  public User getUserByUsername(String username) {
+    return kittenSaviorDAO.getUserByUsername(username);
+  }
 }
 
