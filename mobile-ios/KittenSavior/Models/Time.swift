@@ -9,5 +9,7 @@
 import UIKit
 
 class Time: NSObject {
-   
+    var time_id:Int?
+    var start_time:Int64?
+    var end_time:Int64?
 }

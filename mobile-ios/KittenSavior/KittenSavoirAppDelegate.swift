@@ -8,6 +8,7 @@
 
 import UIKit
 
+let serverBaseURL:NSString = "192.168.1.67:8080"
 
 @UIApplicationMain
 class KittenSavoirAppDelegate: UIResponder, UIApplicationDelegate {
