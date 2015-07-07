@@ -111,7 +111,8 @@
         <scene sceneID="rJm-iM-Q0q">
             <objects>
                 <navigationController id="DHF-wJ-o8T" sceneMemberID="viewController">
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="CDy-zm-vGf">
+                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" barStyle="black"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" barStyle="black" id="CDy-zm-vGf">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -135,34 +136,41 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5Qi-6Y-NeA">
-                                <rect key="frame" x="20" y="56" width="280" height="200"/>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="cats-cute-kitten.jpg" translatesAutoresizingMaskIntoConstraints="NO" id="Edr-0J-6DN">
+                                <rect key="frame" x="0.0" y="64" width="320" height="504"/>
+                            </imageView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5Qi-6Y-NeA" customClass="ILTranslucentView" customModule="KittenSavior" customModuleProvider="target">
+                                <rect key="frame" x="20" y="81" width="280" height="200"/>
                                 <subviews>
                                     <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="VOy-hm-bAv">
                                         <rect key="frame" x="109" y="60" width="150" height="30"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <nil key="textColor"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                         <textInputTraits key="textInputTraits"/>
                                     </textField>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Username" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="e7s-oA-TwL">
                                         <rect key="frame" x="22" y="63" width="79" height="21"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Password" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="imN-BM-nlp">
                                         <rect key="frame" x="22" y="113" width="76" height="21"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="dh2-96-csO">
                                         <rect key="frame" x="109" y="109" width="150" height="30"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <nil key="textColor"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                         <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
                                     </textField>
                                     <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="AfQ-0l-W1h">
                                         <rect key="frame" x="22" y="157" width="237" height="30"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                         <state key="normal" title="Login">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
                                         <connections>
@@ -178,11 +186,11 @@
                                         </connections>
                                     </button>
                                     <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" hidesWhenStopped="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="YVy-3f-FVo">
-                                        <rect key="frame" x="239" y="162" width="20" height="20"/>
-                                        <color key="color" red="0.098039217289999994" green="0.098039217289999994" blue="0.098039217289999994" alpha="1" colorSpace="calibratedRGB"/>
+                                        <rect key="frame" x="229" y="162" width="20" height="20"/>
+                                        <color key="color" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     </activityIndicatorView>
                                 </subviews>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="200" id="lwa-S2-V3c"/>
                                 </constraints>
@@ -191,14 +199,20 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstAttribute="centerX" secondItem="5Qi-6Y-NeA" secondAttribute="centerX" id="CUW-89-f91"/>
+                            <constraint firstItem="Edr-0J-6DN" firstAttribute="leading" secondItem="J99-xY-RZF" secondAttribute="leading" id="N9D-5J-z1Q"/>
+                            <constraint firstItem="Edr-0J-6DN" firstAttribute="top" secondItem="tai-DY-aGz" secondAttribute="bottom" id="PeK-8a-2Xd"/>
+                            <constraint firstAttribute="trailing" secondItem="Edr-0J-6DN" secondAttribute="trailing" id="dvG-Bd-lD3"/>
                             <constraint firstItem="5Qi-6Y-NeA" firstAttribute="leading" secondItem="J99-xY-RZF" secondAttribute="leading" constant="20" id="f94-R0-BqO"/>
                             <constraint firstAttribute="trailing" secondItem="5Qi-6Y-NeA" secondAttribute="trailing" constant="20" id="jKG-Tw-1WD"/>
-                            <constraint firstAttribute="centerY" secondItem="5Qi-6Y-NeA" secondAttribute="centerY" constant="128" id="z2R-yL-jxW"/>
+                            <constraint firstItem="GAO-GQ-PC6" firstAttribute="top" secondItem="Edr-0J-6DN" secondAttribute="bottom" id="jv3-SW-Zua"/>
+                            <constraint firstAttribute="centerY" secondItem="5Qi-6Y-NeA" secondAttribute="centerY" constant="103" id="z2R-yL-jxW"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Login" id="5vq-qJ-Ztu"/>
                     <connections>
+                        <outlet property="dialogView" destination="5Qi-6Y-NeA" id="mIs-Js-jl8"/>
                         <outlet property="loadingActivity" destination="YVy-3f-FVo" id="T8J-6f-rsc"/>
+                        <outlet property="loginButton" destination="AfQ-0l-W1h" id="AiQ-5s-gkn"/>
                         <outlet property="passwordTextField" destination="dh2-96-csO" id="U1i-H4-9Cx"/>
                         <outlet property="usernameTextField" destination="VOy-hm-bAv" id="JdF-kj-YR2"/>
                     </connections>
@@ -208,6 +222,9 @@
             <point key="canvasLocation" x="-764" y="335"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="cats-cute-kitten.jpg" width="1440" height="1280"/>
+    </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
         <simulatedOrientationMetrics key="orientation"/>

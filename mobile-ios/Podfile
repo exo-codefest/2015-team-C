@@ -4,7 +4,5 @@ workspace 'KittenSavior'
 xcodeproj 'KittenSavior.xcodeproj'
 
 pod 'RestKit', '~> 0.24'
-	
-
 
 

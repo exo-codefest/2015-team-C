@@ -14,10 +14,12 @@ class LoginViewController: UIViewController {
 
     @IBOutlet weak var loadingActivity: UIActivityIndicatorView!
     
+    @IBOutlet weak var dialogView: ILTranslucentView!
     @IBOutlet weak var usernameTextField: UITextField!
     @IBOutlet weak var passwordTextField: UITextField!
+    @IBOutlet weak var loginButton: UIButton!
     var user:User!
-    
+    var serverInfo:ServerInfo!
     override func viewDidLoad() {
         super.viewDidLoad()
         self.user = User()
@@ -31,6 +33,13 @@ class LoginViewController: UIViewController {
         } else {
             self.passwordTextField.placeholder = "password"
         }
+        
+        dialogView.translucentStyle = UIBarStyle.BlackTranslucent
+        dialogView.layer.cornerRadius = 5.0
+        loginButton.layer.cornerRadius = 5.0
+        loginButton.layer.borderWidth = 0.5
+        loginButton.layer.borderColor = UIColor(white: 1.0, alpha: 1.0).CGColor
+        
     }
 
     override func didReceiveMemoryWarning() {
@@ -65,22 +74,29 @@ class LoginViewController: UIViewController {
         var dictMapping = ["platformVersion":"platformVersion","platformRevision":"platformRevision", "currentRepoName":"currentRepoName","defaultWorkSpaceName":"defaultWorkSpaceName","userHomeNodePath":"userHomeNodePath"];
         mapping.addAttributeMappingsFromDictionary(dictMapping)
         
-        var responseDescriptor = RKResponseDescriptor(mapping: mapping, method: RKRequestMethod.GET, pathPattern: "platform/info", keyPath: nil, statusCodes: NSIndexSet(index: 200))
+        var responseDescriptor = RKResponseDescriptor(mapping: mapping, method: RKRequestMethod.GET, pathPattern: "private/platform/info", keyPath: nil, statusCodes: NSIndexSet(index: 200))
         
         objectManager.addResponseDescriptor(responseDescriptor)
         
         self.loadingActivity.startAnimating()
-        objectManager.getObjectsAtPath("platform/info", parameters: nil, success: { (operation, mappingResult) -> Void in
-            self.performSegueWithIdentifier("finishedLogin", sender: nil)
-            self.loadingActivity.stopAnimating()
-            }, failure:{ (operation, mappingResult) -> Void in
+        objectManager.getObjectsAtPath("private/platform/info", parameters: nil, success: { (operation, mappingResult) -> Void in
+            var objects:Array = mappingResult.array()
+            if (objects.count>0){
+                self.serverInfo = objects[0] as! ServerInfo;
+                self.performSegueWithIdentifier("finishedLogin", sender: nil)
                 self.loadingActivity.stopAnimating()
-                var alert = UIAlertView(title: "Login error", message: "", delegate: nil, cancelButtonTitle: "OK")
-                alert.show()
+            } else {
+                self.failure();
+            }
+            }, failure:{ (operation, error) -> Void in
+                self.failure();
         })
         
     }
-    func configurationRestKit() {
+    func failure() {
+        self.loadingActivity.stopAnimating()
+        var alert = UIAlertView(title: "Login error", message: "", delegate: nil, cancelButtonTitle: "OK")
+        alert.show()
 
     }
     // MARK: - Navigation

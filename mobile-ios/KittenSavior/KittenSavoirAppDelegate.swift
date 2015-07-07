@@ -8,7 +8,7 @@
 
 import UIKit
 
-let serverBaseURL:String = "http://192.168.2.3:8080/rest/"
+let serverBaseURL:String = "http://codefest-4.2.0-codefest-team_c.acceptance5.exoplatform.org/rest/"
 let DEFAULT_USERNAME:String = "username"
 let DEFAULT_PASSWORD:String = "password"
 

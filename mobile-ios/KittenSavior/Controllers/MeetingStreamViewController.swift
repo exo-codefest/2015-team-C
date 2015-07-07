@@ -13,7 +13,8 @@ class MeetingStreamViewController: UIViewController {
     @IBOutlet weak var tableView: UITableView!
     var user:User!
     override func viewDidLoad() {
-        self.navigationController?.title = self.user.usename
+        self.navigationItem.title = self.user.usename
+        
     }
 
     override func didReceiveMemoryWarning() {
