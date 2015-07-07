@@ -8,9 +8,9 @@
 
 import UIKit
 
-let serverBaseURL:NSString = "192.168.1.67:8080"
-let DEFAULT_USERNAME:NSString = "username"
-let DEFAULT_PASSWORD:NSString = "password"
+let serverBaseURL:String = "http://192.168.2.3:8080/rest/"
+let DEFAULT_USERNAME:String = "username"
+let DEFAULT_PASSWORD:String = "password"
 
 
 @UIApplicationMain

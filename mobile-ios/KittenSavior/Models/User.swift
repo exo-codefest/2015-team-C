@@ -9,7 +9,8 @@
 import UIKit
 
 class User: NSObject {
-    var usename:String?
+    var usename:String!
+    var password:String!
     var timezone:String?
     var firstname:String?
     var lastname:String?

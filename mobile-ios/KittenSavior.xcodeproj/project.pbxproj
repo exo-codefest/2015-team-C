@@ -21,6 +21,7 @@
 		9C4245D31B4A9429002A505F /* MeetingTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C4245CC1B4A9429002A505F /* MeetingTableViewCell.swift */; };
 		9C4245D61B4A96C4002A505F /* cats-cute-kitten.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 9C4245D51B4A96C4002A505F /* cats-cute-kitten.jpg */; };
 		9C4245D81B4B7BB6002A505F /* Choice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C4245D71B4B7BB6002A505F /* Choice.swift */; };
+		9C4245DB1B4B985F002A505F /* ServerInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C4245DA1B4B985F002A505F /* ServerInfo.swift */; };
 		E58D52CD270F97D51D858559 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5BD3AC542902DA1A961D4DCA /* libPods.a */; };
 /* End PBXBuildFile section */
 
@@ -54,6 +55,8 @@
 		9C4245CC1B4A9429002A505F /* MeetingTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MeetingTableViewCell.swift; sourceTree = "<group>"; };
 		9C4245D51B4A96C4002A505F /* cats-cute-kitten.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "cats-cute-kitten.jpg"; sourceTree = "<group>"; };
 		9C4245D71B4B7BB6002A505F /* Choice.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Choice.swift; sourceTree = "<group>"; };
+		9C4245D91B4B953A002A505F /* KittenSavior-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "KittenSavior-Bridging-Header.h"; sourceTree = "<group>"; };
+		9C4245DA1B4B985F002A505F /* ServerInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ServerInfo.swift; sourceTree = "<group>"; };
 		B5476656546063B8EF8E5409 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 		C0BFD5770F166ADE9F589100 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -126,6 +129,7 @@
 				9C4245A91B4A9377002A505F /* Images.xcassets */,
 				9C4245AB1B4A9377002A505F /* LaunchScreen.xib */,
 				9C4245A01B4A9377002A505F /* Supporting Files */,
+				9C4245D91B4B953A002A505F /* KittenSavior-Bridging-Header.h */,
 			);
 			path = KittenSavior;
 			sourceTree = "<group>";
@@ -172,6 +176,7 @@
 				9C4245C81B4A9429002A505F /* Time.swift */,
 				9C4245C91B4A9429002A505F /* User.swift */,
 				9C4245D71B4B7BB6002A505F /* Choice.swift */,
+				9C4245DA1B4B985F002A505F /* ServerInfo.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -340,6 +345,7 @@
 				9C4245D01B4A9429002A505F /* Meeting.swift in Sources */,
 				9C4245D11B4A9429002A505F /* Time.swift in Sources */,
 				9C4245D81B4B7BB6002A505F /* Choice.swift in Sources */,
+				9C4245DB1B4B985F002A505F /* ServerInfo.swift in Sources */,
 				9C4245CE1B4A9429002A505F /* MeetingDetailViewController.swift in Sources */,
 				9C4245D31B4A9429002A505F /* MeetingTableViewCell.swift in Sources */,
 				9C4245D21B4A9429002A505F /* User.swift in Sources */,
@@ -477,6 +483,7 @@
 				INFOPLIST_FILE = KittenSavior/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "KittenSavior/KittenSavior-Bridging-Header.h";
 			};
 			name = Debug;
 		};
@@ -488,6 +495,7 @@
 				INFOPLIST_FILE = KittenSavior/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "KittenSavior/KittenSavior-Bridging-Header.h";
 			};
 			name = Release;
 		};

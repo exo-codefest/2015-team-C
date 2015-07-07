@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7706" systemVersion="14E46" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="eNv-4h-R92">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7706" systemVersion="14E46" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="DHF-wJ-o8T">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
     </dependencies>
@@ -67,11 +67,6 @@
                     </view>
                     <toolbarItems/>
                     <navigationItem key="navigationItem" id="zKG-2N-0LG">
-                        <barButtonItem key="leftBarButtonItem" title="login" id="27u-1j-YWr">
-                            <connections>
-                                <segue destination="96B-3n-T1W" kind="modal" identifier="showlogin" modalTransitionStyle="flipHorizontal" id="x4s-P2-h7G"/>
-                            </connections>
-                        </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" title="logout" id="eRF-GU-3U6"/>
                     </navigationItem>
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
@@ -112,7 +107,23 @@
             </objects>
             <point key="canvasLocation" x="499" y="328"/>
         </scene>
-        <!--Login View Controller-->
+        <!--Navigation Controller-->
+        <scene sceneID="rJm-iM-Q0q">
+            <objects>
+                <navigationController id="DHF-wJ-o8T" sceneMemberID="viewController">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="CDy-zm-vGf">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="96B-3n-T1W" kind="relationship" relationship="rootViewController" id="mjr-GG-hmC"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Mde-D5-Ong" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-1186" y="328"/>
+        </scene>
+        <!--Login-->
         <scene sceneID="NhS-CG-ORg">
             <objects>
                 <viewController storyboardIdentifier="LoginViewController" id="96B-3n-T1W" customClass="LoginViewController" customModule="KittenSavior" customModuleProvider="target" sceneMemberID="viewController">
@@ -120,12 +131,12 @@
                         <viewControllerLayoutGuide type="top" id="tai-DY-aGz"/>
                         <viewControllerLayoutGuide type="bottom" id="GAO-GQ-PC6"/>
                     </layoutGuides>
-                    <view key="view" alpha="0.59999999999999964" contentMode="scaleToFill" id="J99-xY-RZF">
+                    <view key="view" contentMode="scaleToFill" id="J99-xY-RZF">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5Qi-6Y-NeA">
-                                <rect key="frame" x="20" y="184" width="280" height="200"/>
+                                <rect key="frame" x="20" y="56" width="280" height="200"/>
                                 <subviews>
                                     <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="VOy-hm-bAv">
                                         <rect key="frame" x="109" y="60" width="150" height="30"/>
@@ -149,17 +160,8 @@
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
                                     </textField>
-                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9Aq-5U-rmZ">
-                                        <rect key="frame" x="22" y="157" width="48" height="30"/>
-                                        <state key="normal" title="Cancel">
-                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                        </state>
-                                        <connections>
-                                            <action selector="cancelAction:" destination="96B-3n-T1W" eventType="touchUpInside" id="1f6-OB-AJc"/>
-                                        </connections>
-                                    </button>
                                     <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="AfQ-0l-W1h">
-                                        <rect key="frame" x="221" y="157" width="38" height="30"/>
+                                        <rect key="frame" x="22" y="157" width="237" height="30"/>
                                         <state key="normal" title="Login">
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
@@ -167,6 +169,18 @@
                                             <action selector="loginAction:" destination="96B-3n-T1W" eventType="touchUpInside" id="Xje-g3-8Ey"/>
                                         </connections>
                                     </button>
+                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="njG-y6-qsZ">
+                                        <state key="normal">
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <segue destination="eNv-4h-R92" kind="modal" identifier="finishedLogin" modalTransitionStyle="flipHorizontal" id="lfG-zg-WfN"/>
+                                        </connections>
+                                    </button>
+                                    <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" hidesWhenStopped="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="YVy-3f-FVo">
+                                        <rect key="frame" x="239" y="162" width="20" height="20"/>
+                                        <color key="color" red="0.098039217289999994" green="0.098039217289999994" blue="0.098039217289999994" alpha="1" colorSpace="calibratedRGB"/>
+                                    </activityIndicatorView>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
@@ -174,22 +188,24 @@
                                 </constraints>
                             </view>
                         </subviews>
-                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstAttribute="centerX" secondItem="5Qi-6Y-NeA" secondAttribute="centerX" id="CUW-89-f91"/>
                             <constraint firstItem="5Qi-6Y-NeA" firstAttribute="leading" secondItem="J99-xY-RZF" secondAttribute="leading" constant="20" id="f94-R0-BqO"/>
                             <constraint firstAttribute="trailing" secondItem="5Qi-6Y-NeA" secondAttribute="trailing" constant="20" id="jKG-Tw-1WD"/>
-                            <constraint firstAttribute="centerY" secondItem="5Qi-6Y-NeA" secondAttribute="centerY" id="z2R-yL-jxW"/>
+                            <constraint firstAttribute="centerY" secondItem="5Qi-6Y-NeA" secondAttribute="centerY" constant="128" id="z2R-yL-jxW"/>
                         </constraints>
                     </view>
+                    <navigationItem key="navigationItem" title="Login" id="5vq-qJ-Ztu"/>
                     <connections>
+                        <outlet property="loadingActivity" destination="YVy-3f-FVo" id="T8J-6f-rsc"/>
                         <outlet property="passwordTextField" destination="dh2-96-csO" id="U1i-H4-9Cx"/>
-                        <outlet property="usenameTextField" destination="VOy-hm-bAv" id="ub0-gC-pvT"/>
+                        <outlet property="usernameTextField" destination="VOy-hm-bAv" id="JdF-kj-YR2"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dfk-0R-0n7" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="409" y="988"/>
+            <point key="canvasLocation" x="-764" y="335"/>
         </scene>
     </scenes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">

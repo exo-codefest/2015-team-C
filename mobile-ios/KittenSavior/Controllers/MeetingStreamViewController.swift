@@ -11,11 +11,9 @@ import UIKit
 class MeetingStreamViewController: UIViewController {
     
     @IBOutlet weak var tableView: UITableView!
+    var user:User!
     override func viewDidLoad() {
-        super.viewDidLoad()
-        var loginVC = self.storyboard!.instantiateViewControllerWithIdentifier("LoginViewController") as! LoginViewController
-        
-        self.performSegueWithIdentifier("showlogin", sender: nil)
+        self.navigationController?.title = self.user.usename
     }
 
     override func didReceiveMemoryWarning() {
