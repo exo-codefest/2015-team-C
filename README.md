@@ -26,4 +26,4 @@ Toan | MOB
 
 ### Doc
 
-In progress...
+* [Rest Services](https://github.com/exo-codefest/2015-team-C/blob/master/doc/rest.md)
