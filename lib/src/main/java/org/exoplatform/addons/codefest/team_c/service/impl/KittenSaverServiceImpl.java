@@ -23,6 +23,7 @@ import org.exoplatform.addons.codefest.team_c.domain.Meeting;
 import org.exoplatform.addons.codefest.team_c.domain.Option;
 import org.exoplatform.addons.codefest.team_c.domain.User;
 import org.exoplatform.addons.codefest.team_c.service.KittenSaverService;
+import org.exoplatform.addons.codefest.team_c.service.KittenSettingsService;
 
 import javax.inject.Singleton;
 import java.util.List;
@@ -38,7 +39,11 @@ public class KittenSaverServiceImpl implements KittenSaverService {
 
   private KittenSaviorDAO kittenSaviorDAO;
 
-  public KittenSaverServiceImpl() {
+  private KittenSettingsService settingsService;
+
+  public KittenSaverServiceImpl(KittenSettingsService settings)
+  {
+    this.settingsService = settings;
     this.kittenSaviorDAO = new KittenSaviorDAOImpl();
   }
 
@@ -84,7 +89,11 @@ public class KittenSaverServiceImpl implements KittenSaverService {
 
   @Override
   public User getUserByUsername(String username) {
-    return kittenSaviorDAO.getUserByUsername(username);
+    User user = kittenSaviorDAO.getUserByUsername(username);
+    if (user.getTimezone() == null) {
+      user.setTimezone(settingsService.getUserTimezone(user));
+    }
+    return user;
   }
 }
 

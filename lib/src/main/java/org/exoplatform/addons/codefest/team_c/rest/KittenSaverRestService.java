@@ -21,13 +21,11 @@ import org.exoplatform.addons.codefest.team_c.domain.Meeting;
 import org.exoplatform.addons.codefest.team_c.domain.Option;
 import org.exoplatform.addons.codefest.team_c.domain.User;
 import org.exoplatform.addons.codefest.team_c.service.KittenSaverService;
-import org.exoplatform.services.organization.OrganizationService;
 import org.exoplatform.services.rest.resource.ResourceContainer;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import javax.inject.Inject;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
@@ -42,7 +40,6 @@ import java.util.List;
 @Path("/kittenSavior")
 public class KittenSaverRestService implements ResourceContainer {
 
-  @Inject
   KittenSaverService kittenSaverService;
 
   public KittenSaverRestService(KittenSaverService kittenService) {
