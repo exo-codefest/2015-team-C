@@ -10,9 +10,9 @@ import UIKit
 
 class Meeting: NSObject {
     var meeting_id:Int?
-    var name:NSString?
-    var creator:NSString?
-    var status:NSString?
+    var name:String?
+    var creator:String?
+    var status:String?
     var participants:NSArray?
     var options:NSArray?
 }

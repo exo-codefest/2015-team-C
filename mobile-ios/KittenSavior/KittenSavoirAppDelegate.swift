@@ -9,6 +9,9 @@
 import UIKit
 
 let serverBaseURL:NSString = "192.168.1.67:8080"
+let DEFAULT_USERNAME:NSString = "username"
+let DEFAULT_PASSWORD:NSString = "password"
+
 
 @UIApplicationMain
 class KittenSavoirAppDelegate: UIResponder, UIApplicationDelegate {
