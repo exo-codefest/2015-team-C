@@ -45,8 +45,9 @@ public class KittenSaverRestService implements ResourceContainer {
   @Inject
   KittenSaverService kittenSaverService;
 
-  @Inject
-  OrganizationService organizationService;
+  public KittenSaverRestService(KittenSaverService kittenService) {
+    this.kittenSaverService = kittenService;
+  }
 
   @GET
   @Path("/meetings")
@@ -55,12 +56,7 @@ public class KittenSaverRestService implements ResourceContainer {
     List<Meeting> meetings = null;
     try {
 
-      org.exoplatform.services.organization.User plfUser = organizationService.getUserHandler().findUserByName(username);
-      User u = new User();
-      u.setName(username);
-      u.setFirstName(plfUser.getFirstName());
-      u.setLastName(plfUser.getLastName());
-      u.setTimezone("GMT+7");
+      User u = kittenSaverService.getUserByUsername(username);
       meetings = kittenSaverService.getMeetingByUser(u);
 
     } catch (Exception e) {
