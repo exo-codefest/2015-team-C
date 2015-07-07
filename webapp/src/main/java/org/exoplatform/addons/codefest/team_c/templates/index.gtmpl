@@ -14,9 +14,9 @@
         <p>${meeting.meeting.description}</p>
         <p>
             <%if (meeting.meeting.finalOption != null) {%>
-            <img src="asset/image/validate">From ${meeting.meeting.finalOption.startDate} to ${meeting.meeting.finalOption.endDate}
+            <img src="image/validate"> From ${meeting.meeting.finalOption.startDate} to ${meeting.meeting.finalOption.endDate}
             <%} else {%>
-            <img src="asset/image/not_validate">Waiting answer...
+            <img src="image/not_validate"> Waiting answer...
             <%} %>
         </p>
         <p><a type="button" class="btn btn-primary" href="#">View details</a></p>
