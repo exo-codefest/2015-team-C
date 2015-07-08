@@ -8,13 +8,9 @@
     <type>org.exoplatform.addons.codefest.team_c.service.impl.KittenSaverServiceImpl</type>
   </component>
 
-    <component>
-        <type>org.exoplatform.addons.codefest.team_c.rest.KittenSaverRestService</type>
-    </component>
+  <component>
+    <type>org.exoplatform.addons.codefest.team_c.rest.KittenSaverRestService</type>
+  </component>
 
-    <component>
-        <key>org.exoplatform.addons.codefest.team_c.service.KittenSettingsService</key>
-        <type>org.exoplatform.addons.codefest.team_c.service.impl.KittenSettingsServiceImpl</type>
-    </component>
 
 </configuration>

@@ -6,6 +6,7 @@ import org.exoplatform.addons.codefest.team_c.domain.Option;
 import org.exoplatform.addons.codefest.team_c.domain.User;
 
 import java.util.List;
+import java.util.TimeZone;
 
 /**
  * Created by TClement on 7/6/15.
@@ -31,4 +32,13 @@ public interface KittenSaverService {
   List<Choice> getChoicesByOption(Long optionId);
 
   User getUserByUsername(String username);
+
+  void setTimezoneForUser(String timezoneId, User user);
+
+  void setTimezoneForUser(TimeZone timezone, User user);
+
+  String getUserTimezone(User user);
+
+  String getUserTimezone(String username);
+
 }
