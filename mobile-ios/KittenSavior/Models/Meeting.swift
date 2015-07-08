@@ -18,6 +18,14 @@ class Meeting: NSObject {
     var options:Array<Time>!
     
     func stringSchedule()->String {
-        return "16 Jul: 10h-11h // 16 Jul: 14h-15h"
+        var schelduleDesc = "" as String
+        for time in self.options {
+            if schelduleDesc.isEmpty {
+                schelduleDesc = time.getTitle()
+            } else {
+              schelduleDesc += " // " + time.getTitle()
+            }
+        }
+        return schelduleDesc
     }
 }

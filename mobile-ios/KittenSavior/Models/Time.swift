@@ -10,11 +10,28 @@ import UIKit
 
 class Time: NSObject {
     var time_id:Int?
-    var start_time:Int64?
-    var end_time:Int64?
+    var start_time:Double?
+    var end_time:Double?
     
     func getTitle() -> String {
-        return "Title"
+        var start_date = NSDate(timeIntervalSince1970:self.start_time! )
+        var end_date = NSDate(timeIntervalSince1970: self.end_time!)
+        var dateFormatter = NSDateFormatter()
+        dateFormatter.dateFormat =  "MMM dd"
+        var hourFormatter = NSDateFormatter()
+        hourFormatter.dateFormat = "hh:mm"
+        var zoneFormatter = NSDateFormatter()
+        zoneFormatter.dateFormat = "zzz"
+        var s = zoneFormatter.stringFromDate(start_date)
+        
+        var title = ""
+
+        if dateFormatter.stringFromDate(start_date) == dateFormatter.stringFromDate(end_date) {
+            title = dateFormatter.stringFromDate(start_date) + ": " + hourFormatter.stringFromDate(start_date) + " - " + hourFormatter.stringFromDate(end_date)
+        } else {
+            title = dateFormatter.stringFromDate(start_date) + " " + hourFormatter.stringFromDate(start_date) + " - "  +  dateFormatter.stringFromDate(end_date) + " " + hourFormatter.stringFromDate(end_date)
+        }
+        return title
     }
     func getDescription() -> String {
         return "Description"

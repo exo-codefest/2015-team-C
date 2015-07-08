@@ -13,6 +13,7 @@ class OptionTableViewCell: UITableViewCell {
     @IBOutlet weak var title: UILabel!
     @IBOutlet weak var desc: UILabel!
     @IBOutlet weak var participeButton: UIButton!
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
@@ -24,3 +25,4 @@ class OptionTableViewCell: UITableViewCell {
 
     
 }
+

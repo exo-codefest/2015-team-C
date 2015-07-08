@@ -12,8 +12,10 @@ class MeetingDetailViewController: UIViewController {
     
     var meeting:Meeting!
     var choiceArray:Array<Choice>!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.navigationItem.title = meeting.name;
         self.loadChoice()
     }
 
@@ -70,10 +72,18 @@ class MeetingDetailViewController: UIViewController {
         let cell = tableView.dequeueReusableCellWithIdentifier("OptionTableViewCell", forIndexPath: indexPath) as! OptionTableViewCell
         var time = meeting.options[indexPath.row]
         cell.configure(time)
+        
+        cell.participeButton.addTarget(self, action: "checkForOptionAtCell:", forControlEvents: UIControlEvents.TouchUpInside)
+    
         return cell
     }
-
     
+    func checkForOptionAtCell(sender: AnyObject?) {
+    
+        var cell = sender!.superview as! OptionTableViewCell
+        
+        
+    }
     /*
     // MARK: - Navigation
 

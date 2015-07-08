@@ -41,12 +41,15 @@ class MeetingStreamViewController: UIViewController {
                 m1.name = "Kitten Savoir"
                 m1.desc = "Kitten Savoir ale hop"
                 m1.status = "opened"
-                var m2 = Meeting();
-                m2.name = "Meeting"
-                m2.desc = "Kitten Savoir ale hop"
-                m2.status = "closed"
-
-                self.meetingArray = Array(arrayLiteral: m1,m2)
+                
+                var now = NSDate()
+                var timestamp = now.timeIntervalSince1970 as Double
+                var time = Time()
+                time.start_time = timestamp - 3600
+                time.end_time = timestamp - 600
+                m1.options = Array(arrayLiteral: time)
+                
+                self.meetingArray = Array(arrayLiteral: m1)
                 self.tableView.reloadData()
             } else {
                 self.failure();
@@ -92,6 +95,7 @@ class MeetingStreamViewController: UIViewController {
             var meeting = meetingArray[indexPath!.row]
             meetingDetailVC.meeting = meeting
         }
+        self.tableView.reloadData()
     }
 
 }
