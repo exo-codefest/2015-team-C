@@ -4,6 +4,7 @@ import java.io.Writer;
 import java.util.Calendar;
 import java.util.Locale;
 
+//import org.exoplatform.addons.codefest.team_c.domain.Meeting;
 import org.exoplatform.commons.api.notification.NotificationContext;
 import org.exoplatform.commons.api.notification.NotificationMessageUtils;
 import org.exoplatform.commons.api.notification.channel.template.AbstractTemplateBuilder;
@@ -56,6 +57,7 @@ public class KittenWebTemplateProvider extends WebTemplateProvider {
 		@Override
 		protected MessageInfo makeMessage(NotificationContext ctx) {
 			NotificationInfo notification = ctx.getNotificationInfo();
+			//Meeting meeting = ctx.value(KittenNotificationPlugin.MEETING);
 
 			String language = getLanguage(notification);
 			TemplateContext templateContext = TemplateContext.newChannelInstance(getChannelKey(), notification.getKey().getId(), language);
@@ -69,12 +71,18 @@ public class KittenWebTemplateProvider extends WebTemplateProvider {
 			templateContext.put("READ", Boolean.valueOf(notification.getValueOwnerParameter(NotificationMessageUtils.READ_PORPERTY.getKey())) ? "read" : "unread");
 			templateContext.put("NOTIFICATION_ID", notification.getId());
 			templateContext.put("LAST_UPDATED_TIME", TimeConvertUtils.convertXTimeAgoByTimeServer(cal.getTime(), "EE, dd yyyy", new Locale(language), TimeConvertUtils.YEAR));
+			templateContext.put("TITLE", notification.getTitle());
+			//templateContext.put("USER", meeting.getCreator().getName());
+			//templateContext.put("TITLE", meeting.getTitle());
 			//templateContext.put("USER", userProfile.getFullName());
 			//templateContext.put("PORTAL_NAME", NotificationPluginUtils.getBrandingPortalName());
 			//templateContext.put("PROFILE_URL", LinkProvider.getUserProfileUri(identity.getRemoteId()));
 			//templateContext.put("AVATAR", userProfile.getAvatarUrl() != null ? userProfile.getAvatarUrl() : LinkProvider.PROFILE_DEFAULT_AVATAR_URL);
-			templateContext.put("TITLE", notification.getTitle());
-			//
+			/*if (meeting.getFinalOption() == null)
+				templateContext.put("TITLE", meeting.getCreator().getName() + " invited you to vote for a meeting: <a href='/portal/intranet/Kitten'>" + meeting.getTitle()+ "</a><br/>");
+			else
+				templateContext.put("TITLE", meeting.getCreator().getName() + " validated the meeting <a href='/portal/intranet/Kitten'>" + meeting.getTitle() + "</a><br/>");
+			*///
 			String body = TemplateUtils.processGroovy(templateContext);
 			//binding the exception throws by processing template
 			ctx.setException(templateContext.getException());
