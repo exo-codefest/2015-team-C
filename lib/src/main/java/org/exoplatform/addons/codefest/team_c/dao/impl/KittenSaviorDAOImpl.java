@@ -269,6 +269,7 @@ public class KittenSaviorDAOImpl implements KittenSaviorDAO {
 
   @Override
   public List<Option> getOptionByMeetingId(Long meetingId) {
+    LOG.info("#### meetingID: "+meetingId);
     List<Option> meetingOptions = new ArrayList<Option>();
     for (Long optionId : meetings.get(meetingId).getOptions()) {
       meetingOptions.add(options.get(optionId));

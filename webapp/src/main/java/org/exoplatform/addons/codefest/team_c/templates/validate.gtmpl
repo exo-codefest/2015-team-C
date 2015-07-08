@@ -1,6 +1,6 @@
 #{param name=meeting/}
 #{param name=options/}
-#{param name=user/}
+#{param name=usersChoice/}
 
 <div class="hero-unit" align="right">
     <h1>Kitten Savior</h1>
@@ -16,23 +16,44 @@
 <div class="meeting-main-part">
 
     <div class="meeting-choose-all">
-        <div class="span4 meeting-choose-message">
-            <h4>Proposed Meeting Times</h4>
+        <div>
+            <div class="span4">
+                <h4>Proposed Meeting Times</h4>
+            </div>
+            <% options.each {option -> %>
+            <div class="span2 meeting-choose-choice">
+                ${option.startDate.format('dd MMM yyyy')}<br/>
+                ${option.startDate.format('hh:mm')}<br/>
+                ${option.endDate.format('hh:mm')}<br/>
+            </div>
+            <% } %>
+        </div>
+        <% usersChoice.each {usersChoice -> %>
+        <div>
+            <div class="span4">
+                <h4>${usersChoice.username}</h4>
+            </div>
+            <% usersChoice.choices.each {choice -> %>
+            <div class="span2 meeting-choose-choice">
+                <%if (choice.choice ==true ) {%>
+                <img src="/team-c-addon-webapp/image/ok.png">
+                <% } else { %>
+                <img src="/team-c-addon-webapp/image/nok.png">
+                <% } %>
+            </div>
+            <% } %>
+        </div>
+        <% } %>
+        <div class="span4">
+            <h4>Validate</h4>
         </div>
         <% options.each {option -> %>
         <div class="span2 meeting-choose-choice">
-            ${option.startDate.format('dd MMM yyyy')}<br/>
-            ${option.startDate.format('hh:mm')}<br/>
-            ${option.endDate.format('hh:mm')}<br/>
-            <a class="meeting-choose-ok" href="#"><img src="/team-c-addon-webapp/image/ok.png" title="Click if you are available" alt="Click if you are available"/></a><br/>
-            <a class="meeting-choose-nok" href="#"><img src="/team-c-addon-webapp/image/nok.png" title="Click if you are not available" alt="Click if you are not available"/></a><br/><br/>
-            <% if (user == meeting.creator.name == user) { %>
             <form action="@{KittenSaverController.validateMeeting()}" method="post">
                 <input name="optionid" hidden="true" value="${option.id}">
                 <input name="meetingid" hidden="true" value="${meeting.id}">
                 <button type="submit" class="btn btn-primary">Validate</button>
             </form>
-            <% } %>
         </div>
         <% } %>
     </div>

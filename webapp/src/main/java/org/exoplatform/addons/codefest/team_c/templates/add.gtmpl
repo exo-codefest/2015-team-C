@@ -1,6 +1,3 @@
-#{param name=meetingsCount/}
-#{param name=meetings/}
-
 <div class="hero-unit" align="right">
     <h1>Kitten Savior</h1>
     <p class="lead" align="right">Everytime you don't make a choice a kitten dies !</p>

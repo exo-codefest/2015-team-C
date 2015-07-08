@@ -1,6 +1,7 @@
 #{param name=meetingsCount/}
 #{param name=meetings/}
 #{param name=timzone/}
+#{param name=user/}
 
 <div class="hero-unit" align="right">
     <h1>Kitten Savior</h1>
@@ -37,9 +38,21 @@
             </p>
         </div>
         <div class="meeting-sumup-link">
-            <a href="${meeting.meeting.finalOption != null ? '/portal/intranet/calendar' : '#'}">
-                <img src="${meeting.meeting.finalOption != null ? '/team-c-addon-webapp/image/calendar.png' : '/team-c-addon-webapp/image/choose.png'}"/>${meeting.meeting.finalOption != null ? ' See on calendar' : ' Go to vote'}
+            <% if (meeting.meeting.finalOption != null) { %>
+            <a href="/portal/intranet/calendar">
+                <img src="/team-c-addon-webapp/image/calendar.png"/> See on calendar
             </a>
+            <% } else { %>
+            <form action="@{KittenSaverController.chooseAction()}" method="post">
+                <input name="meetingid" hidden="true" value="${meeting.meeting.id}">
+                <img src="/team-c-addon-webapp/image/choose.png"><button type="submit" class="btn">Go to vote</button></img>
+            </form>
+            <% if (meeting.meeting.creator == user) { %>
+            <form action="@{KittenSaverController.validateAction()}" method="post">
+                <input name="meetingid" hidden="true" value="${meeting.meeting.id}">
+                <img src="/team-c-addon-webapp/image/choose.png"><button type="submit" class="btn">Validate vote</button></img>
+            </form>
+            <% } } %>
         </div>
     </div>
     <%}

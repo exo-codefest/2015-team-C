@@ -43,4 +43,5 @@ public interface KittenSaverService {
 
   void setUserTimezone(String username, String timezone);
 
+  Option getOption(Long optionid);
 }

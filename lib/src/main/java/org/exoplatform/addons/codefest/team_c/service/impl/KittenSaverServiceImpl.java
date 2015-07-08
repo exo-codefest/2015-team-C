@@ -244,4 +244,9 @@ public class KittenSaverServiceImpl implements KittenSaverService {
     }
     return getUserByUsername(username).getTimezone();
   }
+
+  @Override
+  public Option getOption(Long optionid) {
+    return kittenSaviorDAO.getOptionById(optionid);
+  }
 }

@@ -16,13 +16,17 @@
 */
 package org.exoplatform.addons.codefest.team_c.controller;
 
+import juzu.Action;
 import juzu.Path;
 import juzu.Response;
 import juzu.View;
 import juzu.impl.common.Tools;
 import juzu.request.SecurityContext;
+import org.exoplatform.addons.codefest.team_c.domain.Choice;
 import org.exoplatform.addons.codefest.team_c.domain.Meeting;
+import org.exoplatform.addons.codefest.team_c.domain.Option;
 import org.exoplatform.addons.codefest.team_c.model.MeetingInfos;
+import org.exoplatform.addons.codefest.team_c.model.UserChoice;
 import org.exoplatform.addons.codefest.team_c.service.KittenSaverService;
 import org.exoplatform.services.log.ExoLogger;
 import org.exoplatform.services.log.Log;
@@ -62,6 +66,10 @@ public class KittenSaverController {
   @Path("config.gtmpl")
   org.exoplatform.addons.codefest.team_c.templates.config config;
 
+  @Inject
+  @Path("validate.gtmpl")
+  org.exoplatform.addons.codefest.team_c.templates.validate validate;
+
   @View
   public Response.Content index(SecurityContext securityContext) throws IOException {
 
@@ -82,6 +90,7 @@ public class KittenSaverController {
         .meetingsCount(meetings.size())
         .meetings(meetingInfoses)
         .timzone(timzone)
+        .user(securityContext.getRemoteUser())
         .ok()
         .withCharset(Tools.UTF_8);
   }
@@ -97,14 +106,98 @@ public class KittenSaverController {
   }
 
   @View
-  public Response.Content chooseView() {
-    return choose.ok();
+  public Response.Content chooseView(String meetingid, String username) {
+
+    Meeting meeting = kittenSaverService.getMeeting(Long.valueOf(meetingid));
+    List<Option> options = kittenSaverService.getOptionByMeeting(Long.valueOf(meetingid));
+
+    return choose
+        .with()
+        .meeting(meeting)
+        .options(options)
+        .user(username)
+        .ok();
+  }
+
+  @View
+  public Response.Content validateView(String meetingid) {
+
+    Meeting meeting = kittenSaverService.getMeeting(Long.valueOf(meetingid));
+    List<Option> options = kittenSaverService.getOptionByMeeting(Long.valueOf(meetingid));
+
+    List<UserChoice> userChoices = new ArrayList<UserChoice>();
+    for (String username : meeting.getParticipants()) {
+      for (Option optionUser : options) {
+        List<Choice> choicesUser = new ArrayList<Choice>();
+        for (Choice choiceall : kittenSaverService.getChoicesByOption(optionUser.getId())) {
+          if (choiceall.getParticipant() == username) choicesUser.add(choiceall);
+        }
+        userChoices.add(new UserChoice(username, choicesUser));
+      }
+    }
+
+    return validate
+        .with()
+        .meeting(meeting)
+        .options(options)
+        .usersChoice(userChoices)
+        .ok();
+  }
+
+  @Action
+  public Response.View validateAction(String meetingid, SecurityContext securityContext) {
+
+    /*Meeting meeting = kittenSaverService.getMeeting(Long.getLong(meetingid));
+    List<Option> options = kittenSaverService.getOptionByMeeting(Long.getLong(meetingid));
+
+    List<UserChoice> userChoices = new ArrayList<UserChoice>();
+    for (String username : meeting.getParticipants()) {
+      for (Option optionUser : options) {
+        List<Choice> choicesUser = new ArrayList<Choice>();
+        for (Choice choiceall : kittenSaverService.getChoicesByOption(optionUser.getId())) {
+          if (choiceall.getParticipant() == username) choicesUser.add(choiceall);
+        }
+        userChoices.add(new UserChoice(username, choicesUser));
+      }
+    }*/
+
+    return KittenSaverController_.validateView(meetingid);
+  }
+
+  @Action
+  public Response.View chooseAction(String meetingid, SecurityContext securityContext) {
+
+    /*Meeting meeting = kittenSaverService.getMeeting(Long.getLong(meetingid));
+    List<Option> options = kittenSaverService.getOptionByMeeting(Long.getLong(meetingid));
+
+    List<UserChoice> userChoices = new ArrayList<UserChoice>();
+    for (String username : meeting.getParticipants()) {
+      for (Option optionUser : options) {
+        List<Choice> choicesUser = new ArrayList<Choice>();
+        for (Choice choiceall : kittenSaverService.getChoicesByOption(optionUser.getId())) {
+          if (choiceall.getParticipant() == username) choicesUser.add(choiceall);
+        }
+        userChoices.add(new UserChoice(username, choicesUser));
+      }
+    }*/
+
+    return KittenSaverController_.chooseView(meetingid, securityContext.getRemoteUser());
   }
 
   @juzu.Action
   public Response.View updateTimezone(String timezone, SecurityContext securityContext) {
     LOG.info("Modify Timezone to "+timezone);
     kittenSaverService.setUserTimezone(securityContext.getRemoteUser(), timezone);
+    return KittenSaverController_.index();
+  }
+
+  @Action
+  public Response.View validateMeeting (String optionid, String meetingid) {
+    LOG.info("Validate meeting "+meetingid);
+    Meeting meeting = kittenSaverService.getMeeting(Long.valueOf(meetingid));
+    Option option = kittenSaverService.getOption(Long.valueOf(optionid));
+    meeting.setFinalOption(option);
+    kittenSaverService.validateMeeting(meeting);
     return KittenSaverController_.index();
   }
 
