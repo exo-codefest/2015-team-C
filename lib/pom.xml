@@ -72,6 +72,7 @@
         <dependency>
         	<groupId>org.exoplatform.social</groupId>
         	<artifactId>social-component-notification</artifactId>
+        	<scope>provided</scope>
         </dependency>
     </dependencies>
 </project>
