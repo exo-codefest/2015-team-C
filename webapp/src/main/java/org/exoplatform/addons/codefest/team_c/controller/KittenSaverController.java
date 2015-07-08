@@ -49,6 +49,18 @@ public class KittenSaverController {
   @Path("index.gtmpl")
   org.exoplatform.addons.codefest.team_c.templates.index index;
 
+  @Inject
+  @Path("add.gtmpl")
+  org.exoplatform.addons.codefest.team_c.templates.add add;
+
+  @Inject
+  @Path("choose.gtmpl")
+  org.exoplatform.addons.codefest.team_c.templates.choose choose;
+
+  @Inject
+  @Path("config.gtmpl")
+  org.exoplatform.addons.codefest.team_c.templates.config config;
+
   @View
   public Response.Content index(SecurityContext securityContext) throws IOException {
 
@@ -61,12 +73,37 @@ public class KittenSaverController {
       meetingInfoses.add(new MeetingInfos(meeting, kittenSaverService.getOptionByMeeting(meeting.getId())));
     }
 
+    String timzone = kittenSaverService.getUserTimezone(securityContext.getRemoteUser());
+
     return index
         .with()
         .meetingsCount(meetings.size())
         .meetings(meetingInfoses)
+        .timzone(timzone)
         .ok()
         .withCharset(Tools.UTF_8);
+  }
+
+  @View
+  public Response.Content addView() {
+    return add.ok();
+  }
+
+  @View
+  public Response.Content configView() {
+    return config.ok();
+  }
+
+  @View
+  public Response.Content chooseView() {
+    return choose.ok();
+  }
+
+  @juzu.Action
+  public Response.View updateTimezone(String timezone, SecurityContext securityContext) {
+    LOG.info("Modify Timezone to "+timezone);
+    kittenSaverService.setUserTimezone(securityContext.getRemoteUser(), timezone);
+    return KittenSaverController_.index();
   }
 
 }

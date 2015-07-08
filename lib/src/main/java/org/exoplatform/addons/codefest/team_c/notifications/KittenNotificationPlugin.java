@@ -1,18 +1,20 @@
 package org.exoplatform.addons.codefest.team_c.notifications;
-import java.util.ArrayList;
-//import java.util.HashSet;
-import java.util.List;
-//import java.util.Set;
-
 import org.exoplatform.addons.codefest.team_c.domain.Meeting;
 import org.exoplatform.addons.codefest.team_c.domain.User;
 import org.exoplatform.commons.api.notification.NotificationContext;
 import org.exoplatform.commons.api.notification.model.ArgumentLiteral;
 import org.exoplatform.commons.api.notification.model.NotificationInfo;
 import org.exoplatform.commons.api.notification.plugin.BaseNotificationPlugin;
+import org.exoplatform.container.xml.InitParams;
+
+import java.util.ArrayList;
+import java.util.GregorianCalendar;
+import java.util.List;
+
+//import java.util.HashSet;
+//import java.util.Set;
 //import org.exoplatform.commons.utils.CommonsUtils;
 //import org.exoplatform.commons.utils.ListAccess;
-import org.exoplatform.container.xml.InitParams;
 //import org.exoplatform.services.log.ExoLogger;
 //import org.exoplatform.services.log.Log;
 //import org.exoplatform.social.core.identity.model.Identity;
@@ -45,14 +47,16 @@ public class KittenNotificationPlugin extends BaseNotificationPlugin {
         if (meeting.getFinalOption() == null) {
         	return NotificationInfo.instance()
         			.setFrom(creator.getName())
+              .setDateCreated(new GregorianCalendar())
         			.to(new ArrayList<String>(participants))
-        			.setTitle(creator.getName() + " invited you to vote for a meeting: " + meeting.getTitle()+ "<br/>")
+        			.setTitle(creator.getName() + " invited you to vote for a meeting: <a href='/portal/intranet/Kitten'>" + meeting.getTitle()+ "</a><br/>")
         			.key(getId());
         } else {
         	return NotificationInfo.instance()
         			.setFrom(creator.getName())
+              .setDateCreated(new GregorianCalendar())
         			.to(new ArrayList<String>(participants))
-        			.setTitle(creator.getName() + " validated the meeting "+ meeting.getTitle() + "<br/>")
+        			.setTitle(creator.getName() + " validated the meeting <a href='/portal/intranet/Kitten'>" + meeting.getTitle() + "</a><br/>")
         			.key(getId());
         }
     }

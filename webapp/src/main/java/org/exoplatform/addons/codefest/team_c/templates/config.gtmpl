@@ -1,0 +1,30 @@
+#{param name=meetingsCount/}
+#{param name=meetings/}
+
+<div class="hero-unit" align="right">
+    <h1>Kitten Savior</h1>
+    <p class="lead" align="right">Everytime you don't make a choice a kitten dies !</p>
+</div>
+<div class="meeting-actions">
+    <div class="meeting-config">
+        <a class="meeting-actions-add" href="@{ KittenSaverController.index()}"><img src="/team-c-addon-webapp/image/catlist.png" title="See meetings" alt="See meetings"/></a>
+        <a class="meeting-actions-add" href="@{ KittenSaverController.addView()}"><img src="/team-c-addon-webapp/image/add.png" title="Add a meeting" alt="Add a meeting"/></a>
+        <a href="@{ KittenSaverController.configView()}"><img src="/team-c-addon-webapp/image/config.png" title="Change your timezone" alt="Change your timezone"/></a>
+    </div>
+</div>
+<div class="meeting-main-part">
+
+    <form class="form-configure-timezone" action="@{KittenSaverController.updateTimezone()}" method="post">
+        <div class="control-group">
+            Select your timezone:<br />
+            <select name="timezone">
+                <option>Hanoi GMT+7</option>
+                <option>Paris GMT+1</option>
+                <option>San Francisco GMT-8</option>
+                <option>Petahouchnok GMT+42 (discouraged...)</option>
+            </select>
+            <button type="submit" class="btn btn-primary">Save</button>
+        </div>
+    </form>
+
+</div>

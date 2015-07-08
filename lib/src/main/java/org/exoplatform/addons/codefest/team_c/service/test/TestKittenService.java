@@ -1,6 +1,5 @@
 package org.exoplatform.addons.codefest.team_c.service.test;
 
-import com.googlecode.mp4parser.authoring.Test;
 import org.exoplatform.addons.codefest.team_c.domain.Choice;
 import org.exoplatform.addons.codefest.team_c.domain.Meeting;
 import org.exoplatform.addons.codefest.team_c.domain.Option;
@@ -15,8 +14,8 @@ import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
-import javax.ws.rs.core.Response;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -107,7 +106,7 @@ public class TestKittenService implements ResourceContainer {
         meeting.setStatus(Meeting.STATUS_CLOSED);
         meeting.setFinalOption(options.get(0));
 
-        kittenService.updateMeeting(meeting);
+        kittenService.validateMeeting(meeting);
 
         return Response.ok(meeting).build();
     }

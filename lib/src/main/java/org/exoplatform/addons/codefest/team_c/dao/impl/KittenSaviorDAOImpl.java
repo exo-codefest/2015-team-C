@@ -40,10 +40,10 @@ public class KittenSaviorDAOImpl implements KittenSaviorDAO {
 
   private static final Log LOG = ExoLogger.getExoLogger(KittenSaviorDAOImpl.class);
 
-  private Map<Long, Meeting> meetings;
-  private Map<Long, Option> options;
-  private Map<Long, Choice> choices;
-  private Map<String, User> users;
+  private static Map<Long, Meeting> meetings;
+  private static Map<Long, Option> options;
+  private static Map<Long, Choice> choices;
+  private static Map<String, User> users;
 
   public KittenSaviorDAOImpl() {
     meetings = new HashMap<Long, Meeting>();
@@ -68,8 +68,8 @@ public class KittenSaviorDAOImpl implements KittenSaviorDAO {
       Date d8 = sdf.parse("09/07/2015 17:00");
 
       //User
-      User root = new User("root", "Etc/GMT-1");
-      User john = new User("john", "Etc/GMT-6");
+      User root = new User("root", "Paris");
+      User john = new User("john", "Hanoi");
       users.put(root.getName(), root);
       users.put(john.getName(), john);
 
@@ -232,6 +232,8 @@ public class KittenSaviorDAOImpl implements KittenSaviorDAO {
     }
     return participants;
   }
+
+
 
   //////////////////////////
   //

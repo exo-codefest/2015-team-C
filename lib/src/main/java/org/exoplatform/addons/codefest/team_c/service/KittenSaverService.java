@@ -17,6 +17,8 @@ public interface KittenSaverService {
 
   Meeting createMeeting(Meeting meeting);
 
+  Meeting validateMeeting(Meeting meeting);
+
   Meeting updateMeeting(Meeting meeting);
 
   List<Meeting> getMeetingByUserId(String userId);
@@ -40,5 +42,7 @@ public interface KittenSaverService {
   String getUserTimezone(User user);
 
   String getUserTimezone(String username);
+
+  void setUserTimezone(String username, String timezone);
 
 }

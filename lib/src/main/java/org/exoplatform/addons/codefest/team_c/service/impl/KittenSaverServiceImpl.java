@@ -21,15 +21,19 @@ import org.exoplatform.addons.codefest.team_c.domain.Choice;
 import org.exoplatform.addons.codefest.team_c.domain.Meeting;
 import org.exoplatform.addons.codefest.team_c.domain.Option;
 import org.exoplatform.addons.codefest.team_c.domain.User;
+import org.exoplatform.addons.codefest.team_c.notifications.KittenNotificationPlugin;
 import org.exoplatform.addons.codefest.team_c.service.KittenSaverService;
+import org.exoplatform.calendar.service.Calendar;
+import org.exoplatform.calendar.service.CalendarEvent;
+import org.exoplatform.calendar.service.CalendarService;
+import org.exoplatform.commons.api.notification.NotificationContext;
+import org.exoplatform.commons.api.notification.model.PluginKey;
 import org.exoplatform.commons.api.settings.SettingService;
 import org.exoplatform.commons.api.settings.SettingValue;
 import org.exoplatform.commons.api.settings.data.Context;
 import org.exoplatform.commons.api.settings.data.Scope;
+import org.exoplatform.commons.notification.impl.NotificationContextImpl;
 import org.exoplatform.container.PortalContainer;
-import org.exoplatform.calendar.service.Calendar;
-import org.exoplatform.calendar.service.CalendarEvent;
-import org.exoplatform.calendar.service.CalendarService;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
@@ -72,7 +76,28 @@ public class KittenSaverServiceImpl implements KittenSaverService {
 
   @Override
   public Meeting createMeeting(Meeting meeting) {
-    return kittenSaviorDAO.createMeeting(meeting);
+    Meeting meetingNew = kittenSaviorDAO.createMeeting(meeting);
+    createNotification(meeting);
+    return meetingNew;
+  }
+
+  @Override
+  public void setUserTimezone(String username, String timezone) {
+    User user = getUserByUsername(username);
+    user.setTimezone(timezone);
+    kittenSaviorDAO.updateUser(user);
+  }
+
+  @Override
+  public Meeting validateMeeting(Meeting meeting) {
+    Meeting meetingValidated = updateMeeting(meeting);
+    createNotification(meeting);
+    return meetingValidated;
+  }
+
+  private void createNotification(Meeting meeting) {
+    NotificationContext context = NotificationContextImpl.cloneInstance().append(KittenNotificationPlugin.MEETING, meeting);
+    context.getNotificationExecutor().with(context.makeCommand(PluginKey.key(KittenNotificationPlugin.ID))).execute(context);
   }
 
   private void createCalendarEvent(Meeting meeting) {
@@ -129,6 +154,8 @@ public class KittenSaverServiceImpl implements KittenSaverService {
     }
     return kittenSaviorDAO.updateMeeting(meeting);
   }
+
+
 
   @Override
   public List<Meeting> getMeetingByUser(User user) {
@@ -211,8 +238,7 @@ public class KittenSaverServiceImpl implements KittenSaverService {
 
   @Override
   public String getUserTimezone(String username) {
-    SettingValue<String> value = (SettingValue<String>)settingService.get(Context.USER, Scope.GLOBAL, key(username));
-    return value == null ? null : value.getValue() ;
+    return getUserByUsername(username).getTimezone();
   }
 }
 
