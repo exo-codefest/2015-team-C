@@ -69,7 +69,11 @@ public class KittenSaviorDAOImpl implements KittenSaviorDAO {
 
       //User
       User root = new User("root", "Europe/Paris");
+root.setFirstName("Thibault");
+root.setLastName("Clement");
       User john = new User("john", "Asia/Saigon");
+      john.setFirstName("Philippe");
+      john.setLastName("Aristote");
       User mary = new User("mary", "Africa/Tunis");
       User fred = new User("fred", "Europe/Paris");
       User patrice = new User("patrice", "Europe/Paris");

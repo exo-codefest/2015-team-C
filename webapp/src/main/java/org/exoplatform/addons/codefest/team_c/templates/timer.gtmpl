@@ -1,0 +1,73 @@
+#{param name=u/}
+#{param name=start/}
+#{param name=end/}
+
+<%
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.TimeZone;
+%>
+
+<%
+	DateFormat formater = SimpleDateFormat.getDateInstance();		      
+	
+   def uTz = TimeZone.getTimeZone(u.getTimezone());
+	def tz = uTz.getRawOffset()/(1000*60*60);			
+	
+	def uCal = Calendar.getInstance(uTz);
+	uCal.setTimeInMillis(start);
+	def uStart = uCal.get(Calendar.HOUR);
+	def startDate = formater.format(uCal.getTime());
+	uCal.setTimeInMillis(end);
+	def uEnd = uCal.get(Calendar.HOUR);
+	def endDate = formater.format(uCal.getTime());
+%>
+<div class="container srt <%=u.getName()%>" data-tz="${tz}" data-user="<%=u.getName()%>">
+	<div style="position: relative; height: 0px">
+		<div class="buttons">
+			<a title="Remove from the list" class="close"></a>
+		</div>
+	</div>
+	<div class="icon">
+		<span>${tz}</span>
+	</div>
+	<div class="location" style="cursor: move; width: 104px;">
+		<div class="city">
+			<b><%=u.getFirstName() + " " + u.getLastName()%></b>
+		</div>
+	</div>
+	<div class="data data_faded"
+		style="cursor: move; width: 164px; margin-left: 0px; left: 140px">
+		<div class="time">
+			<span class="th">${uStart}</span><span class="ts">:</span><span
+				class="tm">00</span><span class="ampm"></span>
+		</div>
+		<div class="date">${startDate}</div>
+		<div class="data-end">
+			<div class="time">
+				<span class="separ">-</span><span class="th">${uEnd}</span><span
+					class="ts">:</span><span class="tm">00</span><span class="ampm"></span>
+			</div>
+			<div class="date">${endDate}</div>
+		</div>
+	</div>
+
+	<div class="hourline">
+		<ul class="_24 m00"></ul>
+	</div>
+</div>
+<script type="text/javascript">
+	$(function() {
+	  var $container = $('.<%=u.getName()%>');
+	  var homeTz = $('.container').first().data('tz');
+	  new Timer({
+		  $container : $container,
+		  tz : parseInt($container.data('tz')),
+		  homeTz : parseInt(homeTz)
+		}).render();
+
+	  band.registerEvent();
+	});
+</script>

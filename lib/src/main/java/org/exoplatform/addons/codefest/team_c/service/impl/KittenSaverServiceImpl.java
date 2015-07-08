@@ -75,6 +75,11 @@ public class KittenSaverServiceImpl implements KittenSaverService {
     createNotification(meeting);
     return meetingNew;
   }
+  
+  @Override
+  public Option createOption(Option o) {
+    return kittenSaviorDAO.createOption(o);
+  }
 
   @Override
   public void setUserTimezone(String username, String timezone) {
@@ -218,7 +223,7 @@ public class KittenSaverServiceImpl implements KittenSaverService {
     if (user.getTimezone() == null) {
       user.setTimezone(getUserTimezone(user));
     }
-    return user;
+    return user;      
   }
 
   private String key(String username) {

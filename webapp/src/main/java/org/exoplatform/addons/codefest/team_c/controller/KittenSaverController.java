@@ -16,26 +16,38 @@
 */
 package org.exoplatform.addons.codefest.team_c.controller;
 
+import javax.inject.Inject;
+
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.TimeZone;
+
 import juzu.Action;
+import juzu.MimeType;
 import juzu.Path;
+import juzu.Resource;
 import juzu.Response;
 import juzu.View;
 import juzu.impl.common.Tools;
+import juzu.plugin.ajax.Ajax;
 import juzu.request.SecurityContext;
+
 import org.exoplatform.addons.codefest.team_c.domain.Choice;
 import org.exoplatform.addons.codefest.team_c.domain.Meeting;
 import org.exoplatform.addons.codefest.team_c.domain.Option;
+import org.exoplatform.addons.codefest.team_c.domain.User;
 import org.exoplatform.addons.codefest.team_c.model.MeetingInfos;
 import org.exoplatform.addons.codefest.team_c.model.UserChoice;
 import org.exoplatform.addons.codefest.team_c.service.KittenSaverService;
 import org.exoplatform.services.log.ExoLogger;
 import org.exoplatform.services.log.Log;
-
-import javax.inject.Inject;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.TimeZone;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 /**
  * Created by The eXo Platform SAS
@@ -53,10 +65,14 @@ public class KittenSaverController {
   @Inject
   @Path("index.gtmpl")
   org.exoplatform.addons.codefest.team_c.templates.index index;
-
+  
   @Inject
   @Path("add.gtmpl")
   org.exoplatform.addons.codefest.team_c.templates.add add;
+  
+  @Inject
+  @Path("timer.gtmpl")
+  org.exoplatform.addons.codefest.team_c.templates.timer timer;
 
   @Inject
   @Path("choose.gtmpl")
@@ -96,8 +112,78 @@ public class KittenSaverController {
   }
 
   @View
-  public Response.Content addView() {
-    return add.ok();
+  public Response.Content addView(SecurityContext securityContext) {    
+    List<User> users = new LinkedList<User>();
+    User creator = kittenSaverService.getUserByUsername(securityContext.getRemoteUser());
+    users.add(creator);
+    return add.with().users(users).ok();
+  }
+  
+  @Resource
+  @Ajax
+  @MimeType.HTML  
+  public Response addUser(String username, Long start, Long end) {
+    User user = kittenSaverService.getUserByUsername(username);
+    if (user == null) {
+      return Response.notFound();
+    } else {
+      return timer.with().u(user).start(start).end(end)
+          .ok().withCharset(Tools.UTF_8);
+    }
+  }
+  
+  @Resource
+  @Ajax
+  @MimeType.JSON
+  public Response addOption(Long start, Long end, SecurityContext securityContext) throws JSONException {
+    User user = kittenSaverService.getUserByUsername(securityContext.getRemoteUser());
+    TimeZone timezone = TimeZone.getTimeZone(user.getTimezone());
+    Calendar sCal = Calendar.getInstance(timezone);
+    sCal.setTimeInMillis(start);
+    Calendar eCal = Calendar.getInstance(timezone);
+    eCal.setTimeInMillis(end);
+
+    JSONObject json = new JSONObject();
+    json.put("start", format(sCal));
+    json.put("end", format(eCal));
+    
+    return Response.ok(json.toString()).withCharset(Tools.UTF_8);
+  }
+  
+  private String format(Calendar time) {
+    StringBuilder builder = new StringBuilder();
+    builder.append(time.get(Calendar.YEAR)).append("/");
+    builder.append(time.get(Calendar.MONTH)).append("/");
+    builder.append(time.get(Calendar.DATE)).append("  ");
+    builder.append(time.get(Calendar.HOUR)).append(":");
+    builder.append(time.get(Calendar.MINUTE));
+    return builder.toString();
+  }
+
+  @Resource
+  @Ajax
+  @MimeType.JSON
+  public Response addMeeting(String title, String description, String participants, String options, SecurityContext securityContext) throws JSONException {
+    List<String> pars = new LinkedList<String>(Arrays.asList(participants.split(",")));
+    List<Long> opts = new LinkedList<Long>();
+    for (String opt : options.split(",")) {
+      String[] time = opt.split("/");
+      Date startDate = new Date();
+      startDate.setTime(Long.parseLong(time[0]));
+      Date endDate = new Date();
+      endDate.setTime(Long.parseLong(time[1]));
+      Option o = new Option(new LinkedList<Long>(), startDate, endDate);
+      kittenSaverService.createOption(o);
+      opts.add(o.getId());
+    }    
+    
+    User user = kittenSaverService.getUserByUsername(securityContext.getRemoteUser());
+    Meeting meeting = new Meeting(title, description, user, Meeting.STATUS_OPENED, pars, opts, null);
+    kittenSaverService.createMeeting(meeting);
+    
+    JSONObject json = new JSONObject();
+    json.put("url", KittenSaverController_.index());
+    return Response.ok(json.toString()).withCharset(Tools.UTF_8);
   }
 
   @View

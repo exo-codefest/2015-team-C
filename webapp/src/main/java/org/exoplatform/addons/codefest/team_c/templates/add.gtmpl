@@ -1,3 +1,13 @@
+#{param name=users/}
+
+<%
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.TimeZone;
+%>
+
 <div class="hero-unit" align="right">
     <h1>Kitten Savior</h1>
     <p class="lead" align="right">Everytime you don't make a choice a kitten dies !</p>
@@ -9,7 +19,129 @@
     </div>
 </div>
 <div class="meeting-main-part">
+	<input type="text" name="title" placeholder="title"/>
+	<input type="text" name="description" placeholder="description"/>
+	<div class="choice"></div>
+	<div id="locations_wrapper" style="margin-left: 23px">
+	<div id="locations">
+		<!-- toolbar -->
+		<div style="position: relative; display: block;" id="toolbar-default"
+			class="toolbar">
+			<!-- Sort by offset from home buttons -->
+			<span
+				style="text-align: center; width: 41px; cursor: default; margin-top: 12px;"
+				id="sorter" class="item"> 
+				<a title="Sort by smallest offset first" class="sort-up"></a>
+				<a title="Sort by largest offset first" class="sort-down"></a>
+			</span>
+	
+			<!-- Location search -->
+			<span class="item">
+				<div id="searchIcon"></div>					
+			   <input type="text" maxlength="50" id="location" name="username" autocomplete="off" value="" placeholder="Add user">
+			   <button class="addOption">Add option</button>			   
+			</span> 
+			<span style="width: 35px; text-align: center; margin-top: 7px;" class="item">
+			</span>
+	
+			<!-- Inline calendar -->		
+		</div>
+		<!-- end of toolbar -->
+		<%
+			def today = Calendar.getInstance();
 
-    Add Part
-
+			def homeUser = users.get(0);
+			def timezone = TimeZone.getTimeZone(homeUser.getTimezone());		
+			Calendar cal = Calendar.getInstance(timezone);
+			cal.set(Calendar.DATE, today.get(Calendar.DATE));
+			cal.set(Calendar.MONTH, today.get(Calendar.MONTH));
+			cal.set(Calendar.YEAR, today.get(Calendar.YEAR));
+	      cal.set(Calendar.HOUR_OF_DAY, 0);
+	      cal.set(Calendar.MINUTE, 0);
+	      cal.set(Calendar.SECOND, 0);
+	      cal.set(Calendar.MILLISECOND, 0);
+	      def start = cal.getTimeInMillis();
+	      cal.set(Calendar.HOUR, 1);
+	      def end = cal.getTimeInMillis();	      
+		%>		
+		<div style="padding: 0 0px;" class="clientarea" data-starttime="${start}" data-endtime="${end}">
+			<div title="Jump to next day" id="quick-next-day"></div>
+			<div id="loading-overlay">
+				<div id="loading-overlay-bg"></div>
+				<div class="inProgress" id="loading-overlay-scroller"></div>
+			</div>
+			
+			<div id="controls">
+				<div id="glass"
+					style="z-index: 10000; top: 0px; left: 315px; right: 22px; bottom: 0px;"></div>
+				<div id="band-whiteout-left"
+					style="top: 14px; left: 315px; right: 528px; bottom: 11px; display: none;"></div>
+				<div id="band-whiteout-right"
+					style="top: 14px; left: 680px; right: 23px; bottom: 11px; display: none;"></div>
+				<div class="cband" original-title=""
+					style="width: 0px; border: 0px none; top: 14px; left: 315px; right: 667px; bottom: 14px; opacity: 0.1;"></div>
+				<div class="band" original-title=""
+					style="display: block; top: 11px; left: 317px; bottom: 11px; width: 29px">
+					<div style="display: none;"></div>					
+				</div>
+				<div class="band-handle" id="band-handle-left"
+					style="top: 11px; left: 480px; height: 154px;"></div>
+				<div class="band-handle" id="band-handle-right"
+					style="top: 11px; left: 676px; height: 154px;"></div>
+			</div>
+			
+			<%
+				DateFormat formater = SimpleDateFormat.getDateInstance();		      
+				for (def u : users) {
+				   def uTz = TimeZone.getTimeZone(u.getTimezone());
+					def tz = uTz.getRawOffset()/(1000*60*60);			
+					
+					def uCal = Calendar.getInstance(uTz);
+					uCal.setTimeInMillis(start);
+					def uStart = uCal.get(Calendar.HOUR);
+					def startDate = formater.format(uCal.getTime());
+					uCal.setTimeInMillis(end);
+					def uEnd = uCal.get(Calendar.HOUR);
+					def endDate = formater.format(uCal.getTime());
+			%>
+			<div class="container srt" data-tz="${tz}" data-user="<%=u.getName()%>">
+				<div style="position: relative; height: 0px">
+					<div class="buttons">
+						<a title="Remove from the list" class="close"></a>
+					</div>
+				</div>
+				<div class="icon">
+					<span>${tz}</span>
+				</div>
+				<div class="location" style="cursor: move; width: 104px;">
+					<div class="city">
+						<b><%=u.getFirstName() + " " + u.getLastName()%></b>
+					</div>
+				</div>
+				<div class="data data_faded"
+					style="cursor: move; width: 164px; margin-left: 0px;left: 140px">
+						<div class="time">
+							<span class="th">${uStart}</span><span class="ts">:</span><span
+								class="tm">00</span><span class="ampm"></span>
+						</div>
+						<div class="date">${startDate}</div>
+						<div class="data-end">
+							<div class="time">
+								<span class="separ">-</span><span class="th">${uEnd}</span><span
+									class="ts">:</span><span class="tm">00</span><span class="ampm"></span>
+							</div>
+							<div class="date">${endDate}</div>
+						</div>
+					</div>
+					
+					<div class="hourline">
+						<ul class="_24 m00">
+						</ul>
+					</div>
+				</div>
+				<%} %>
+			</div>			
+		</div>
+	</div>	
 </div>
+<button class="addMeeting">Add meeting</button>
