@@ -1,39 +1,32 @@
 package org.exoplatform.addons.codefest.team_c.notifications;
 
+import org.exoplatform.commons.api.notification.NotificationContext;
+import org.exoplatform.commons.api.notification.NotificationMessageUtils;
+import org.exoplatform.commons.api.notification.annotation.TemplateConfig;
+import org.exoplatform.commons.api.notification.annotation.TemplateConfigs;
+import org.exoplatform.commons.api.notification.channel.template.AbstractTemplateBuilder;
+import org.exoplatform.commons.api.notification.model.MessageInfo;
+import org.exoplatform.commons.api.notification.model.NotificationInfo;
+import org.exoplatform.commons.api.notification.model.PluginKey;
+import org.exoplatform.commons.api.notification.service.template.TemplateContext;
+import org.exoplatform.commons.notification.template.TemplateUtils;
+import org.exoplatform.container.xml.InitParams;
+import org.exoplatform.social.notification.channel.template.WebTemplateProvider;
+import org.exoplatform.social.notification.plugin.*;
+import org.exoplatform.webui.utils.TimeConvertUtils;
+
 import java.io.Writer;
 import java.util.Calendar;
 import java.util.Locale;
 
 //import org.exoplatform.addons.codefest.team_c.domain.Meeting;
-import org.exoplatform.commons.api.notification.NotificationContext;
-import org.exoplatform.commons.api.notification.NotificationMessageUtils;
-import org.exoplatform.commons.api.notification.channel.template.AbstractTemplateBuilder;
-import org.exoplatform.commons.api.notification.model.MessageInfo;
-import org.exoplatform.commons.api.notification.model.NotificationInfo;
-import org.exoplatform.commons.api.notification.model.PluginKey;
 //import org.exoplatform.commons.api.notification.plugin.NotificationPluginUtils;
-import org.exoplatform.commons.api.notification.service.template.TemplateContext;
-import org.exoplatform.container.xml.InitParams;
 //import org.exoplatform.social.core.identity.model.Identity;
 //import org.exoplatform.social.core.identity.model.Profile;
 //import org.exoplatform.social.core.identity.provider.OrganizationIdentityProvider;
 //import org.exoplatform.social.core.service.LinkProvider;
 //import org.exoplatform.social.notification.Utils;
-import org.exoplatform.social.notification.channel.template.WebTemplateProvider;
-import org.exoplatform.commons.api.notification.annotation.TemplateConfig;
-import org.exoplatform.commons.api.notification.annotation.TemplateConfigs;
-import org.exoplatform.commons.notification.template.TemplateUtils;
-import org.exoplatform.social.notification.plugin.ActivityCommentPlugin;
-import org.exoplatform.social.notification.plugin.ActivityMentionPlugin;
-import org.exoplatform.social.notification.plugin.LikePlugin;
-import org.exoplatform.social.notification.plugin.NewUserPlugin;
-import org.exoplatform.social.notification.plugin.PostActivityPlugin;
-import org.exoplatform.social.notification.plugin.PostActivitySpaceStreamPlugin;
-import org.exoplatform.social.notification.plugin.RelationshipReceivedRequestPlugin;
-import org.exoplatform.social.notification.plugin.RequestJoinSpacePlugin;
 //import org.exoplatform.social.notification.plugin.SocialNotificationUtils;
-import org.exoplatform.social.notification.plugin.SpaceInvitationPlugin;
-import org.exoplatform.webui.utils.TimeConvertUtils;
 
 @TemplateConfigs (
 		   templates = {
@@ -71,7 +64,7 @@ public class KittenWebTemplateProvider extends WebTemplateProvider {
 			templateContext.put("READ", Boolean.valueOf(notification.getValueOwnerParameter(NotificationMessageUtils.READ_PORPERTY.getKey())) ? "read" : "unread");
 			templateContext.put("NOTIFICATION_ID", notification.getId());
 			templateContext.put("LAST_UPDATED_TIME", TimeConvertUtils.convertXTimeAgoByTimeServer(cal.getTime(), "EE, dd yyyy", new Locale(language), TimeConvertUtils.YEAR));
-			templateContext.put("TITLE", notification.getTitle());
+			templateContext.put("TITLE", notification.getTitle()+"A new meeting created ! Come and vote to save kittens !");
 			//templateContext.put("USER", meeting.getCreator().getName());
 			//templateContext.put("TITLE", meeting.getTitle());
 			//templateContext.put("USER", userProfile.getFullName());
