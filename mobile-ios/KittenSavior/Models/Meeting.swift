@@ -30,13 +30,21 @@ class Meeting: NSObject {
         return schelduleDesc
     }
     
+    func initParticipantsForAllOptions() {
+        for time in self.options {
+            time.participants = self.getParticipantsList(time)
+        }
+    }
     
     func getParticipantsList (time:Time) -> Array<String> {
         var a = Array<String>()
-        for c in self.choices as! Array<Choice>  {
-            if (c.choice == true) && (c.time_id == time.time_id){
-                a.append(c.username!)
+        if self.choices != nil {
+            for c in self.choices as! Array<Choice>  {
+                if (c.choice == true) && (c.time_id == time.time_id){
+                    a.append(c.username!)
+                }
             }
+            
         }
         return a
     }

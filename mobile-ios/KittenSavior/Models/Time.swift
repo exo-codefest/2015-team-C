@@ -12,8 +12,12 @@ class Time: NSObject {
     var time_id:Int = 0
     var start_time:Double = 0
     var end_time:Double = 0
+    var participants:Array<String> = Array()
     
-    var selectedByThisUser:Bool = false
+    func selectedByUser(user:User) ->Bool{
+         return find(participants, user.username) != nil
+    }
+    
     func getTitle() -> String {
         var start_date = NSDate(timeIntervalSince1970:self.start_time )
         var end_date = NSDate(timeIntervalSince1970: self.end_time)

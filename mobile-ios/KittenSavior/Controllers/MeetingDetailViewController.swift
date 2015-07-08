@@ -41,14 +41,17 @@ class MeetingDetailViewController: UIViewController {
         let cell = tableView.dequeueReusableCellWithIdentifier("OptionTableViewCell", forIndexPath: indexPath) as! OptionTableViewCell
         var time = meeting.options[indexPath.row]
         cell.configure(time)
-        cell.desc.attributedText = self.attributedDesc(time)
         cell.participeButton.addTarget(self, action: "checkForOptionAtCell:", forControlEvents: UIControlEvents.TouchUpInside)
+        if meeting.status == "closed" {
+            cell.participeButton.enabled = false
+        }
         if loaded {
+            cell.desc.attributedText = self.attributedDesc(time)
             cell.participeButton.hidden = false
             cell.desc.hidden = false
             cell.loadingIndicator.hidden = true
             
-            if time.selectedByThisUser {
+            if time.selectedByUser(user) {
                 cell.participeButton.setImage(UIImage(named: "check.png"), forState: UIControlState.Normal)
             } else {
                 cell.participeButton.setImage(UIImage(named: "uncheck.png"), forState: UIControlState.Normal)
@@ -62,7 +65,17 @@ class MeetingDetailViewController: UIViewController {
     }
     
     func attributedDesc(time:Time) ->NSAttributedString{
-        var attributedString = NSAttributedString(string: "2 participants")
+        var desc = ""
+        if (time.participants.count == 0) {
+            desc = "be the first participant of this schedule"
+        } else {
+            desc = "\(time.participants.count) participants"
+            for username in time.participants {
+                desc += ", "+username
+            }
+        }
+        
+        var attributedString = NSMutableAttributedString(string: desc)
         return attributedString
     }
     
@@ -71,27 +84,57 @@ class MeetingDetailViewController: UIViewController {
         var cell = sender!.superview!!.superview as! OptionTableViewCell
         var indexPath = self.tableView.indexPathForCell(cell)
         var time = meeting.options[indexPath!.row]
-        time.selectedByThisUser = !time.selectedByThisUser
-        if time.selectedByThisUser {
-            cell.participeButton.setImage(UIImage(named: "check.png"), forState: UIControlState.Normal)
+        if  time.selectedByUser(user) {
+            time.participants.removeAtIndex(find(time.participants, user.username)!)
         } else {
-            cell.participeButton.setImage(UIImage(named: "uncheck.png"), forState: UIControlState.Normal)
+            time.participants.append(user.username)
         }
+        self.tableView.reloadData()
         self.sendRequetToSelectTime(time)
-        
     }
     
     
     func sendRequetToSelectTime(time:Time) {
-        var request = NSMutableURLRequest(URL: NSURL(string: (serverBaseURL+"kittenSavior/meetings/\(meeting.id)/choices/"))!)
-        var session = NSURLSession.sharedSession()
+        var urlString = serverBaseURL+"kittenSavior/meetings/\(meeting.id)/options/\(time.time_id)/choices/"
+        var request = NSMutableURLRequest(URL: NSURL(string: urlString)!)
+        var configsession = NSURLSessionConfiguration.defaultSessionConfiguration()
+        var session = NSURLSession(configuration: configsession)
         request.HTTPMethod = "POST"
-         var params = ["time_id":"\(time.time_id)", "user":user.username, "choice":"\(time.selectedByThisUser)"] as Dictionary<String, String>
+         var params = ["participant":user.username, "choice":"\(time.selectedByUser(user))"] as Dictionary<String, String>
          var err: NSError?
         request.HTTPBody = NSJSONSerialization.dataWithJSONObject(params, options: nil, error: &err)
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
         request.addValue("application/json", forHTTPHeaderField: "Accept")
-        var task = session.dataTaskWithRequest(request, completionHandler:nil)
+        var error:NSError?
+        var task = session.dataTaskWithRequest(request, completionHandler: {data, response, error -> Void in
+            println("Response: \(response)")
+            var strData = NSString(data: data, encoding: NSUTF8StringEncoding)
+            println("Body: \(strData)")
+            var err: NSError?
+            var json = NSJSONSerialization.JSONObjectWithData(data, options: .MutableLeaves, error: &err) as? NSDictionary
+            
+            // Did the JSONObjectWithData constructor return an error? If so, log the error to the console
+            if(err != nil) {
+                println(err!.localizedDescription)
+                let jsonStr = NSString(data: data, encoding: NSUTF8StringEncoding)
+                println("Error could not parse JSON: '\(jsonStr)'")
+            }
+            else {
+                // The JSONObjectWithData constructor didn't return an error. But, we should still
+                // check and make sure that json has a value using optional binding.
+                if let parseJSON = json {
+                    // Okay, the parsedJSON is here, let's get the value for 'success' out of it
+                    var success = parseJSON["success"] as? Int
+                    println("Succes: \(success)")
+                }
+                else {
+                    // Woa, okay the json object was nil, something went worng. Maybe the server isn't running?
+                    let jsonStr = NSString(data: data, encoding: NSUTF8StringEncoding)
+                    println("Error could not parse JSON: \(jsonStr)")
+                }
+            }
+        })
+        
         task.resume()
         
     }
@@ -113,8 +156,8 @@ class MeetingDetailViewController: UIViewController {
         //TODO: change the setting
         var mapping = RKObjectMapping(forClass: Choice.self)
         mapping.addAttributeMappingsFromDictionary([
-            "id":"time_id",
-            "username": "username",
+            "time_id":"time_id",
+            "user": "username",
             "choice": "choice"])
         
         var path = "kittenSavior/meetings/\(meeting.id)/choices"
@@ -127,6 +170,7 @@ class MeetingDetailViewController: UIViewController {
             var objects:Array = mappingResult.array()
             if (objects.count>0){
                 self.meeting.choices = objects
+                self.meeting.initParticipantsForAllOptions()
                 self.loaded = true;
                 self.tableView.reloadData()
             } else {
