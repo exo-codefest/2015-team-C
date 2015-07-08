@@ -1,0 +1,8 @@
+platform :ios, '8.0'
+
+workspace 'KittenSavior'
+xcodeproj 'KittenSavior.xcodeproj'
+
+pod 'RestKit', '~> 0.24'
+
+
