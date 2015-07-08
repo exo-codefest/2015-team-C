@@ -42,7 +42,7 @@ class MeetingStreamViewController: UIViewController {
                 m1.desc = "Kitten Savoir ale hop"
                 m1.status = "opened"
                 var m2 = Meeting();
-                m2.name = "Kitten Savoir 2222"
+                m2.name = "Meeting"
                 m2.desc = "Kitten Savoir ale hop"
                 m2.status = "closed"
 
@@ -86,7 +86,12 @@ class MeetingStreamViewController: UIViewController {
     // MARK: - Navigation
 
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        
+        if (segue.identifier == "showMeetingDetail"){
+            var meetingDetailVC = segue.destinationViewController as! MeetingDetailViewController
+            var indexPath = self.tableView.indexPathForSelectedRow()
+            var meeting = meetingArray[indexPath!.row]
+            meetingDetailVC.meeting = meeting
+        }
     }
 
 }

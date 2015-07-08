@@ -9,19 +9,71 @@
 import UIKit
 
 class MeetingDetailViewController: UIViewController {
-
+    
+    var meeting:Meeting!
+    var choiceArray:Array<Choice>!
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
+        self.loadChoice()
     }
 
+    func loadChoice() {    
+        
+        var objectManager = RKObjectManager.sharedManager()
+        RKObjectManager.setSharedManager(objectManager)
+        
+        //TODO: change the setting
+        var mapping = RKObjectMapping(forClass: ServerInfo.self)
+        var dictMapping = ["platformVersion":"platformVersion","platformRevision":"platformRevision", "currentRepoName":"currentRepoName","defaultWorkSpaceName":"defaultWorkSpaceName","userHomeNodePath":"userHomeNodePath"];
+        mapping.addAttributeMappingsFromDictionary(dictMapping)
+        
+        var responseDescriptor = RKResponseDescriptor(mapping: mapping, method: RKRequestMethod.GET, pathPattern: "private/platform/info", keyPath: nil, statusCodes: NSIndexSet(index: 200))
+        
+        objectManager.addResponseDescriptor(responseDescriptor)
+        
+        objectManager.getObjectsAtPath("private/platform/info", parameters: nil, success: { (operation, mappingResult) -> Void in
+            var objects:Array = mappingResult.array()
+            if (objects.count>0){
+            } else {
+                self.failure();
+            }
+            }, failure:{ (operation, error) -> Void in
+                self.failure();
+        })
+        
+    }
+    
+    func failure() {
+        var alert = UIAlertView(title: "Login error", message: "", delegate: nil, cancelButtonTitle: "OK")
+        alert.show()
+        
+    }
+
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
     
 
+    
+    // MARK: - Table view data source
+    
+    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+        return 1
+    }
+    
+    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return meeting.options.count
+    }
+    
+    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCellWithIdentifier("OptionTableViewCell", forIndexPath: indexPath) as! OptionTableViewCell
+        var time = meeting.options[indexPath.row]
+        cell.configure(time)
+        return cell
+    }
+
+    
     /*
     // MARK: - Navigation
 

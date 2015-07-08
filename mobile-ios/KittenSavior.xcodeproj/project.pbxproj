@@ -26,6 +26,8 @@
 		9C4245DF1B4BDEEF002A505F /* CircleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C4245DE1B4BDEEF002A505F /* CircleView.swift */; };
 		9C4245E31B4BE822002A505F /* closed.png in Resources */ = {isa = PBXBuildFile; fileRef = 9C4245E11B4BE822002A505F /* closed.png */; };
 		9C4245E41B4BE822002A505F /* opened.png in Resources */ = {isa = PBXBuildFile; fileRef = 9C4245E21B4BE822002A505F /* opened.png */; };
+		9C4245E61B4CC3FC002A505F /* OptionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C4245E51B4CC3FC002A505F /* OptionTableViewCell.swift */; };
+		9C4245EA1B4CC736002A505F /* ParticipantsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C4245E91B4CC736002A505F /* ParticipantsViewController.swift */; };
 		E58D52CD270F97D51D858559 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5BD3AC542902DA1A961D4DCA /* libPods.a */; };
 /* End PBXBuildFile section */
 
@@ -61,10 +63,12 @@
 		9C4245D71B4B7BB6002A505F /* Choice.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Choice.swift; sourceTree = "<group>"; };
 		9C4245D91B4B953A002A505F /* KittenSavior-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "KittenSavior-Bridging-Header.h"; sourceTree = "<group>"; };
 		9C4245DA1B4B985F002A505F /* ServerInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ServerInfo.swift; sourceTree = "<group>"; };
-		9C4245DC1B4BC658002A505F /* ILTranslucentView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ILTranslucentView.swift; path = Views/ILTranslucentView.swift; sourceTree = "<group>"; };
+		9C4245DC1B4BC658002A505F /* ILTranslucentView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ILTranslucentView.swift; sourceTree = "<group>"; };
 		9C4245DE1B4BDEEF002A505F /* CircleView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CircleView.swift; sourceTree = "<group>"; };
 		9C4245E11B4BE822002A505F /* closed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = closed.png; sourceTree = "<group>"; };
 		9C4245E21B4BE822002A505F /* opened.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = opened.png; sourceTree = "<group>"; };
+		9C4245E51B4CC3FC002A505F /* OptionTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OptionTableViewCell.swift; sourceTree = "<group>"; };
+		9C4245E91B4CC736002A505F /* ParticipantsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ParticipantsViewController.swift; sourceTree = "<group>"; };
 		B5476656546063B8EF8E5409 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 		C0BFD5770F166ADE9F589100 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -138,7 +142,6 @@
 				9C4245AB1B4A9377002A505F /* LaunchScreen.xib */,
 				9C4245A01B4A9377002A505F /* Supporting Files */,
 				9C4245D91B4B953A002A505F /* KittenSavior-Bridging-Header.h */,
-				9C4245DC1B4BC658002A505F /* ILTranslucentView.swift */,
 			);
 			path = KittenSavior;
 			sourceTree = "<group>";
@@ -174,6 +177,7 @@
 				9C4245C31B4A9429002A505F /* LoginViewController.swift */,
 				9C4245C51B4A9429002A505F /* MeetingStreamViewController.swift */,
 				9C4245C41B4A9429002A505F /* MeetingDetailViewController.swift */,
+				9C4245E91B4CC736002A505F /* ParticipantsViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -203,7 +207,9 @@
 			isa = PBXGroup;
 			children = (
 				9C4245CC1B4A9429002A505F /* MeetingTableViewCell.swift */,
+				9C4245E51B4CC3FC002A505F /* OptionTableViewCell.swift */,
 				9C4245DE1B4BDEEF002A505F /* CircleView.swift */,
+				9C4245DC1B4BC658002A505F /* ILTranslucentView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -363,10 +369,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9C4245EA1B4CC736002A505F /* ParticipantsViewController.swift in Sources */,
 				9C4245DF1B4BDEEF002A505F /* CircleView.swift in Sources */,
 				9C4245CD1B4A9429002A505F /* LoginViewController.swift in Sources */,
 				9C4245D01B4A9429002A505F /* Meeting.swift in Sources */,
 				9C4245D11B4A9429002A505F /* Time.swift in Sources */,
+				9C4245E61B4CC3FC002A505F /* OptionTableViewCell.swift in Sources */,
 				9C4245DD1B4BC658002A505F /* ILTranslucentView.swift in Sources */,
 				9C4245D81B4B7BB6002A505F /* Choice.swift in Sources */,
 				9C4245DB1B4B985F002A505F /* ServerInfo.swift in Sources */,

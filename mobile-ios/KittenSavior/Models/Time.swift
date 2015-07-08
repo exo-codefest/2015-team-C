@@ -12,4 +12,12 @@ class Time: NSObject {
     var time_id:Int?
     var start_time:Int64?
     var end_time:Int64?
+    
+    func getTitle() -> String {
+        return "Title"
+    }
+    func getDescription() -> String {
+        return "Description"
+    }
+    
 }
