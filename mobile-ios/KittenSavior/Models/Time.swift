@@ -9,13 +9,13 @@
 import UIKit
 
 class Time: NSObject {
-    var time_id:Int?
-    var start_time:Double?
-    var end_time:Double?
+    var time_id:Int = 0
+    var start_time:Double = 0
+    var end_time:Double = 0
     
     func getTitle() -> String {
-        var start_date = NSDate(timeIntervalSince1970:self.start_time! )
-        var end_date = NSDate(timeIntervalSince1970: self.end_time!)
+        var start_date = NSDate(timeIntervalSince1970:self.start_time )
+        var end_date = NSDate(timeIntervalSince1970: self.end_time)
         var dateFormatter = NSDateFormatter()
         dateFormatter.dateFormat =  "MMM dd"
         var hourFormatter = NSDateFormatter()
@@ -32,9 +32,6 @@ class Time: NSObject {
             title = dateFormatter.stringFromDate(start_date) + " " + hourFormatter.stringFromDate(start_date) + " - "  +  dateFormatter.stringFromDate(end_date) + " " + hourFormatter.stringFromDate(end_date)
         }
         return title
-    }
-    func getDescription() -> String {
-        return "Description"
     }
     
 }

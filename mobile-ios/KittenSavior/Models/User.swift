@@ -9,7 +9,7 @@
 import UIKit
 
 class User: NSObject {
-    var usename:String!
+    var username:String!
     var password:String!
     var timezone:String?
     var firstname:String?

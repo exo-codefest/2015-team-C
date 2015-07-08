@@ -56,7 +56,9 @@ class LoginViewController: UIViewController {
     }
     
     func login(username:String, password:String){
-        self.user.usename = username
+            
+        
+        self.user.username = username
         self.user.password = password
         var objectManager = RKObjectManager.sharedManager()
         if (objectManager==nil){

@@ -43,7 +43,7 @@ class MeetingTableViewCell: UITableViewCell {
         if (meeting.status == "opened"){
             self.meetingStatusIcon.image = UIImage(named: "opened.png")
         } else {
-            self.meetingStatusIcon.image = UIImage(named: "closeed.png")            
+            self.meetingStatusIcon.image = UIImage(named: "closed.png")            
         }
     }
 }

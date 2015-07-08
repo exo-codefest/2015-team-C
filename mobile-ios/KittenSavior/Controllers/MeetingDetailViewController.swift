@@ -16,34 +16,8 @@ class MeetingDetailViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationItem.title = meeting.name;
-        self.loadChoice()
     }
 
-    func loadChoice() {    
-        
-        var objectManager = RKObjectManager.sharedManager()
-        RKObjectManager.setSharedManager(objectManager)
-        
-        //TODO: change the setting
-        var mapping = RKObjectMapping(forClass: ServerInfo.self)
-        var dictMapping = ["platformVersion":"platformVersion","platformRevision":"platformRevision", "currentRepoName":"currentRepoName","defaultWorkSpaceName":"defaultWorkSpaceName","userHomeNodePath":"userHomeNodePath"];
-        mapping.addAttributeMappingsFromDictionary(dictMapping)
-        
-        var responseDescriptor = RKResponseDescriptor(mapping: mapping, method: RKRequestMethod.GET, pathPattern: "private/platform/info", keyPath: nil, statusCodes: NSIndexSet(index: 200))
-        
-        objectManager.addResponseDescriptor(responseDescriptor)
-        
-        objectManager.getObjectsAtPath("private/platform/info", parameters: nil, success: { (operation, mappingResult) -> Void in
-            var objects:Array = mappingResult.array()
-            if (objects.count>0){
-            } else {
-                self.failure();
-            }
-            }, failure:{ (operation, error) -> Void in
-                self.failure();
-        })
-        
-    }
     
     func failure() {
         var alert = UIAlertView(title: "Login error", message: "", delegate: nil, cancelButtonTitle: "OK")
@@ -80,7 +54,7 @@ class MeetingDetailViewController: UIViewController {
     
     func checkForOptionAtCell(sender: AnyObject?) {
     
-        var cell = sender!.superview as! OptionTableViewCell
+        var cell = sender!.superview!!.superview as! OptionTableViewCell
         
         
     }

@@ -20,7 +20,6 @@ class OptionTableViewCell: UITableViewCell {
     }
     func configure (time: Time) {
         self.title.text = time.getTitle()
-        self.desc.text = time.getDescription()
     }
 
     
