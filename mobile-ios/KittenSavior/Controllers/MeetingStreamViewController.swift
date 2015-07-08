@@ -66,24 +66,9 @@ class MeetingStreamViewController: UIViewController {
 
     }
     func failure() {
-//        var alert = UIAlertView(title: "Unable to load the meetings", message: "", delegate: nil, cancelButtonTitle: "OK")
-//        alert.show()
+        var alert = UIAlertView(title: "Unable to load the meetings", message: "", delegate: nil, cancelButtonTitle: "OK")
+        alert.show()
         // mini test
-        var m1 = Meeting();
-        m1.name = "Bia hơi"
-        m1.desc = "Kitten Savoir ale hop"
-        m1.status = "opened"
-        
-        var now = NSDate()
-        var timestamp = now.timeIntervalSince1970 as Double
-        var time = Time()
-        time.start_time = timestamp - 3600
-        time.end_time = timestamp - 600
-        m1.options = Array(arrayLiteral: time)
-        
-        self.meetingArray = Array(arrayLiteral: m1)
-        self.tableView.reloadData()
-
     }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -99,14 +84,19 @@ class MeetingStreamViewController: UIViewController {
     }
     func tableView(tableView: UITableView,
         numberOfRowsInSection section: Int) -> Int {
-        return meetingArray.count;
+        return max(meetingArray.count,1);
     }
     func tableView(tableView: UITableView,
         cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-            let cell = tableView.dequeueReusableCellWithIdentifier("meettingInfoCell", forIndexPath: indexPath) as! MeetingTableViewCell
-            var meeting = meetingArray[indexPath.row] as! Meeting
-            cell.configure(meeting)
-            return cell
+            if (meetingArray.count>0) {
+                let cell = tableView.dequeueReusableCellWithIdentifier("meettingInfoCell", forIndexPath: indexPath) as! MeetingTableViewCell
+                var meeting = meetingArray[indexPath.row] as! Meeting
+                cell.configure(meeting)
+                return cell
+            } else {
+                let cell = tableView.dequeueReusableCellWithIdentifier("loadingMeeting", forIndexPath: indexPath) as! UITableViewCell
+                return cell
+            }
     }
     // MARK: - Navigation
 
@@ -116,6 +106,7 @@ class MeetingStreamViewController: UIViewController {
             var indexPath = self.tableView.indexPathForSelectedRow()
             var meeting = meetingArray[indexPath!.row] as! Meeting
             meetingDetailVC.meeting = meeting
+            meetingDetailVC.user = user
         }
         self.tableView.reloadData()
     }

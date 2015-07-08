@@ -13,6 +13,7 @@ class Time: NSObject {
     var start_time:Double = 0
     var end_time:Double = 0
     
+    var selectedByThisUser:Bool = false
     func getTitle() -> String {
         var start_date = NSDate(timeIntervalSince1970:self.start_time )
         var end_date = NSDate(timeIntervalSince1970: self.end_time)

@@ -9,7 +9,7 @@
 import UIKit
 
 class Choice: NSObject {
-    var time_id:Int?
+    var time_id:Int = -1
     var username:String?
-    var choice:Bool?
+    var choice:Bool = false
 }

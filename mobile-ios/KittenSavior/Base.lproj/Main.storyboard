@@ -50,7 +50,7 @@
                                                             <fontDescription key="fontDescription" type="system" weight="medium" pointSize="17"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="desc" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5iW-L3-lM7">
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="desc" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="260" translatesAutoresizingMaskIntoConstraints="NO" id="5iW-L3-lM7">
                                                             <rect key="frame" x="17" y="23" width="32" height="18"/>
                                                             <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="15"/>
                                                             <color key="textColor" red="0.50196081399917603" green="0.50196081399917603" blue="0.50196081399917603" alpha="1" colorSpace="calibratedRGB"/>
@@ -111,6 +111,19 @@
                                             <outlet property="meettingStatus" destination="Wp9-mV-d4b" id="9Q5-al-4qm"/>
                                             <segue destination="hTf-s2-lTs" kind="push" identifier="showMeetingDetail" id="yyu-WB-sRf"/>
                                         </connections>
+                                    </tableViewCell>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="loadingMeeting" rowHeight="56" id="bef-Ms-SdK">
+                                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="bef-Ms-SdK" id="N7K-sx-ZnC">
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" hidesWhenStopped="YES" animating="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="nb2-q8-LBc">
+                                                    <rect key="frame" x="150" y="18" width="20" height="20"/>
+                                                    <color key="color" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                                </activityIndicatorView>
+                                            </subviews>
+                                        </tableViewCellContentView>
                                     </tableViewCell>
                                 </prototypes>
                                 <connections>
@@ -179,7 +192,7 @@
                                                 </label>
                                                 <button opaque="NO" alpha="0.39999999999999963" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tP2-2q-ZrU">
                                                     <rect key="frame" x="8" y="55" width="220" height="22"/>
-                                                    <color key="backgroundColor" red="0.90196079019999997" green="0.90196079019999997" blue="0.90196079019999997" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="22" id="czY-1a-a6w"/>
                                                     </constraints>
@@ -187,6 +200,9 @@
                                                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                                     </state>
                                                 </button>
+                                                <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" animating="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="GZE-DM-xax">
+                                                    <rect key="frame" x="277" y="29" width="20" height="20"/>
+                                                </activityIndicatorView>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wBF-ma-8OL">
                                                     <rect key="frame" x="262" y="14" width="50" height="50"/>
                                                     <constraints>
@@ -202,6 +218,8 @@
                                                 <constraint firstItem="QFX-3y-gMm" firstAttribute="top" secondItem="Ju8-iH-4Mj" secondAttribute="top" constant="14" id="4KN-0T-BBs"/>
                                                 <constraint firstItem="tP2-2q-ZrU" firstAttribute="width" secondItem="13U-Ij-CjB" secondAttribute="width" id="7oE-ZE-2QQ"/>
                                                 <constraint firstItem="13U-Ij-CjB" firstAttribute="leading" secondItem="Ju8-iH-4Mj" secondAttribute="leading" constant="8" id="7pO-Kc-h5V"/>
+                                                <constraint firstItem="GZE-DM-xax" firstAttribute="centerY" secondItem="wBF-ma-8OL" secondAttribute="centerY" id="CSf-n6-9p2"/>
+                                                <constraint firstItem="GZE-DM-xax" firstAttribute="centerX" secondItem="wBF-ma-8OL" secondAttribute="centerX" id="DJq-Tw-FBL"/>
                                                 <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="13U-Ij-CjB" secondAttribute="bottom" constant="2" id="GJ6-1N-ygh"/>
                                                 <constraint firstItem="QFX-3y-gMm" firstAttribute="leading" secondItem="Ju8-iH-4Mj" secondAttribute="leading" constant="8" id="GUx-8S-lwR"/>
                                                 <constraint firstItem="13U-Ij-CjB" firstAttribute="top" secondItem="QFX-3y-gMm" secondAttribute="bottom" constant="2" id="I8O-uy-Ut1"/>
@@ -213,6 +231,7 @@
                                         </tableViewCellContentView>
                                         <connections>
                                             <outlet property="desc" destination="13U-Ij-CjB" id="7Wv-O5-Zaq"/>
+                                            <outlet property="loadingIndicator" destination="GZE-DM-xax" id="Bwy-U3-xXj"/>
                                             <outlet property="participeButton" destination="wBF-ma-8OL" id="kAp-SD-9R6"/>
                                             <outlet property="title" destination="QFX-3y-gMm" id="VTK-VD-XIL"/>
                                         </connections>
@@ -227,6 +246,9 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                     <navigationItem key="navigationItem" id="O4E-5b-fez"/>
+                    <connections>
+                        <outlet property="tableView" destination="AbQ-GM-P12" id="HXU-Wh-Gra"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="m3V-oa-ktE" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

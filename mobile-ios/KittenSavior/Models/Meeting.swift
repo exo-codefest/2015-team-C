@@ -30,34 +30,6 @@ class Meeting: NSObject {
         return schelduleDesc
     }
     
-    func loadChoice() {
-        
-        var objectManager = RKObjectManager.sharedManager()
-        RKObjectManager.setSharedManager(objectManager)
-        
-        //TODO: change the setting
-        var mapping = RKObjectMapping(forClass: Choice.self)
-        mapping.addAttributeMappingsFromDictionary([
-            "id":"time_id",
-            "username": "username",
-            "choice": "choice"])
-        
-        var path = "/rest/kittenSavior/meetings/\(id)/choices"
-        
-        var responseDescriptor = RKResponseDescriptor(mapping: mapping, method: RKRequestMethod.GET, pathPattern: path, keyPath: nil, statusCodes: NSIndexSet(index: 200))
-        
-        objectManager.addResponseDescriptor(responseDescriptor)
-        
-        objectManager.getObjectsAtPath(path, parameters: nil, success: { (operation, mappingResult) -> Void in
-            var objects:Array = mappingResult.array()
-            if (objects.count>0){
-                self.choices = objects
-            } else {
-            }
-            }, failure:{ (operation, error) -> Void in
-        })
-        
-    }
     
     func getParticipantsList (time:Time) -> Array<String> {
         var a = Array<String>()
