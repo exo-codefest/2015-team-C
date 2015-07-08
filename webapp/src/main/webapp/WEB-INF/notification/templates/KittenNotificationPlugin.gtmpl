@@ -4,10 +4,7 @@
       <img src="/team-c-addon-webapp/image/divingCat.gif" alt="Kitten-Service"/>
     </div>
     <div class="media-body">
-      <%
-       String profileUrl = "<a class=\"user-name text-bold\" href=\"javascript:void(0)\">" + USER + "</a>";
-      %>
-        <div class="contentSmall" data-link="$PROFILE_URL">
+        <div class="contentSmall" data-link="/portal/intranet/Kitten">
           <div class="content">$TITLE</div>
           <div class="lastUpdatedTime"><i class="uiIcon uiIconTick uiIconLightGray"></i>$LAST_UPDATED_TIME</div>
         </div>
