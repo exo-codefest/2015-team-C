@@ -13,4 +13,11 @@
   </component>
 
 
+
+    <!-- TEST -->
+
+    <component>
+        <type>org.exoplatform.addons.codefest.team_c.service.test.TestKittenService</type>
+    </component>
+
 </configuration>

@@ -28,9 +28,13 @@ import org.exoplatform.commons.api.settings.SettingValue;
 import org.exoplatform.commons.api.settings.data.Context;
 import org.exoplatform.commons.api.settings.data.Scope;
 import org.exoplatform.container.PortalContainer;
+import org.exoplatform.calendar.service.Calendar;
+import org.exoplatform.calendar.service.CalendarEvent;
+import org.exoplatform.calendar.service.CalendarService;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.TimeZone;
@@ -52,10 +56,14 @@ public class KittenSaverServiceImpl implements KittenSaverService {
   @Inject
   private KittenSaviorDAO kittenSaviorDAO;
 
+  @Inject
+  private CalendarService calendarService;
+
   public KittenSaverServiceImpl()
   {
     this.kittenSaviorDAO = new KittenSaviorDAOImpl();
     this.settingService = (SettingService) PortalContainer.getInstance().getComponentInstance(SettingService.class);
+    this.calendarService = (CalendarService) PortalContainer.getInstance().getComponentInstance(CalendarService.class);
   }
 
   @Override
@@ -68,8 +76,58 @@ public class KittenSaverServiceImpl implements KittenSaverService {
     return kittenSaviorDAO.createMeeting(meeting);
   }
 
+  private void createCalendarEvent(Meeting meeting) {
+    for (String participant : meeting.getParticipants()) {
+      // Retrieve default calendar of the participant
+      String calId = getFirstCalendarId(participant);
+      // Event
+      CalendarEvent event = new CalendarEvent();
+      event.setCalendarId(calId);
+      event.setSummary(meeting.getTitle());
+      event.setDescription(meeting.getDescription());
+      event.setEventType(CalendarEvent.TYPE_EVENT);
+      event.setRepeatType(CalendarEvent.RP_NOREPEAT);
+      event.setPrivate(false);
+      event.setPriority(CalendarEvent.PRIORITY_NORMAL);
+      // Participants
+      int nbPart = meeting.getParticipants().size();
+      String[] participants = new String[nbPart];
+      meeting.getParticipants().toArray(participants);
+      event.setParticipant(participants);
+      // Date and Time
+      Option o = new Option();
+      event.setFromDateTime(o.getStartDate());
+      event.setToDateTime(o.getEndDate());
+      try {
+        calendarService.savePublicEvent(calId, event, true);
+      } catch (Exception e) {
+        e.printStackTrace();
+      }
+    }
+  }
+
+  private String getFirstCalendarId(String username) {
+
+    StringBuilder sb = new StringBuilder();
+    List<Calendar> listUserCalendar = null;
+    try {
+      listUserCalendar = calendarService.getUserCalendars(username, true);
+      if (listUserCalendar.size()>0) {
+        return listUserCalendar.get(0).getId();
+      }
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
+    return null;
+  }
+
   @Override
   public Meeting updateMeeting(Meeting meeting) {
+    if (Meeting.STATUS_CLOSED.equals(meeting.getStatus()) &&
+            meeting.getFinalOption() != null) {
+      // Create the calendar only when we close the meeting with a final choice
+      createCalendarEvent(meeting);
+    }
     return kittenSaviorDAO.updateMeeting(meeting);
   }
 
@@ -100,7 +158,12 @@ public class KittenSaverServiceImpl implements KittenSaverService {
 
   @Override
   public List<Choice> getChoicesByOption(Long optionId) {
-    return null;
+    List<Choice> results = new ArrayList<Choice>();
+    Option option = kittenSaviorDAO.getOptionById(optionId);
+    for (Long id : option.getChoices()) {
+      results.add(kittenSaviorDAO.getChoiceById(id));
+    }
+    return results;
   }
 
   @Override

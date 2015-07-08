@@ -45,9 +45,14 @@
         <scope>provided</scope>
       </dependency>
       <dependency>
-          <groupId>org.exoplatform.commons</groupId>
-          <artifactId>commons-api</artifactId>
-          <scope>provided</scope>
+        <groupId>org.exoplatform.commons</groupId>
+        <artifactId>commons-api</artifactId>
+        <scope>provided</scope>
+      </dependency>
+      <dependency>
+        <groupId>org.exoplatform.calendar</groupId>
+        <artifactId>calendar-service</artifactId>
+        <scope>provided</scope>
       </dependency>
       <dependency>
         <groupId>javax.annotation</groupId>

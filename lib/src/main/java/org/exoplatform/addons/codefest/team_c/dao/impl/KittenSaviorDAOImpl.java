@@ -93,6 +93,7 @@ public class KittenSaviorDAOImpl implements KittenSaviorDAO {
       options.put(withRootAndJohn.getId(), withRootAndJohn);
       options.put(withJohnNoRoot.getId(), withJohnNoRoot);
       options.put(withNoRootNoJohn.getId(), withNoRootNoJohn);
+      options.put(forBinch.getId(), forBinch);
 
       //Meeting
       Meeting meeting1 = new Meeting();

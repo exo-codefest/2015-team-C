@@ -28,6 +28,9 @@ public class Meeting {
 
   public static Long counterId = 0l;
 
+  public static final String STATUS_OPENED = "opened";
+  public static final String STATUS_CLOSED = "closed";
+
   private Long id;
   private String title;
   private String description;

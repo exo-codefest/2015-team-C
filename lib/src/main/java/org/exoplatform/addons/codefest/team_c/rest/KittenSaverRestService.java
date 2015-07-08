@@ -26,6 +26,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import javax.inject.Inject;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
@@ -40,6 +41,7 @@ import java.util.List;
 @Path("/kittenSavior")
 public class KittenSaverRestService implements ResourceContainer {
 
+  @Inject
   KittenSaverService kittenSaverService;
 
   public KittenSaverRestService(KittenSaverService kittenService) {
@@ -75,7 +77,7 @@ public class KittenSaverRestService implements ResourceContainer {
         meeting.put("id", m.getId());
         meeting.put("name", m.getTitle());
         meeting.put("description", m.getDescription());
-        meeting.put("creator", m.getCreator());
+        meeting.put("creator", m.getCreator().getName());
         meeting.put("status", m.getStatus());
         // Participants
         JSONArray participants = new JSONArray();

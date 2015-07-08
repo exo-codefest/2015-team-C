@@ -22,7 +22,8 @@
 @Bindings({
     @Binding(value = SettingService.class),
     @Binding(value = KittenSaviorDAO.class, implementation = KittenSaviorDAOImpl.class),
-    @Binding(value = KittenSaverService.class, implementation = KittenSaverServiceImpl.class)
+    @Binding(value = KittenSaverService.class, implementation = KittenSaverServiceImpl.class),
+    @Binding(value = CalendarService.class)
 })
 @Less({
     @Stylesheet(id = "style-less", value = "less/style.less")
@@ -42,4 +43,5 @@ import org.exoplatform.addons.codefest.team_c.dao.KittenSaviorDAO;
 import org.exoplatform.addons.codefest.team_c.dao.impl.KittenSaviorDAOImpl;
 import org.exoplatform.addons.codefest.team_c.service.KittenSaverService;
 import org.exoplatform.addons.codefest.team_c.service.impl.KittenSaverServiceImpl;
+import org.exoplatform.calendar.service.CalendarService;
 import org.exoplatform.commons.api.settings.SettingService;
