@@ -122,7 +122,7 @@ public class KittenSaviorDAOImpl implements KittenSaviorDAO {
 
       //Meeting
       Meeting meeting1 = new Meeting();
-      meeting1.setCreator(john);
+      meeting1.setCreator(root);
       meeting1.setTitle("Nap with Portal");
       meeting1.setDescription("Portal team is too tired, they need a nap.");
       meeting1.setStatus("opened");
