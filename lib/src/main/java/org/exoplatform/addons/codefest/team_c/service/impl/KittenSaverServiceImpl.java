@@ -17,7 +17,6 @@
 package org.exoplatform.addons.codefest.team_c.service.impl;
 
 import org.exoplatform.addons.codefest.team_c.dao.KittenSaviorDAO;
-import org.exoplatform.addons.codefest.team_c.dao.impl.KittenSaviorDAOImpl;
 import org.exoplatform.addons.codefest.team_c.domain.Choice;
 import org.exoplatform.addons.codefest.team_c.domain.Meeting;
 import org.exoplatform.addons.codefest.team_c.domain.Option;
@@ -61,7 +60,7 @@ public class KittenSaverServiceImpl implements KittenSaverService {
 
   public KittenSaverServiceImpl()
   {
-    this.kittenSaviorDAO = new KittenSaviorDAOImpl();
+    this.kittenSaviorDAO = (KittenSaviorDAO) PortalContainer.getInstance().getComponentInstance(KittenSaviorDAO.class);
     this.settingService = (SettingService) PortalContainer.getInstance().getComponentInstance(SettingService.class);
     this.calendarService = (CalendarService) PortalContainer.getInstance().getComponentInstance(CalendarService.class);
   }

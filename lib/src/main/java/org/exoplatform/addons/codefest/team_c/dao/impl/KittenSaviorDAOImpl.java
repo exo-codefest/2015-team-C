@@ -99,7 +99,7 @@ public class KittenSaviorDAOImpl implements KittenSaviorDAO {
       Meeting meeting1 = new Meeting();
       meeting1.setCreator(root);
       meeting1.setTitle("Kitten Help");
-      meeting1.setDescription("Help Kitten to do not died because of no choice");
+      meeting1.setDescription("Avoid killing kitten because of no choice");
       meeting1.setStatus("opened");
       meeting1.setOptions(new ArrayList<Long>(Arrays.asList(withRootNoJohn.getId(), withRootAndJohn.getId())));
       meeting1.setParticipants(new ArrayList<String>(Arrays.asList(root.getName(), john.getName())));
@@ -113,8 +113,28 @@ public class KittenSaviorDAOImpl implements KittenSaviorDAO {
       meeting2.setOptions(new ArrayList<Long>(Arrays.asList(withJohnNoRoot.getId(), withNoRootNoJohn.getId(), forBinch.getId())));
       meeting2.setParticipants(new ArrayList<String>(Arrays.asList(root.getName(), john.getName())));
 
+      //Meeting
+      Meeting meeting3 = new Meeting();
+      meeting3.setCreator(root);
+      meeting3.setTitle("Pirate Hiring");
+      meeting3.setDescription("Why join the navy if you can be a pirate?");
+      meeting3.setStatus("opened");
+      meeting3.setOptions(new ArrayList<Long>(Arrays.asList(withRootAndJohn.getId(), withRootAndJohn.getId())));
+      meeting3.setParticipants(new ArrayList<String>(Arrays.asList(root.getName(), john.getName())));
+
+      //Meeting
+      Meeting meeting4 = new Meeting();
+      meeting4.setCreator(root);
+      meeting4.setTitle("Save your time");
+      meeting4.setDescription("With this useless meeting");
+      meeting4.setStatus("opened");
+      meeting4.setOptions(new ArrayList<Long>(Arrays.asList(withRootNoJohn.getId(), withJohnNoRoot.getId())));
+      meeting4.setParticipants(new ArrayList<String>(Arrays.asList(root.getName(), john.getName())));
+
       meetings.put(meeting1.getId(), meeting1);
       meetings.put(meeting2.getId(), meeting2);
+      meetings.put(meeting3.getId(), meeting3);
+      meetings.put(meeting4.getId(), meeting4);
 
     } catch (ParseException e) {
       e.printStackTrace();

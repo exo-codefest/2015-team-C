@@ -4,6 +4,11 @@
                xmlns="http://www.exoplatform.org/xml/ns/kernel_1_2.xsd">
 
   <component>
+    <key>org.exoplatform.addons.codefest.team_c.dao.KittenSaviorDAO</key>
+    <type>org.exoplatform.addons.codefest.team_c.dao.impl.KittenSaviorDAOImpl</type>
+  </component>
+
+  <component>
     <key>org.exoplatform.addons.codefest.team_c.service.KittenSaverService</key>
     <type>org.exoplatform.addons.codefest.team_c.service.impl.KittenSaverServiceImpl</type>
   </component>
