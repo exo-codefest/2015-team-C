@@ -1,60 +1,71 @@
 #{param name=meeting/}
 #{param name=options/}
 #{param name=usersChoice/}
+#{param name=timzone/}
 
 <div class="hero-unit" align="right">
     <h1>Kitten Savior</h1>
     <p class="lead" align="right">Everytime you don't make a choice a kitten dies !</p>
 </div>
 <div class="meeting-actions">
+    <div class="meeting-timezone">
+        <h4>
+            <a href="@{ KittenSaverController.configView()}" title="Change your timezone" alt="Change your timezone"><img src="/team-c-addon-webapp/image/config.png"/> ${timzone}</a>
+        </h4>
+    </div>
     <div class="meeting-config">
         <a class="meeting-actions-add" href="@{ KittenSaverController.index()}"><img src="/team-c-addon-webapp/image/catlist.png" title="See meetings" alt="See meetings"/></a>
         <a class="meeting-actions-add" href="@{ KittenSaverController.addView()}"><img src="/team-c-addon-webapp/image/add.png" title="Add a meeting" alt="Add a meeting"/></a>
     </div>
 </div>
 <div class="meeting-main-part">
-
+    <div class="meeting-main-title">
+        <h3>${meeting.title}</h3>
+        <h5>by ${meeting.creator.name}</h5>
+        <h4>${meeting.description}</h4>
+    </div>
     <div class="meeting-choose-all">
-        <div>
-            <div class="span4">
+        <div class="span12 meeting-validate-line1">
+            <div class="span4 meeting-validate">
                 <h4>Proposed Meeting Times</h4>
             </div>
             <% options.each {option -> %>
             <div class="span2 meeting-choose-choice">
-                ${option.startDate.format('dd MMM yyyy')}<br/>
-                ${option.startDate.format('hh:mm')}<br/>
-                ${option.endDate.format('hh:mm')}<br/>
+                <h5>${option.startDate.format('dd MMM yyyy')}</h5>
+                <h6>${option.startDate.format('HH:mm')} - ${option.endDate.format('HH:mm')}</h6><br/>
             </div>
             <% } %>
         </div>
         <% usersChoice.each {usersChoice -> %>
-        <div>
-            <div class="span4">
+        <div class="span12 meeting-validate-line">
+            <div class="span4 meeting-validate">
                 <h4>${usersChoice.username}</h4>
             </div>
             <% usersChoice.choices.each {choice -> %>
             <div class="span2 meeting-choose-choice">
-                <%if (choice.choice ==true ) {%>
-                <img src="/team-c-addon-webapp/image/ok.png">
+                <%if (choice.choice == true ) {%>
+                <img src="/team-c-addon-webapp/image/okblack.png">
                 <% } else { %>
-                <img src="/team-c-addon-webapp/image/nok.png">
+                <img src="/team-c-addon-webapp/image/nokblack.png">
                 <% } %>
             </div>
             <% } %>
         </div>
         <% } %>
-        <div class="span4">
-            <h4>Validate</h4>
+        <div class="span12 meeting-validate-line">
+            <div class="span4 meeting-validate">
+                <h4> </h4>
+            </div>
+            <% options.each {option -> %>
+            <div class="span2 meeting-choose-choice">
+                <form action="@{KittenSaverController.validateMeeting()}" method="post">
+                    <input name="optionid" hidden="true" value="${option.id}">
+                    <input name="meetingid" hidden="true" value="${meeting.id}">
+                    <button type="submit" class="btn btn-primary">Validate</button>
+                </form>
+            </div>
+            <% } %>
         </div>
-        <% options.each {option -> %>
-        <div class="span2 meeting-choose-choice">
-            <form action="@{KittenSaverController.validateMeeting()}" method="post">
-                <input name="optionid" hidden="true" value="${option.id}">
-                <input name="meetingid" hidden="true" value="${meeting.id}">
-                <button type="submit" class="btn btn-primary">Validate</button>
-            </form>
-        </div>
-        <% } %>
     </div>
 
 </div>

@@ -111,34 +111,42 @@ public class KittenSaverController {
     Meeting meeting = kittenSaverService.getMeeting(Long.valueOf(meetingid));
     List<Option> options = kittenSaverService.getOptionByMeeting(Long.valueOf(meetingid));
 
+    String tz = kittenSaverService.getUserTimezone(username);
+    String timzone = TimeZone.getTimeZone(tz).getDisplayName();
+
     return choose
         .with()
         .meeting(meeting)
         .options(options)
+        .timzone(timzone)
         .user(username)
         .ok();
   }
 
   @View
-  public Response.Content validateView(String meetingid) {
+  public Response.Content validateView(String meetingid, String user) {
 
     Meeting meeting = kittenSaverService.getMeeting(Long.valueOf(meetingid));
     List<Option> options = kittenSaverService.getOptionByMeeting(Long.valueOf(meetingid));
 
+    String tz = kittenSaverService.getUserTimezone(user);
+    String timzone = TimeZone.getTimeZone(tz).getDisplayName();
+
     List<UserChoice> userChoices = new ArrayList<UserChoice>();
     for (String username : meeting.getParticipants()) {
+      List<Choice> choicesUser = new ArrayList<Choice>();
       for (Option optionUser : options) {
-        List<Choice> choicesUser = new ArrayList<Choice>();
         for (Choice choiceall : kittenSaverService.getChoicesByOption(optionUser.getId())) {
           if (choiceall.getParticipant() == username) choicesUser.add(choiceall);
         }
-        userChoices.add(new UserChoice(username, choicesUser));
       }
+      userChoices.add(new UserChoice(username, choicesUser));
     }
 
     return validate
         .with()
         .meeting(meeting)
+        .timzone(timzone)
         .options(options)
         .usersChoice(userChoices)
         .ok();
@@ -161,7 +169,7 @@ public class KittenSaverController {
       }
     }*/
 
-    return KittenSaverController_.validateView(meetingid);
+    return KittenSaverController_.validateView(meetingid, securityContext.getRemoteUser());
   }
 
   @Action

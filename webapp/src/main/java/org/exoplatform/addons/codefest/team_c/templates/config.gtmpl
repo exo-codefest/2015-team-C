@@ -12,7 +12,7 @@
 
     <form class="form-configure-timezone" action="@{KittenSaverController.updateTimezone()}" method="post">
         <div class="control-group">
-            Select your timezone:<br />
+            <h4>Select your timezone:</h4>
             <select name="timezone">
                 <option value="America/Los_Angeles">San Francisco GMT-8</option>
                 <option value="Europe/Paris">Paris GMT+1</option>

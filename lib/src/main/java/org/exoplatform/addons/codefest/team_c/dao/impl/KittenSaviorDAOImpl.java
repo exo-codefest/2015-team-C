@@ -101,7 +101,7 @@ public class KittenSaviorDAOImpl implements KittenSaviorDAO {
       meeting1.setTitle("Kitten Help");
       meeting1.setDescription("Avoid killing kitten because of no choice");
       meeting1.setStatus("opened");
-      meeting1.setOptions(new ArrayList<Long>(Arrays.asList(withRootNoJohn.getId(), withRootAndJohn.getId())));
+      meeting1.setOptions(new ArrayList<Long>(Arrays.asList(withRootNoJohn.getId(), withRootAndJohn.getId(), withJohnNoRoot.getId())));
       meeting1.setParticipants(new ArrayList<String>(Arrays.asList(root.getName(), john.getName())));
 
       Meeting meeting2 = new Meeting();
@@ -124,7 +124,7 @@ public class KittenSaviorDAOImpl implements KittenSaviorDAO {
 
       //Meeting
       Meeting meeting4 = new Meeting();
-      meeting4.setCreator(root);
+      meeting4.setCreator(john);
       meeting4.setTitle("Save your time");
       meeting4.setDescription("With this useless meeting");
       meeting4.setStatus("opened");

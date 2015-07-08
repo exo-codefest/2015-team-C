@@ -27,11 +27,16 @@
 @Less({
     @Stylesheet(id = "style-less", value = "less/style.less")
 })
+@Scripts({
+    @Script(value = "javascript/kitten.js")
+})
 @Assets("*")
 package org.exoplatform.addons.codefest.team_c;
 
 import juzu.Application;
 import juzu.plugin.asset.Assets;
+import juzu.plugin.asset.Script;
+import juzu.plugin.asset.Scripts;
 import juzu.plugin.asset.Stylesheet;
 import juzu.plugin.binding.Binding;
 import juzu.plugin.binding.Bindings;

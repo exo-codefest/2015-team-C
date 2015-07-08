@@ -9,10 +9,9 @@
 </div>
 <div class="meeting-actions">
     <div class="meeting-timezone">
-        <h3>
-          <img src="/team-c-addon-webapp/image/config.png"/>
-          <a href="@{ KittenSaverController.configView()}" title="Change your timezone" alt="Change your timezone">${timzone}</a>
-        </h3>
+        <h4>
+          <a href="@{ KittenSaverController.configView()}" title="Change your timezone" alt="Change your timezone"><img src="/team-c-addon-webapp/image/config.png"/> ${timzone}</a>
+        </h4>
     </div>
     <div class="meeting-config">
         <a class="meeting-actions-add" href="@{ KittenSaverController.index()}"><img src="/team-c-addon-webapp/image/catlist.png" title="See meetings" alt="See meetings"/></a>
@@ -26,6 +25,7 @@
     <div class="span4 meeting-sumup">
         <div class="meeting-sumup-title">
             <h2>${meeting.meeting.title}</h2>
+            <h4>by ${meeting.meeting.creator.name}</h4>
         </div>
         <div class="meeting-sumup-desc"><p>${meeting.meeting.description}</p></div>
         <div class="meeting-sumup-date">
@@ -45,7 +45,7 @@
             <% } else { %>
             <form action="@{KittenSaverController.chooseAction()}" method="post">
                 <input name="meetingid" hidden="true" value="${meeting.meeting.id}">
-                <img src="/team-c-addon-webapp/image/choose.png"><button type="submit" class="btn">Go to vote</button></img>
+                <img src="/team-c-addon-webapp/image/go.png"><button type="submit" class="btn">Go to vote</button></img>
             </form>
             <% if (meeting.meeting.creator.name == user) { %>
             <form action="@{KittenSaverController.validateAction()}" method="post">
