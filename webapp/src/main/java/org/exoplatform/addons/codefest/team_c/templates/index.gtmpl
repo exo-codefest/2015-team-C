@@ -10,7 +10,7 @@
 <div class="meeting-actions">
     <div class="meeting-timezone">
         <h3>
-          <img src="/team-c-addon-webapp/image/timezone.png"/>
+          <img src="/team-c-addon-webapp/image/config.png"/>
           <a href="@{ KittenSaverController.configView()}" title="Change your timezone" alt="Change your timezone">${timzone}</a>
         </h3>
     </div>
@@ -47,7 +47,7 @@
                 <input name="meetingid" hidden="true" value="${meeting.meeting.id}">
                 <img src="/team-c-addon-webapp/image/choose.png"><button type="submit" class="btn">Go to vote</button></img>
             </form>
-            <% if (meeting.meeting.creator == user) { %>
+            <% if (meeting.meeting.creator.name == user) { %>
             <form action="@{KittenSaverController.validateAction()}" method="post">
                 <input name="meetingid" hidden="true" value="${meeting.meeting.id}">
                 <img src="/team-c-addon-webapp/image/choose.png"><button type="submit" class="btn">Validate vote</button></img>
