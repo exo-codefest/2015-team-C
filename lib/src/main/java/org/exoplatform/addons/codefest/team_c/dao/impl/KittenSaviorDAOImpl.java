@@ -62,74 +62,99 @@ public class KittenSaviorDAOImpl implements KittenSaviorDAO {
       Date d2 = sdf.parse("09/07/2015 11:00");
       Date d3 = sdf.parse("09/07/2015 12:00");
       Date d4 = sdf.parse("09/07/2015 13:00");
-      Date d5 = sdf.parse("09/07/2015 14:00");
-      Date d6 = sdf.parse("09/07/2015 15:00");
-      Date d7 = sdf.parse("09/07/2015 16:00");
-      Date d8 = sdf.parse("09/07/2015 17:00");
+      Date d5 = sdf.parse("10/07/2015 14:00");
+      Date d6 = sdf.parse("10/07/2015 15:00");
+      Date d7 = sdf.parse("11/07/2015 16:00");
+      Date d8 = sdf.parse("11/07/2015 17:00");
 
       //User
       User root = new User("root", "Europe/Paris");
       User john = new User("john", "Asia/Saigon");
+      User mary = new User("mary", "Africa/Tunis");
+      User fred = new User("fred", "Europe/Paris");
+      User patrice = new User("patrice", "Europe/Paris");
       users.put(root.getName(), root);
       users.put(john.getName(), john);
+      users.put(mary.getName(), mary);
+      users.put(fred.getName(), fred);
+      users.put(patrice.getName(), patrice);
 
       //Choice
       Choice rootYes = new Choice("root", true);
+      Choice johnYes = new Choice("john", true);
+      Choice maryYes = new Choice("mary", true);
+      Choice fredYes = new Choice("fred", true);
+      Choice patYes = new Choice("patrice", true);
       Choice johnNo = new Choice("john", false);
       Choice rootNo = new Choice("root", false);
-      Choice johnYes = new Choice("john", true);
+      Choice maryNo = new Choice("mary", false);
+      Choice fredNo = new Choice("fred", false);
+      Choice patNo = new Choice("patrice", false);
       choices.put(rootYes.getId(), rootYes);
-      choices.put(johnNo.getId(), johnNo);
-      choices.put(rootNo.getId(), rootNo);
       choices.put(johnYes.getId(), johnYes);
+      choices.put(maryYes.getId(), maryYes);
+      choices.put(fredYes.getId(), fredYes);
+      choices.put(patYes.getId(), patYes);
+      choices.put(rootNo.getId(), rootNo);
+      choices.put(johnNo.getId(), johnNo);
+      choices.put(maryNo.getId(), maryNo);
+      choices.put(fredNo.getId(), fredNo);
+      choices.put(patNo.getId(), patNo);
 
       //Option
       Option withRootNoJohn = new Option(new ArrayList<Long>(Arrays.asList(rootYes.getId(), johnNo.getId())), d1, d2);
       Option withRootAndJohn = new Option(new ArrayList<Long>(Arrays.asList(rootYes.getId(), johnYes.getId())), d3, d4);
-      Option withJohnNoRoot = new Option(new ArrayList<Long>(Arrays.asList(rootNo.getId(), johnYes.getId())), d4, d5);
-      Option withNoRootNoJohn = new Option(new ArrayList<Long>(Arrays.asList(rootNo.getId(), johnNo.getId())), d5, d6);
-      Option forBinch = new Option(new ArrayList<Long>(Arrays.asList(rootYes.getId(), johnYes.getId())), d6, d7);
+      Option withJohnNoRoot = new Option(new ArrayList<Long>(Arrays.asList(rootNo.getId(), johnYes.getId())), d5, d6);
+      Option withNoRootNoJohn = new Option(new ArrayList<Long>(Arrays.asList(rootNo.getId(), johnNo.getId())), d7, d8);
+      Option forBinch = new Option(new ArrayList<Long>(Arrays.asList(rootYes.getId(), johnYes.getId())), d1, d2);
+      Option withFredWithPat = new Option(new ArrayList<Long>(Arrays.asList(fredYes.getId(), patYes.getId())), d3, d4);
+      Option withFredNoPat = new Option(new ArrayList<Long>(Arrays.asList(fredYes.getId(), patNo.getId())), d5, d6);
+      Option withMaryWithFred = new Option(new ArrayList<Long>(Arrays.asList(maryYes.getId(), fredYes.getId())), d7, d8);
       options.put(withRootNoJohn.getId(), withRootNoJohn);
       options.put(withRootAndJohn.getId(), withRootAndJohn);
       options.put(withJohnNoRoot.getId(), withJohnNoRoot);
       options.put(withNoRootNoJohn.getId(), withNoRootNoJohn);
       options.put(forBinch.getId(), forBinch);
+      options.put(withFredWithPat.getId(), withFredWithPat);
+      options.put(withFredNoPat.getId(), withFredNoPat);
+      options.put(withMaryWithFred.getId(), withMaryWithFred);
+
 
       //Meeting
       Meeting meeting1 = new Meeting();
-      meeting1.setCreator(root);
-      meeting1.setTitle("Kitten Help");
-      meeting1.setDescription("Avoid killing kitten because of no choice");
+      meeting1.setCreator(john);
+      meeting1.setTitle("Nap with Portal");
+      meeting1.setDescription("Portal team is too tired, they need a nap.");
       meeting1.setStatus("opened");
-      meeting1.setOptions(new ArrayList<Long>(Arrays.asList(withRootNoJohn.getId(), withRootAndJohn.getId(), withJohnNoRoot.getId())));
-      meeting1.setParticipants(new ArrayList<String>(Arrays.asList(root.getName(), john.getName())));
+      meeting1.setOptions(new ArrayList<Long>(Arrays.asList(withRootNoJohn.getId(), withRootAndJohn.getId(), withFredNoPat.getId())));
+      meeting1.setParticipants(new ArrayList<String>(Arrays.asList(root.getName(), john.getName(), fred.getName(), patrice.getName())));
 
       Meeting meeting2 = new Meeting();
       meeting2.setCreator(john);
       meeting2.setTitle("Bia Hoi tonight");
-      meeting2.setDescription("After hardwork let's take a binch");
+      meeting2.setDescription("After a hardworking day, let's take a cool binch");
       meeting2.setStatus("closed");
       meeting2.setFinalOption(forBinch);
-      meeting2.setOptions(new ArrayList<Long>(Arrays.asList(withJohnNoRoot.getId(), withNoRootNoJohn.getId(), forBinch.getId())));
-      meeting2.setParticipants(new ArrayList<String>(Arrays.asList(root.getName(), john.getName())));
+      meeting2.setOptions(new ArrayList<Long>(Arrays.asList(withJohnNoRoot.getId(), withNoRootNoJohn.getId(), forBinch.getId(), withFredWithPat.getId())));
+      meeting2.setParticipants(new ArrayList<String>(Arrays.asList(root.getName(), john.getName(), fred.getName(), patrice.getName())));
 
       //Meeting
       Meeting meeting3 = new Meeting();
-      meeting3.setCreator(root);
+      meeting3.setCreator(fred);
       meeting3.setTitle("Pirate Hiring");
-      meeting3.setDescription("Why join the navy if you can be a pirate?");
+      meeting3.setDescription("Why join the navy when you can be a bloody pirate?");
       meeting3.setStatus("opened");
-      meeting3.setOptions(new ArrayList<Long>(Arrays.asList(withRootAndJohn.getId(), withRootAndJohn.getId())));
-      meeting3.setParticipants(new ArrayList<String>(Arrays.asList(root.getName(), john.getName())));
+      meeting3.setOptions(new ArrayList<Long>(Arrays.asList(withRootAndJohn.getId(), withRootAndJohn.getId(), withMaryWithFred.getId())));
+      meeting3.setParticipants(new ArrayList<String>(Arrays.asList(root.getName(), john.getName(), mary.getName(), fred.getName())));
 
       //Meeting
       Meeting meeting4 = new Meeting();
-      meeting4.setCreator(john);
-      meeting4.setTitle("Save your time");
-      meeting4.setDescription("With this useless meeting");
+      meeting4.setCreator(patrice);
+      meeting4.setTitle("Moon launch");
+      meeting4.setDescription("Let's get ready to send kittens to the moooon!");
       meeting4.setStatus("opened");
-      meeting4.setOptions(new ArrayList<Long>(Arrays.asList(withRootNoJohn.getId(), withJohnNoRoot.getId())));
-      meeting4.setParticipants(new ArrayList<String>(Arrays.asList(root.getName(), john.getName())));
+      meeting4.setOptions(new ArrayList<Long>(Arrays.asList(withRootNoJohn.getId(), withJohnNoRoot.getId(), withFredWithPat.getId())));
+      meeting4.setParticipants(new ArrayList<String>(Arrays.asList(root.getName(), john.getName(), fred.getName(), patrice.getName())));
 
       meetings.put(meeting1.getId(), meeting1);
       meetings.put(meeting2.getId(), meeting2);
