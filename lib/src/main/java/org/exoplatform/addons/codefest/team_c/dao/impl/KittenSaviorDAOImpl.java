@@ -68,8 +68,8 @@ public class KittenSaviorDAOImpl implements KittenSaviorDAO {
       Date d8 = sdf.parse("09/07/2015 17:00");
 
       //User
-      User root = new User("root", "Paris");
-      User john = new User("john", "Hanoi");
+      User root = new User("root", "Europe/Paris");
+      User john = new User("john", "Asia/Saigon");
       users.put(root.getName(), root);
       users.put(john.getName(), john);
 
@@ -185,7 +185,13 @@ public class KittenSaviorDAOImpl implements KittenSaviorDAO {
 
   @Override
   public void addOptionsToMeeting(Meeting meeting, Option option) {
-    meetings.get(meeting.getId()).getOptions().add(option.getId());
+    addOptionToMeetingById(meeting.getId(), option);
+  }
+
+  @Override
+  public void addOptionToMeetingById(Long meetingId, Option option) {
+    options.put(option.getId(), option);
+    meetings.get(meetingId).getOptions().add(option.getId());
   }
 
   //////////////////////////
@@ -272,12 +278,13 @@ public class KittenSaviorDAOImpl implements KittenSaviorDAO {
 
   @Override
   public void addChoiceToOption(Option option, Choice choice) {
-    options.get(option.getId()).getChoices().add(choice.getId());
+    addChoiceToOptionById(option.getId(), choice);
   }
 
   @Override
   public void addChoiceToOptionById(Long optionId, Choice choice) {
-    addChoiceToOption(options.get(optionId), choice);
+    choices.put(choice.getId(), choice);
+    options.get(optionId).getChoices().add(choice.getId());
   }
 
   //////////////////////////

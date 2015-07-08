@@ -26,21 +26,18 @@ import org.exoplatform.addons.codefest.team_c.service.KittenSaverService;
 import org.exoplatform.calendar.service.Calendar;
 import org.exoplatform.calendar.service.CalendarEvent;
 import org.exoplatform.calendar.service.CalendarService;
+import org.exoplatform.calendar.service.CalendarSetting;
 import org.exoplatform.commons.api.notification.NotificationContext;
 import org.exoplatform.commons.api.notification.model.PluginKey;
-import org.exoplatform.commons.api.settings.SettingService;
-import org.exoplatform.commons.api.settings.SettingValue;
-import org.exoplatform.commons.api.settings.data.Context;
-import org.exoplatform.commons.api.settings.data.Scope;
 import org.exoplatform.commons.notification.impl.NotificationContextImpl;
 import org.exoplatform.container.PortalContainer;
+import org.exoplatform.services.log.ExoLogger;
+import org.exoplatform.services.log.Log;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
-import java.util.TimeZone;
 
 /**
  * Created by The eXo Platform SAS
@@ -51,10 +48,9 @@ import java.util.TimeZone;
 @Singleton
 public class KittenSaverServiceImpl implements KittenSaverService {
 
-  private final String KEY_PREFIX = "Timezone_Setting";
+  private static final Log LOG = ExoLogger.getExoLogger(KittenSaverServiceImpl.class);
 
-  @Inject
-  private SettingService settingService;
+  private final String KEY_PREFIX = "Timezone_Setting";
 
   @Inject
   private KittenSaviorDAO kittenSaviorDAO;
@@ -65,7 +61,6 @@ public class KittenSaverServiceImpl implements KittenSaverService {
   public KittenSaverServiceImpl()
   {
     this.kittenSaviorDAO = (KittenSaviorDAO) PortalContainer.getInstance().getComponentInstance(KittenSaviorDAO.class);
-    this.settingService = (SettingService) PortalContainer.getInstance().getComponentInstance(SettingService.class);
     this.calendarService = (CalendarService) PortalContainer.getInstance().getComponentInstance(CalendarService.class);
   }
 
@@ -85,12 +80,20 @@ public class KittenSaverServiceImpl implements KittenSaverService {
   public void setUserTimezone(String username, String timezone) {
     User user = getUserByUsername(username);
     user.setTimezone(timezone);
+    try {
+      CalendarSetting calSettings = calendarService.getCalendarSetting(username);
+      calSettings.setTimeZone(timezone);
+      calendarService.saveCalendarSetting(username, calSettings);
+    } catch (Exception e) {
+      LOG.error(e.getMessage(), e);
+    }
     kittenSaviorDAO.updateUser(user);
   }
 
   @Override
   public Meeting validateMeeting(Meeting meeting) {
     Meeting meetingValidated = updateMeeting(meeting);
+    createCalendarEvent(meeting);
     createNotification(meeting);
     return meetingValidated;
   }
@@ -119,11 +122,19 @@ public class KittenSaverServiceImpl implements KittenSaverService {
       meeting.getParticipants().toArray(participants);
       event.setParticipant(participants);
       // Date and Time
-      Option o = new Option();
+      Option o = meeting.getFinalOption();
       event.setFromDateTime(o.getStartDate());
       event.setToDateTime(o.getEndDate());
       try {
-        calendarService.savePublicEvent(calId, event, true);
+        int calType = calendarService.getTypeOfCalendar(participant, calId);
+        switch (calType) {
+          case Calendar.TYPE_PRIVATE:
+              calendarService.saveUserEvent(participant, calId, event, true);
+            break;
+          case Calendar.TYPE_PUBLIC:
+            calendarService.savePublicEvent(calId, event, true);
+            break;
+        }
       } catch (Exception e) {
         e.printStackTrace();
       }
@@ -147,11 +158,6 @@ public class KittenSaverServiceImpl implements KittenSaverService {
 
   @Override
   public Meeting updateMeeting(Meeting meeting) {
-    if (Meeting.STATUS_CLOSED.equals(meeting.getStatus()) &&
-            meeting.getFinalOption() != null) {
-      // Create the calendar only when we close the meeting with a final choice
-      createCalendarEvent(meeting);
-    }
     return kittenSaviorDAO.updateMeeting(meeting);
   }
 
@@ -183,6 +189,11 @@ public class KittenSaverServiceImpl implements KittenSaverService {
   }
 
   @Override
+  public void addOptionToMeeting(Long meetingId, Option option) {
+    kittenSaviorDAO.addOptionToMeetingById(meetingId, option);
+  }
+
+  @Override
   public List<Choice> getChoicesByOption(Long optionId) {
     List<Choice> results = new ArrayList<Choice>();
     Option option = kittenSaviorDAO.getOptionById(optionId);
@@ -195,6 +206,15 @@ public class KittenSaverServiceImpl implements KittenSaverService {
   @Override
   public User getUserByUsername(String username) {
     User user = kittenSaviorDAO.getUserByUsername(username);
+    if (user == null) {
+      // User doesn't exist in our map so we create it here... olé
+      user = new User();
+      user.setName(username);
+      user.setTimezone("GMT-0");
+      user.setFirstName(username);
+      user.setLastName(username);
+      kittenSaviorDAO.createUser(user);
+    }
     if (user.getTimezone() == null) {
       user.setTimezone(getUserTimezone(user));
     }
@@ -209,36 +229,19 @@ public class KittenSaverServiceImpl implements KittenSaverService {
   }
 
   @Override
-  public void setTimezoneForUser(String timezoneId, User user) {
-    List<String> timezones = Arrays.asList(TimeZone.getAvailableIDs());
-    if (timezones.contains(timezoneId)) {
-      SettingValue<String> value = SettingValue.create(timezoneId);
-      settingService.set(Context.USER, Scope.GLOBAL, key(user.getName()), value);
-    } else {
-      // Incorrect timezone
-      throw new IllegalArgumentException(String.format("Incorrect timezone: %s is not a valid timezone ID.", timezoneId));
-    }
-  }
-
-  @Override
-  public void setTimezoneForUser(TimeZone timezone, User user) {
-
-    if (timezone != null) {
-      setTimezoneForUser(timezone.getID(), user);
-    } else {
-      // Incorrect timezone
-      throw new IllegalArgumentException(String.format("Incorrect timezone: null is not a valid timezone."));
-    }
-  }
-
-  @Override
   public String getUserTimezone(User user) {
     return getUserTimezone(user.getName());
   }
 
   @Override
   public String getUserTimezone(String username) {
+    try {
+      CalendarSetting calSettings = calendarService.getCalendarSetting(username);
+      String tz = calSettings.getTimeZone();
+      if (tz != null) return tz;
+    } catch (Exception e) {
+      LOG.error(e.getMessage(), e);
+    }
     return getUserByUsername(username).getTimezone();
   }
 }
-

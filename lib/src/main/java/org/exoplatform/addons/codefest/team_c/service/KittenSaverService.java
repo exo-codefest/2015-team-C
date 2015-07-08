@@ -29,15 +29,13 @@ public interface KittenSaverService {
 
   List<Option> getOptionByMeeting(Long meetingId);
 
+  void addOptionToMeeting(Long meetingId, Option option);
+
   void addChoiceToMeeting(Long meetingId, Long optionId, Choice choice);
 
   List<Choice> getChoicesByOption(Long optionId);
 
   User getUserByUsername(String username);
-
-  void setTimezoneForUser(String timezoneId, User user);
-
-  void setTimezoneForUser(TimeZone timezone, User user);
 
   String getUserTimezone(User user);
 

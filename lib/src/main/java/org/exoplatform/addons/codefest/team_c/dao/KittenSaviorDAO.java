@@ -28,6 +28,8 @@ public interface KittenSaviorDAO {
 
   void addOptionsToMeeting(Meeting meeting, Option option);
 
+  void addOptionToMeetingById(Long meetingId, Option option);
+
   User getUserById(Long id);
 
   User createUser(User user);

@@ -24,7 +24,7 @@
 <page-set>
     <page>
         <name>kitten</name>
-        <title>Kitten</title>
+        <title>Schedule Meeting (aka Kitten Savior)</title>
         <access-permissions>*:/platform/users</access-permissions>
         <edit-permission>*:/platform/administrators</edit-permission>
         <show-max-window>false</show-max-window>

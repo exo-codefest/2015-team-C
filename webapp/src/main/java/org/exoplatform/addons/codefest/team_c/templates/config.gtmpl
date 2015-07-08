@@ -18,10 +18,12 @@
         <div class="control-group">
             Select your timezone:<br />
             <select name="timezone">
-                <option>Hanoi GMT+7</option>
-                <option>Paris GMT+1</option>
-                <option>San Francisco GMT-8</option>
-                <option>Petahouchnok GMT+42 (discouraged...)</option>
+                <option value="America/Los_Angeles">San Francisco GMT-8</option>
+                <option value="Europe/Paris">Paris GMT+1</option>
+                <option value="Africa/Tunis">Tunis GMT+1</option>
+                <option value="Europe/Kiev">Cherkassy GMT+2</option>
+                <option value="Asia/Saigon">Hanoi GMT+7</option>
+                <option value="Asia/Pyongyang">Petahouchnok GMT+42 (discouraged...)</option>
             </select>
             <button type="submit" class="btn btn-primary">Save</button>
         </div>

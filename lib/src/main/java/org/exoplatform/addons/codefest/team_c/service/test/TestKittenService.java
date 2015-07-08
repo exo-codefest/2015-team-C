@@ -31,8 +31,8 @@ public class TestKittenService implements ResourceContainer {
 
     private static final Log LOG = ExoLogger.getExoLogger(TestKittenService.class);
 
-    User root = new User("root", "GMT+1"); // Paris
-    User john = new User("john", "GMT+7"); // Hanoi
+    User root = new User("root", "Europe/Paris");
+    User john = new User("john", "Asia/Saigon");
 
     @Inject
     private KittenSaverService kittenService;
@@ -77,6 +77,14 @@ public class TestKittenService implements ResourceContainer {
         meeting1.setParticipants(new ArrayList<String>(Arrays.asList(root.getName(), john.getName())));
 
         kittenService.createMeeting(meeting1);
+        kittenService.addOptionToMeeting(meeting1.getId(), withRootNoJohn);
+        kittenService.addOptionToMeeting(meeting1.getId(), withRootAndJohn);
+
+        kittenService.addChoiceToMeeting(meeting1.getId(), withRootNoJohn.getId(), rootYes);
+        kittenService.addChoiceToMeeting(meeting1.getId(), withRootNoJohn.getId(), johnNo);
+
+        kittenService.addChoiceToMeeting(meeting1.getId(), withRootAndJohn.getId(), rootYes);
+        kittenService.addChoiceToMeeting(meeting1.getId(), withRootAndJohn.getId(), johnYes);
 
         //-------
         Long id = meeting1.getId();
@@ -98,7 +106,7 @@ public class TestKittenService implements ResourceContainer {
         List<Option> options = kittenService.getOptionByMeeting(Long.valueOf(id));
 
         //-------
-        if (!assertTrue(options != null && options.size() == 2, "Meeting should have 2 options")) {
+        if (!assertTrue(options != null && options.size() > 0, "Meeting should have at least 1 option")) {
             return Response.serverError().entity("Could not retrieve meeting").build();
         }
         //-------

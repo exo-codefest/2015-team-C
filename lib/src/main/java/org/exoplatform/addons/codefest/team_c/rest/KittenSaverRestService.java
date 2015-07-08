@@ -21,6 +21,8 @@ import org.exoplatform.addons.codefest.team_c.domain.Meeting;
 import org.exoplatform.addons.codefest.team_c.domain.Option;
 import org.exoplatform.addons.codefest.team_c.domain.User;
 import org.exoplatform.addons.codefest.team_c.service.KittenSaverService;
+import org.exoplatform.services.log.ExoLogger;
+import org.exoplatform.services.log.Log;
 import org.exoplatform.services.rest.resource.ResourceContainer;
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -41,6 +43,8 @@ import java.util.List;
 @Path("/kittenSavior")
 public class KittenSaverRestService implements ResourceContainer {
 
+  private static final Log LOG = ExoLogger.getExoLogger(KittenSaverRestService.class);
+
   @Inject
   KittenSaverService kittenSaverService;
 
@@ -52,6 +56,9 @@ public class KittenSaverRestService implements ResourceContainer {
   @Path("/meetings")
   @Produces(MediaType.APPLICATION_JSON)
   public Response getMeetings(@QueryParam("user") String username) {
+    if (username == null || username.trim().isEmpty()) {
+      return Response.status(Response.Status.BAD_REQUEST).entity("Missing 'user' query parameter.").build();
+    }
     List<Meeting> meetings = null;
     try {
 
@@ -59,12 +66,12 @@ public class KittenSaverRestService implements ResourceContainer {
       meetings = kittenSaverService.getMeetingByUser(u);
 
     } catch (Exception e) {
-      e.printStackTrace();
-      return Response.serverError().build();
+      LOG.error(e.getMessage(), e);
+      return Response.serverError().entity(e.getMessage()).build();
     }
 
     if (meetings == null) {
-      return Response.status(Response.Status.NOT_FOUND).build();
+      return Response.status(Response.Status.NOT_FOUND).entity("No meeting for this user.").build();
     }
 
     JSONObject resp = null;
@@ -94,15 +101,22 @@ public class KittenSaverRestService implements ResourceContainer {
           option.put("end_timestamp", opt.getEndDate().getTime());
           options.put(option);
         }
+        if (m.getFinalOption() != null) {
+          Option f = m.getFinalOption();
+          JSONObject finalOpt = new JSONObject();
+          finalOpt.put("id", f.getId());
+          finalOpt.put("start_timestamp", f.getStartDate().getTime());
+          finalOpt.put("end_timestamp", f.getEndDate().getTime());
+          meeting.put("final_option", finalOpt);
+        }
         meeting.put("options", options);
         // Finish
         meetingsArray.put(meeting);
       }
       resp.put("meetings", meetingsArray);
-
     } catch (JSONException e) {
-      e.printStackTrace();
-      return Response.serverError().build();
+      LOG.error(e.getMessage(), e);
+      return Response.serverError().entity(e.getMessage()).build();
     }
 
     return Response.ok(resp.toString(), MediaType.APPLICATION_JSON).build();
@@ -113,6 +127,10 @@ public class KittenSaverRestService implements ResourceContainer {
   @Path("/meetings/{meetingId}/choices")
   @Produces(MediaType.APPLICATION_JSON)
   public Response getChoices(@PathParam("meetingId") String meetingId) {
+
+    if (meetingId == null || meetingId.trim().isEmpty()) {
+      return Response.status(Response.Status.BAD_REQUEST).entity("Missing parameter 'meetingId'.").build();
+    }
 
     Meeting meeting = kittenSaverService.getMeeting(Long.valueOf(meetingId));
 
@@ -137,10 +155,9 @@ public class KittenSaverRestService implements ResourceContainer {
 
       resp.put("choices", choices);
     } catch (JSONException e) {
-      e.printStackTrace();
-      return Response.serverError().build();
+      LOG.error(e.getMessage(), e);
+      return Response.serverError().entity(e.getMessage()).build();
     }
-
 
     return Response.ok(resp.toString(), MediaType.APPLICATION_JSON).build();
   }
@@ -152,13 +169,21 @@ public class KittenSaverRestService implements ResourceContainer {
   @Produces(MediaType.APPLICATION_JSON)
   public Response makeChoice(@PathParam("meetingId") String meetingId, @PathParam("optionId") String optionId, Choice choice) {
 
+    if (meetingId == null || meetingId.trim().isEmpty()) {
+      return Response.status(Response.Status.BAD_REQUEST).entity("Missing parameter 'meetingId'.").build();
+    }
+
+    if (optionId == null || optionId.trim().isEmpty()) {
+      return Response.status(Response.Status.BAD_REQUEST).entity("Missing parameter 'optionId'.").build();
+    }
+
     JSONObject resp = new JSONObject();
     try {
       kittenSaverService.addChoiceToMeeting(Long.valueOf(meetingId), Long.valueOf(optionId), choice);
       resp.put("result", "ok");
     } catch (Exception e) {
-      e.printStackTrace();
-      return Response.serverError().build();
+      LOG.error(e.getMessage(), e);
+      return Response.serverError().entity(e.getMessage()).build();
     }
 
     return Response.ok(resp.toString(), MediaType.APPLICATION_JSON).build();
@@ -168,10 +193,15 @@ public class KittenSaverRestService implements ResourceContainer {
   @Path("/users/{username}")
   @Produces(MediaType.APPLICATION_JSON)
   public Response getUserByUsername(@PathParam("username") String username) {
+
+    if (username == null || username.trim().isEmpty()) {
+      return Response.status(Response.Status.BAD_REQUEST).entity("Missing parameter 'username'.").build();
+    }
+
     User u = kittenSaverService.getUserByUsername(username);
 
     if (u == null) {
-      return Response.status(Response.Status.NOT_FOUND).build();
+      return Response.status(Response.Status.NOT_FOUND).entity("No user by this username.").build();
     }
 
     JSONObject resp = new JSONObject();
@@ -181,8 +211,8 @@ public class KittenSaverRestService implements ResourceContainer {
       resp.put("last_name", u.getLastName());
       resp.put("timezone", u.getTimezone());
     } catch (JSONException e) {
-      e.printStackTrace();
-      return Response.serverError().build();
+      LOG.error(e.getMessage(), e);
+      return Response.serverError().entity(e.getMessage()).build();
     }
     return Response.ok(resp.toString(), MediaType.APPLICATION_JSON).build();
   }

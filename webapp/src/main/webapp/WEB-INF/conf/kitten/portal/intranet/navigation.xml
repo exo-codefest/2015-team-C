@@ -29,7 +29,7 @@
         <node>
             <uri>kitten</uri>
             <name>Kitten</name>
-            <label>Help Save Kittens !</label>
+            <label>Schedule Meetings (and save kittens...)</label>
             <page-reference>portal::intranet::kitten</page-reference>
         </node>
     </page-nodes>

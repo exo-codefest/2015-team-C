@@ -31,6 +31,7 @@ import javax.inject.Inject;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.TimeZone;
 
 /**
  * Created by The eXo Platform SAS
@@ -73,7 +74,8 @@ public class KittenSaverController {
       meetingInfoses.add(new MeetingInfos(meeting, kittenSaverService.getOptionByMeeting(meeting.getId())));
     }
 
-    String timzone = kittenSaverService.getUserTimezone(securityContext.getRemoteUser());
+    String tz = kittenSaverService.getUserTimezone(securityContext.getRemoteUser());
+    String timzone = TimeZone.getTimeZone(tz).getDisplayName();
 
     return index
         .with()

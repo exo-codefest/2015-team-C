@@ -8,12 +8,14 @@
 </div>
 <div class="meeting-actions">
     <div class="meeting-timezone">
-        <img src="/team-c-addon-webapp/image/timezone.png"><h3>${timzone}</h3></img>
+        <h3>
+          <img src="/team-c-addon-webapp/image/timezone.png"/>
+          <a href="@{ KittenSaverController.configView()}" title="Change your timezone" alt="Change your timezone">${timzone}</a>
+        </h3>
     </div>
     <div class="meeting-config">
         <a class="meeting-actions-add" href="@{ KittenSaverController.index()}"><img src="/team-c-addon-webapp/image/catlist.png" title="See meetings" alt="See meetings"/></a>
         <a class="meeting-actions-add" href="@{ KittenSaverController.addView()}"><img src="/team-c-addon-webapp/image/add.png" title="Add a meeting" alt="Add a meeting"/></a>
-        <a href="@{ KittenSaverController.configView()}"><img src="/team-c-addon-webapp/image/config.png" title="Change your timezone" alt="Change your timezone"/></a>
     </div>
 </div>
 <div class="meeting-main-part">
