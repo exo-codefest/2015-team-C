@@ -22,3 +22,28 @@ band.on('change', function(period) {
     $data.find('.date').last().html(endDate.toLocaleDateString());
   });
 });
+
+$(function() {
+  $('.changeDate').datepicker().on('changeDate', function(e) {
+    var date = e.date;
+    var participants = [];
+    $('.container').each(function() {
+      participants.push($(this).data('user'));
+    });
+    
+    var changeDateUrl = $('.changeDate').closest('.jz').find('div[data-method-id="KittenSaverController.changeDate"]').data('url');
+    $.ajax({
+      method : 'POST',
+      url : changeDateUrl,
+      data : {
+        parcicipants : participants.join(','),
+        date : date.getDate(),
+        month : date.getMonth(),
+        year : date.getFullYear()
+      },
+      success : function(data) {
+        window.location = data.url;
+      }
+    });
+  });
+});

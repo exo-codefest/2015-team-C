@@ -15,7 +15,7 @@
     </div>
     <div class="meeting-config">
         <a class="meeting-actions-add" href="@{ KittenSaverController.index()}"><img src="/team-c-addon-webapp/image/catlist.png" title="See meetings" alt="See meetings"/></a>
-        <a class="meeting-actions-add" href="@{ KittenSaverController.addView()}"><img src="/team-c-addon-webapp/image/add.png" title="Add a meeting" alt="Add a meeting"/></a>
+        <a class="meeting-actions-add" href="@{ KittenSaverController.addView(participants = null, date = 0, month = 0, year = 0)}"><img src="/team-c-addon-webapp/image/add.png" title="Add a meeting" alt="Add a meeting"/></a>
     </div>
 </div>
 <div class="meeting-main-part">

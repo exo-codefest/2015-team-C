@@ -112,11 +112,28 @@ public class KittenSaverController {
   }
 
   @View
-  public Response.Content addView(SecurityContext securityContext) {    
+  public Response.Content addView(String participants, Integer date, Integer month, Integer year, SecurityContext securityContext) {    
     List<User> users = new LinkedList<User>();
-    User creator = kittenSaverService.getUserByUsername(securityContext.getRemoteUser());
-    users.add(creator);
-    return add.with().users(users).ok();
+    if (participants == null) {
+      User creator = kittenSaverService.getUserByUsername(securityContext.getRemoteUser());
+      users.add(creator);      
+    } else {
+      for (String u : participants.split(",")) {
+        users.add(kittenSaverService.getUserByUsername(u));
+      }
+    }
+    date = date == null ? 0 : date;   
+    
+    return add.with().users(users).date(date).month(month).year(year).ok();
+  }
+  
+  @Resource
+  @Ajax
+  @MimeType.JSON
+  public Response changeDate(String participants, int date, int month, int year) throws JSONException {
+    JSONObject json = new JSONObject();
+    json.put("url", KittenSaverController_.addView(participants, date, month, year));
+    return Response.ok(json.toString()).withCharset(Tools.UTF_8);
   }
   
   @Resource
@@ -153,7 +170,7 @@ public class KittenSaverController {
   private String format(Calendar time) {
     StringBuilder builder = new StringBuilder();
     builder.append(time.get(Calendar.YEAR)).append("/");
-    builder.append(time.get(Calendar.MONTH)).append("/");
+    builder.append(time.get(Calendar.MONTH) + 1).append("/");
     builder.append(time.get(Calendar.DATE)).append("  ");
     builder.append(time.get(Calendar.HOUR_OF_DAY)).append(":");
     builder.append(time.get(Calendar.MINUTE));

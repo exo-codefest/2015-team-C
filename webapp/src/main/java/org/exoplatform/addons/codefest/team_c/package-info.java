@@ -26,10 +26,14 @@
 })
 @Scripts({
     @Script(id = "jquery", value = "javascript/jquery-1.7.1.js"),    
-    @Script(id = "timer", value = "javascript/timer.js", depends = "jquery"),
+    @Script(id = "timer", value = "javascript/timer.js", depends = "editable"),
     @Script(id = "band", value = "javascript/band.js", depends = "timer"),
     @Script(id= "timeSelector",value = "javascript/timeSelector.js", depends = "band"),
     @Script(id = "kitten", value = "javascript/kitten.js", depends = "timeSelector"),
+    @Script(id = "tooltip", value = "javascript/bootstrap-tooltip.js", depends = "jquery"),
+    @Script(id = "popover", value = "javascript/bootstrap-popover.js", depends = "tooltip"),
+    @Script(id = "datetime", value = "javascript/bootstrap-datetimepicker.js", depends = "popover"),
+    @Script(id = "editable", value = "javascript/bootstrap-editable.js", depends = "datetime")
 })
 @Stylesheets({
     @Stylesheet(id = "main.css", value = "styles/main.css")

@@ -1,4 +1,7 @@
 #{param name=users/}
+#{param name=date/}
+#{param name=month/}
+#{param name=year/}
 
 <%
 import java.text.DateFormat;
@@ -6,6 +9,14 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.TimeZone;
+
+def today = Calendar.getInstance();
+if (date != 0) {
+  today.set(Calendar.DATE, date);
+  today.set(Calendar.MONTH, month);
+  today.set(Calendar.YEAR, year);
+}
+def stoday = today.get(Calendar.DATE) + "/" + (today.get(Calendar.MONTH) + 1) + "/" + today.get(Calendar.YEAR);
 %>
 
 <div class="hero-unit" align="right">
@@ -15,7 +26,7 @@ import java.util.TimeZone;
 <div class="meeting-actions">
     <div class="meeting-config">
         <a class="meeting-actions-add" href="@{ KittenSaverController.index()}"><img src="/team-c-addon-webapp/image/catlist.png" title="See meetings" alt="See meetings"/></a>
-        <a class="meeting-actions-add" href="@{ KittenSaverController.addView()}"><img src="/team-c-addon-webapp/image/add.png" title="Add a meeting" alt="Add a meeting"/></a>
+        <a class="meeting-actions-add" href="@{ KittenSaverController.addView(participants = null, date = 0, month = 0, year = 0)}"><img src="/team-c-addon-webapp/image/add.png" title="Add a meeting" alt="Add a meeting"/></a>
     </div>
 </div>
 <div class="meeting-main-part">
@@ -39,6 +50,7 @@ import java.util.TimeZone;
 			<span class="item">
 				<div id="searchIcon"></div>					
 			   <input type="text" maxlength="50" id="location" name="username" autocomplete="off" value="" placeholder="Add user">
+			   <a href="#" class="changeDate" data-title="Select date">${stoday}</a>
 			   <button class="addOption">Add option</button>			   
 			</span> 
 			<span style="width: 35px; text-align: center; margin-top: 7px;" class="item">
@@ -48,8 +60,6 @@ import java.util.TimeZone;
 		</div>
 		<!-- end of toolbar -->
 		<%
-			def today = Calendar.getInstance();
-
 			def homeUser = users.get(0);
 			def timezone = TimeZone.getTimeZone(homeUser.getTimezone());		
 			Calendar cal = Calendar.getInstance(timezone);
