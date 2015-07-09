@@ -27,6 +27,7 @@ $(document).ready(function() {
         },
         success : function(data) {
           $clientarea.html($clientarea.html() + data);
+          band.trigger('change', [band.start, band.end]);
         }
       });
     }
