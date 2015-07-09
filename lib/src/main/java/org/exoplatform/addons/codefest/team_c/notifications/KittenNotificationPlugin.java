@@ -1,6 +1,5 @@
 package org.exoplatform.addons.codefest.team_c.notifications;
 import org.exoplatform.addons.codefest.team_c.domain.Meeting;
-import org.exoplatform.addons.codefest.team_c.domain.User;
 import org.exoplatform.commons.api.notification.NotificationContext;
 import org.exoplatform.commons.api.notification.model.ArgumentLiteral;
 import org.exoplatform.commons.api.notification.model.NotificationInfo;
@@ -8,6 +7,7 @@ import org.exoplatform.commons.api.notification.plugin.BaseNotificationPlugin;
 import org.exoplatform.container.xml.InitParams;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.GregorianCalendar;
 import java.util.List;
 
@@ -41,22 +41,30 @@ public class KittenNotificationPlugin extends BaseNotificationPlugin {
     protected NotificationInfo makeNotification(NotificationContext ctx) {
         Meeting meeting = ctx.value(MEETING);
 
-        User creator = meeting.getCreator();
+      if (meeting == null) {
+        return NotificationInfo.instance()
+            .setFrom("root")
+            .setDateCreated(new GregorianCalendar())
+            .to(new ArrayList<String>(Arrays.asList("root")))
+            .setTitle(" root invited you to vote for a meeting: <a href='/portal/intranet/Kitten'>" + meeting.getTitle() + "</a><br/>")
+            .key(getId());
+      }
+
         List<String> participants = meeting.getParticipants();
-        
+
         if (meeting.getFinalOption() == null) {
         	return NotificationInfo.instance()
-        			.setFrom(creator.getName())
+        			.setFrom("root")
               .setDateCreated(new GregorianCalendar())
         			.to(new ArrayList<String>(participants))
-        			.setTitle(creator.getName() + " invited you to vote for a meeting: <a href='/portal/intranet/Kitten'>" + meeting.getTitle()+ "</a><br/>")
+        			.setTitle(" root invited you to vote for a meeting: <a href='/portal/intranet/Kitten'>" + meeting.getTitle()+ "</a><br/>")
         			.key(getId());
         } else {
         	return NotificationInfo.instance()
-        			.setFrom(creator.getName())
+        			.setFrom("root")
               .setDateCreated(new GregorianCalendar())
         			.to(new ArrayList<String>(participants))
-        			.setTitle(creator.getName() + " validated the meeting <a href='/portal/intranet/Kitten'>" + meeting.getTitle() + "</a><br/>")
+        			.setTitle("root" + " validated the meeting <a href='/portal/intranet/Kitten'>" + meeting.getTitle() + "</a><br/>")
         			.key(getId());
         }
     }

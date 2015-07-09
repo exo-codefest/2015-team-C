@@ -30,6 +30,14 @@ def stoday = today.get(Calendar.DATE) + "/" + (today.get(Calendar.MONTH) + 1) + 
     </div>
 </div>
 <div class="meeting-main-part">
+    <div class="alert alert-info">
+        1. Set the title and the description<br />
+        2. Tape a new Username and Tape enter<br />
+        3. Select a time corresponding to a good choice according to different user timezone<br />
+        4. Click on add choice<br />
+        5. You can select a new timezone and click again on add choice<br />
+        6. Save the meeting<br />
+    </div>
 	<input type="text" name="title" placeholder="title"/>
 	<input type="text" name="description" placeholder="description"/>
 	<div class="choice"></div>
