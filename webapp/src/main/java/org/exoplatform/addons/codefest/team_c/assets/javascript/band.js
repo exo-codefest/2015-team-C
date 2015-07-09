@@ -38,12 +38,15 @@ var band = {
 
     $glass.on('click', function() {
       if (!band.operation) {
+        $('.band').css('border-color', 'black');
         band.operation = band.moveBand;
       } else if (band.operation == band.moveBand) {
+        $('.band').css('border-color', 'blue');
         band.operation = band.resize;
       } else {
         $glass.off('mousemove');
         band.operation = null;
+        $('.band').css('border-color', 'green');
         return;
       }
       band.operation.call(this);
@@ -88,13 +91,12 @@ var band = {
     
     $(this).off('mousemove').on('mousemove', function(e) {
       var mouseX = e.pageX;
-      var delta = mouseX - $hourLine.offset().left;
-
+      var delta = mouseX + 4- $hourLine.offset().left;
       //
       var multi = Math.ceil(delta / 29);
       if (multi <= $items.length) {
         var idx = multi == $items.length ? multi - 1 : multi;
-        var width = $($items.get(idx)).offset().left - $band.offset().left - 2;
+        var width = $($items.get(idx)).offset().left - $band.offset().left - 2;        
         if (multi == $items.length) {
           width += $($items.get(idx)).width() + 3;
         }
