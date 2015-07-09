@@ -215,13 +215,12 @@ public class KittenSaverController {
     List<Option> options = kittenSaverService.getOptionByMeeting(Long.valueOf(meetingid));
 
     String tz = kittenSaverService.getUserTimezone(username);
-    String timzone = TimeZone.getTimeZone(tz).getDisplayName();
 
     return choose
         .with()
         .meeting(meeting)
         .options(options)
-        .timzone(timzone)
+        .timezone(tz)
         .user(username)
         .ok();
   }
@@ -233,7 +232,6 @@ public class KittenSaverController {
     List<Option> options = kittenSaverService.getOptionByMeeting(Long.valueOf(meetingid));
 
     String tz = kittenSaverService.getUserTimezone(user);
-    String timzone = TimeZone.getTimeZone(tz).getDisplayName();
 
     List<UserChoice> userChoices = new ArrayList<UserChoice>();
     for (String username : meeting.getParticipants()) {
@@ -249,7 +247,7 @@ public class KittenSaverController {
     return validate
         .with()
         .meeting(meeting)
-        .timzone(timzone)
+        .timezone(tz)
         .options(options)
         .usersChoice(userChoices)
         .ok();

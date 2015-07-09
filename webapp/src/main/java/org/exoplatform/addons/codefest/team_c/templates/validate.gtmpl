@@ -1,8 +1,18 @@
 #{param name=meeting/}
 #{param name=options/}
 #{param name=usersChoice/}
-#{param name=timzone/}
+#{param name=timezone/}
+<%
+	import java.text.SimpleDateFormat;
+	import java.util.TimeZone;
 
+	def tz = TimeZone.getTimeZone(timezone);
+	def tzName = tz.getDisplayName();
+	def df = new SimpleDateFormat("dd MMM yyyy");
+	df.setTimeZone(tz);
+	def tf = new SimpleDateFormat("HH:mm");
+	tf.setTimeZone(tz);
+%>
 <div class="hero-unit" align="right">
     <h1>Kitten Savior</h1>
     <p class="lead" align="right">Everytime you don't make a choice a kitten dies !</p>
@@ -10,7 +20,7 @@
 <div class="meeting-actions">
     <div class="meeting-timezone">
         <h4>
-            <a href="@{ KittenSaverController.configView()}" title="Change your timezone" alt="Change your timezone"><img src="/team-c-addon-webapp/image/config.png"/> ${timzone}</a>
+            <a href="@{ KittenSaverController.configView()}" title="Change your timezone" alt="Change your timezone"><img src="/team-c-addon-webapp/image/config.png"/> ${tzName}</a>
         </h4>
     </div>
     <div class="meeting-config">
@@ -31,8 +41,15 @@
             </div>
             <% options.each {option -> %>
             <div class="span2 meeting-choose-choice">
-                <h5>${option.startDate.format('dd MMM yyyy')}</h5>
-                <h6>${option.startDate.format('HH:mm')} - ${option.endDate.format('HH:mm')}</h6><br/>
+                <h5>${df.format(option.startDate)}
+                <%                	
+                	if (option.startDate.getDate() != option.endDate.getDate() && 
+                	    option.startDate.getMonth() != option.endDate.getMonth() &&
+                	    option.startDate.getYear() != option.endDate.getYear()) {%>
+	            	- ${df.format(option.endDate)}
+	             <%} %>
+                </h5>
+                <h6>${tf.format(option.startDate)} - ${tf.format(option.endDate)}</h6><br/>
             </div>
             <% } %>
         </div>
