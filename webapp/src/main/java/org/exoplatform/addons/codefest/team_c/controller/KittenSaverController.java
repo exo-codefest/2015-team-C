@@ -155,7 +155,7 @@ public class KittenSaverController {
     builder.append(time.get(Calendar.YEAR)).append("/");
     builder.append(time.get(Calendar.MONTH)).append("/");
     builder.append(time.get(Calendar.DATE)).append("  ");
-    builder.append(time.get(Calendar.HOUR)).append(":");
+    builder.append(time.get(Calendar.HOUR_OF_DAY)).append(":");
     builder.append(time.get(Calendar.MINUTE));
     return builder.toString();
   }
