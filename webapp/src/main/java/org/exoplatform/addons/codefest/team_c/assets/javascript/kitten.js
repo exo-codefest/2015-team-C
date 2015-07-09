@@ -64,11 +64,22 @@ $(document).ready(function() {
       options.push(elem[0] + "/" + elem[1]);
     });
     
+    var title = $.trim($('.meeting-main-part input[name="title"]').val());
+    if (title == '') {
+      alert('Please add title');
+      return;
+    }
+    
+    if (options.length == 0) {
+      alert("Please add options");
+      return;
+    }    
+    
     $.ajax({
       method : 'POST',
       url : addMeetingUrl,
       data : {
-        title : $('.meeting-main-part input[name="title"]').val(),
+        title : title,
         description : $('.meeting-main-part input[name="description"]').val(),
         participants : participants.join(','),
         options : options.join(','),
